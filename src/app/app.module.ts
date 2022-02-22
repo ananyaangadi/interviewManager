@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import {CdkTableModule} from '@angular/cdk/table'; 
+import {CdkTableModule} from '@angular/cdk/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 
 
@@ -28,6 +31,9 @@ import { InventoryComponent } from './inventory/inventory.component';
     RouterModule,
     AppRoutingModule,
     CdkTableModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })

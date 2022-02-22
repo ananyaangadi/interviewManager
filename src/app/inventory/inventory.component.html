@@ -7,10 +7,18 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li *ngFor="let item of inventory" class="nav-item">
-                <a  class="nav-link" (click)="view(item.id)"  >
-                    <i class="material-icons">forum</i>
+            <li  *ngFor="let item of inventory" class="nav-item">
+                <a  [style.background-color]="item.id===id ? 'blue' : ''" [style.color]="item.id===id ? 'white' : ''" class="nav-link" (click)="view(item.id)"  >
+                    <i *ngIf="done[item.id]==1" class="material-icons">check_circle</i>
+                    <i *ngIf="done[item.id]==0" class="material-icons">forum</i>
                     <p>Question {{item.id}}</p>
+                    
+                </a>
+            </li>
+            <li>
+                <a  [style.background-color]="id===(inventory.length+1) ? 'blue' : ''" [style.color]="id===(inventory.length+1) ? 'white' : ''" class="nav-link" (click)="view(inventory.length + 1)"  >
+                    <i class="material-icons">add</i>
+                    <p>Add Question</p>
                 </a>
             </li>
         </ul>
@@ -19,15 +27,15 @@
 </div>
 
 <div style="left:3000px" class="main-content">
-    <div class="container-fluid">
+    <div *ngIf="addQuestion==false" class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12">
     <h2>Question {{id}}/{{inventory.length}}</h2>
 
     <div class="card">
         <div class="card-header card-header-success">
-            <h4 class="card-title">Java</h4>
-            <p class="card-category">Gradle</p>
+            <h4 class="card-title">{{topic}}</h4>
+            <p class="card-category">{{subtopic}}</p>
         </div>
             <div class="card-body">
                 <div class="row">
@@ -39,13 +47,63 @@
                     </div>
             <br><br><br>
             <button (click)="view(id-1)" mat-button class="btn btn-danger">Previous</button>
-          <button (click)="view(id+1)" mat-button class="btn btn-warning">Mark as Done</button>
-          <button (click)="view(id+1)" mat-button class="btn btn-danger">Next</button>
+          <button (click)="done[id]=1;nextview(id+1)" mat-button class="btn btn-warning">Mark as Done</button>
+          <button (click)="nextview(id+1)" mat-button class="btn btn-danger">Next</button>
         </div>
     </div>
     </div>
     </div>
 </div>
 </div>
+
+
+<div *ngIf="addQuestion" class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+<h2>Add Question</h2>
+
+<div class="card">
+    <div class="card-header card-header-warning">
+        <p class="card-category">New Question</p>
+    </div>
+        <div class="card-body">
+            <form [formGroup]="myForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="col-md-6">
+                          <input matInput formControlName="topic" placeholder="Topic" type="text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="col-md-6">
+                          <input matInput formControlName="subtopic" placeholder="Subtopic" type="text">
+                        </mat-form-field>
+                    </div>
+                  </div>
+                    
+                      <div class="col-md-6">
+                        <mat-form-field>
+                          <textarea matInput formControlName="question" placeholder="Question"></textarea>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6">
+                        <mat-form-field>
+                          <textarea matInput formControlName="answer" placeholder="Expected Answer"></textarea>
+                        </mat-form-field>
+                      </div>
+
+                
+           
+                <button mat-raised-button type="submit" (click)="updateInv()" color="primary" >Submit</button>
+                <button mat-raised-button type="submit" (click)="id=1;addQuestion=false;view(id)" color="primary" >Cancel</button>
+                <div class="clearfix"></div>
+            </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
