@@ -1,0 +1,51 @@
+<div class="wrapper">
+    <div class="main-panel">
+
+<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+    <div class="logo" style="text-align:center;">
+            Inventory
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li *ngFor="let item of inventory" class="nav-item">
+                <a  class="nav-link" (click)="view(item.id)"  >
+                    <i class="material-icons">forum</i>
+                    <p>Question {{item.id}}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+</div>
+
+<div style="left:3000px" class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+    <h2>Question {{id}}/{{inventory.length}}</h2>
+
+    <div class="card">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">Java</h4>
+            <p class="card-category">Gradle</p>
+        </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <b>Question: </b> {{question}}
+                      </div>
+                    <div class="col-md-12">
+                      <b>Expected Answer: </b> {{answer}}
+                    </div>
+            <br><br><br>
+            <button (click)="view(id-1)" mat-button class="btn btn-danger">Previous</button>
+          <button (click)="view(id+1)" mat-button class="btn btn-warning">Mark as Done</button>
+          <button (click)="view(id+1)" mat-button class="btn btn-danger">Next</button>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,502 @@
+<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+<div class="logo">
+    <a href="https://www.morganstanley.com" class="simple-text">
+        MSInterview Manager
+    </a>
+
+</div>
+<div class="sidebar-wrapper">
+  <div>
+    <ul class="nav navbar-nav nav-mobile-menu">
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">
+                <i class="material-icons">dashboard</i>
+                <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                </p>
+            </a>
+        </li>
+    </ul>
+  </div>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" pageScroll href="#view" (click)="expandView=true;expandUpload=false;"  >
+                <i class="material-icons">dashboard</i>
+                <p>View</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" pageScroll href="#upload" (click)="expandUpload=true;expandView=false;">
+                <i class="material-icons">add</i>
+                <p>Upload</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" pageScroll href="#dash" (click)="expandPanelistDBoard =true;">
+                <i class="material-icons">question_answer</i>
+                <p>Panelist Dashboard</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+    </div>
+
+<div class="main-content">
+    
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <p class="card-category">Open Positions<br></p>
+                      <h3 class="card-title">3<br><br>
+                      </h3>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-success card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">done</i>
+                      </div>
+                      <p class="card-category">No. of hires</p>
+                      <h3 class="card-title">4</h3>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                          <i class="material-icons">date_range</i> Last 1 month
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-info card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">assessment</i>
+                      </div>
+                      <p class="card-category">Pending Interviews</p>
+                      <h3 class="card-title">10 </h3><br><br>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class = "col-md-12">
+  <mat-accordion>
+    <mat-expansion-panel [expanded] = "expandView" hideToggle id="view">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          View Applications
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">My Job Postings</h4>
+            <p class="card-category">Track Applications</p>
+        </div>
+        
+        <div *ngIf="showJobTable" class="card-body table-responsive">
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search by role" #input>
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" class="table table-hover">
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="ID">
+                      <th mat-header-cell *matHeaderCellDef>Job ID</th>
+                      <td mat-cell *matCellDef="let element">{{element.ID}}</td>
+                  </ng-container>
+
+                  <!-- Job Title Column -->
+                  <ng-container matColumnDef="Job_Title">
+                      <th mat-header-cell *matHeaderCellDef>Job Title</th>
+                      <td mat-cell *matCellDef="let element">{{element.Job_Title}}</td>
+                  </ng-container>
+                  <!-- Candidate Name Column -->
+                  <ng-container matColumnDef="Date_Posted">
+                      <th mat-header-cell *matHeaderCellDef>Date Posted</th>
+                      <td mat-cell *matCellDef="let element">{{element.Date_Posted}}</td>
+                  </ng-container>
+
+                  <!-- Status Column -->
+                  <ng-container matColumnDef="HR_HM">
+                      <th mat-header-cell *matHeaderCellDef>HR/HM</th>
+                      <td mat-cell *matCellDef="let element">{{element.HR_HM}}</td>
+                  </ng-container>
+
+           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+           <!-- <tr mat-row [routerLink]="['/view',row.ID]" *matRowDef="let row; columns: displayedColumns;"></tr> -->
+           <tr mat-row (click)="onJobSelect(row.ID)" *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+              </table>
+              <!-- <button *ngIf="newreq==false"(click)="newreq=true;"mat-raised-button class="btn btn-success pull-right">New Post</button>
+                            <div class="clearfix"></div> -->
+              
+              <!-- NEWWWWW REEQQQQQ-->
+
+
+
+
+              <!-- NEWWWWW REEQQQQQ-->
+        </div>
+        <!-- <mat-card *ngIf="showDetails">Simple card</mat-card> -->
+        <div *ngIf="showDetails" class="row">
+            <div class="col-md-12">
+
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <b>Job ID:</b> {{id}}
+                                  </div>
+                                <div class="col-md-12">
+                                  <b>Job Title:</b> {{title}}
+                                </div>
+                                <div class="col-md-12">
+                                    <b>Job Description: </b> {{description}}
+                                  </div>
+                                  <div class="col-md-12">
+                                    <b>HR/HM: </b> {{HR_HM}}
+                                  </div>
+                                  <table mat-table [dataSource]="dataSource2" class="table table-hover">
+                                      <ng-container matColumnDef="select">
+  <th mat-header-cell *matHeaderCellDef>
+    <mat-checkbox  (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+    </mat-checkbox>
+  </th>
+  <td mat-cell *matCellDef="let row">
+    <mat-checkbox (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)">
+    </mat-checkbox>
+  </td>
+</ng-container>
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="id">
+                                        <th mat-header-cell *matHeaderCellDef>Candidate ID</th>
+                                        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                                    </ng-container>
+                  
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="Candidate_Name">
+                                        <th mat-header-cell *matHeaderCellDef>Candidate Name</th>
+                                        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                                    </ng-container>
+
+                                    <!-- Status Column -->
+                                    <ng-container matColumnDef="Status">
+                                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                                        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+                                    </ng-container>
+
+                                    <!-- R1 Column -->
+                                    <ng-container matColumnDef="R1">
+                                        <th mat-header-cell *matHeaderCellDef>R1 Feedback</th>
+                                        <td mat-cell *matCellDef="let element">{{element.r1_feedback}}</td>
+                                    </ng-container>
+                                    <!-- R2 Column -->
+                                    <ng-container matColumnDef="R2">
+                                        <th mat-header-cell *matHeaderCellDef>R2 Feedback</th>
+                                        <td mat-cell *matCellDef="let element">{{element.r2_feedback}}</td>
+                                    </ng-container>
+                                    <!-- R3 Column -->
+                                    <ng-container matColumnDef="R3">
+                                        <th mat-header-cell *matHeaderCellDef>R3 Feedback</th>
+                                        <td mat-cell *matCellDef="let element">{{element.r3_feedback}}</td>
+                                    </ng-container>
+                                    <!-- Decision -->
+                                    <ng-container matColumnDef="to_be_scheduled">
+                                        <th mat-header-cell *matHeaderCellDef>To be Scheduled</th>
+                                        <td mat-cell *matCellDef="let element">{{element.to_be_scheduled}}</td>
+                                    </ng-container>
+
+                                    <!-- Panelist Column -->
+  <ng-container matColumnDef="panelist">
+    <th mat-header-cell *matHeaderCellDef>Panelist</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field>
+        <mat-label>Choose panelist</mat-label>
+        <mat-select (selectionChange)="setPanelist($event.value)">
+          <mat-option *ngFor="let pan of panelists" [value]="pan">
+            {{pan}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+                                      <!-- Slot Column -->
+                                      <ng-container matColumnDef="slot">
+                                        <th mat-header-cell *matHeaderCellDef>Slot</th>
+                                        <td mat-cell *matCellDef="let element">
+                                          <mat-form-field >
+                                            <mat-label>Choose slot</mat-label>
+                                            <mat-select>
+                                              <mat-option *ngFor="let slot of slotsDisplayed" [value]="slot">
+                                                {{slot}}
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </td>
+                                      </ng-container>
+
+                  
+                                    
+                  
+                             <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                             <!-- <tr mat-row [routerLink]="['/view',row.ID]" *matRowDef="let row; columns: displayedColumns;"></tr> -->
+                             <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                              
+                                </table>
+                            </div>
+                            <button (click)="showDetails=false;showJobTable=true;" mat-raised-button type="submit" class="btn btn-warning pull-right">Back</button>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Schedule Interview</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+            
+            </div>
+        </div>
+        </div>
+        
+        </div>
+        
+        </div>
+</mat-expansion-panel>
+<mat-expansion-panel [expanded]="expandUpload" id="upload" hideToggle>
+    <mat-expansion-panel-header>
+    <mat-panel-title>
+    Upload
+    </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-tab-group>
+        <mat-tab label="Upload Inventory "> 
+            <div class="col-md-12">
+                <mat-form-field>
+                  <div>
+                      <input matInput />
+                    <input
+                      type="file"
+                    />
+                    <button float="right"
+                        mat-flat-button
+                        color="primary"                                  >
+                        Upload Inventory
+                  </button>
+                  </div>
+                </mat-form-field>
+              </div>
+        </mat-tab>
+        <mat-tab label="Upload New Job"> 
+            <div class="card">
+                <div class="card-header" background-color="indigo">
+                    <h4 class="card-title">New Job Request</h4>
+                    <p class="card-category">Enter job details</p>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Job Title" type="text">
+                                </mat-form-field>
+                            </div>
+                          </div>
+                            
+                              <div class="col-md-6">
+                                <mat-form-field>
+                                  <textarea matInput placeholder="Job Description"></textarea>
+                                </mat-form-field>
+                              </div>
+
+                        
+                   
+                        <button mat-raised-button type="submit" color="primary" >Submit</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>    
+        </mat-tab>
+        <mat-tab label="Upload Candidates"> 
+
+            <mat-form-field appearance="fill">
+                <mat-label>Select Job Posting</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food">
+                    {{food}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <div class="col-md-12">
+                <mat-form-field>
+                  <div>
+                      <input matInput />
+                    <input
+                      type="file"
+                    />
+                    <button float="right"
+                        mat-flat-button
+                        color="primary"                                  >
+                        Upload Bulk Candidate Details
+                  </button>
+                  </div>
+                </mat-form-field>
+              </div>    
+              <br>
+              <b>OR</b>
+              <br><br><br>
+              <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Candidate Name" type="text">
+                        </mat-form-field>
+                    </div>
+                    
+                  </div>
+                  <div>
+                    <mat-form-field>
+                        <div >
+                            <input matInput />
+                          <input
+                            type="file"
+                          />
+                          <button float="right"
+                              mat-flat-button
+                              color="primary"                                  >
+                              Upload resume
+                        </button>
+                    </div>
+                      </mat-form-field>
+                  </div>
+                    
+                  
+
+                
+           
+                <button mat-raised-button type="submit" color="primary">Upload Single Candidate</button>
+                <div class="clearfix"></div>
+            </form>
+
+        </mat-tab>
+      </mat-tab-group>
+    </mat-expansion-panel>
+
+
+                         <mat-expansion-panel id="dash" [expanded]="expandPanelistDBoard" hideToggle >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Panelist Dashboard
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-tab-group >
+        <mat-tab label="My Upcoming Interviews">
+            <table mat-table [dataSource]="dataSource3" class="table table-hover">
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>Candidate ID</th>
+                  <td mat-cell *matCellDef="let element">{{element.id}}</td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="Candidate_Name">
+                  <th mat-header-cell *matHeaderCellDef>Candidate Name</th>
+                  <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="Round">
+                  <th mat-header-cell *matHeaderCellDef>Round</th>
+                  <td mat-cell *matCellDef="let element">{{element.round}}</td>
+              </ng-container>
+
+              <!-- R1 Column -->
+              <ng-container matColumnDef="Date">
+                  <th mat-header-cell *matHeaderCellDef>Date</th>
+                  <td mat-cell *matCellDef="let element">{{element.date}}</td>
+              </ng-container>
+              <!-- R2 Column -->
+              <ng-container matColumnDef="Time">
+                  <th mat-header-cell *matHeaderCellDef>Time</th>
+                  <td mat-cell *matCellDef="let element">{{element.time}}</td>
+              </ng-container>
+              <ng-container matColumnDef="start">
+                <th mat-header-cell  *matHeaderCellDef > Start Interview </th>
+                <td mat-cell *matCellDef="let row" >
+                     <button mat-button class="btn btn-success" (click)="showPortal=true">Start</button>
+                </td>
+              </ng-container>              
+
+       <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+       <!-- <tr mat-row [routerLink]="['/view',row.ID]" *matRowDef="let row; columns: displayedColumns;"></tr> -->
+       <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+        
+          </table>
+        </mat-tab>
+        <mat-tab label="Add/Update Feedback">
+            <table mat-table [dataSource]="dataSource3" class="table table-hover">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>Candidate ID</th>
+                    <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                </ng-container>
+  
+                <!-- Name Column -->
+                <ng-container matColumnDef="Candidate_Name">
+                    <th mat-header-cell *matHeaderCellDef>Candidate Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                </ng-container>
+  
+                <!-- Status Column -->
+                <ng-container matColumnDef="Round">
+                    <th mat-header-cell *matHeaderCellDef>Round</th>
+                    <td mat-cell *matCellDef="let element">{{element.round}}</td>
+                </ng-container>
+  
+                <!-- R1 Column -->
+                <ng-container matColumnDef="Date">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let element">{{element.date}}</td>
+                </ng-container>
+                <!-- R2 Column -->
+                <ng-container matColumnDef="Time">
+                    <th mat-header-cell *matHeaderCellDef>Time</th>
+                    <td mat-cell *matCellDef="let element">{{element.time}}</td>
+                </ng-container>
+                <ng-container matColumnDef="feedback">
+                  <mat-header-cell  *matHeaderCellDef > Feedback </mat-header-cell>
+                  <mat-cell *matCellDef="let row" >
+                       <button mat-button class="btn btn-warning" >Add/Update</button>
+                  </mat-cell>
+                </ng-container>              
+  
+         <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+         <!-- <tr mat-row [routerLink]="['/view',row.ID]" *matRowDef="let row; columns: displayedColumns;"></tr> -->
+         <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
+          
+            </table>
+        </mat-tab>
+        
+      </mat-tab-group>
+    </mat-expansion-panel>
+</mat-accordion>
+</div>
+</div>
+
+<a (click)="openInventory()">
+Open New Window
+</a>
+
+
+
