@@ -153,7 +153,7 @@ masterToggle() {
 }
 
 openInventory() {
-  window.open('http://localhost:4200/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
+  window.open('https://sample-angularapp.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
 }
 
 }
