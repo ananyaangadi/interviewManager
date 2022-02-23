@@ -12,6 +12,8 @@ import { MatTableModule } from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatTableModule,
     MatCardModule,
     MatExpansionModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule,
+    HttpClientModule
   ],
   declarations: [
   ]

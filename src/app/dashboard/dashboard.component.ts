@@ -3,6 +3,10 @@ import * as Chartist from 'chartist';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 export interface RowElement {
   ID: number;
@@ -95,9 +99,15 @@ export class DashboardComponent implements OnInit {
     { path: '/dashboard', title: 'View',  icon: 'dashboard', class: '' },
     { path: '/dashboard', title: 'Upload',  icon:'add', class: '' },
   ];
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,private http: HttpClient) { }
   ngOnInit() {
     this.selection = new SelectionModel<Candidate>(allowMultiSelect, initialSelection);
+
+
+    this.http.get("")
+    .subscribe((data) => {
+        console.log(data)
+    });
     }
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -143,7 +153,7 @@ masterToggle() {
 }
 
 openInventory() {
-  window.open('https://sample-angularapp.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
+  window.open('http://localhost:4200/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
 }
 
 }

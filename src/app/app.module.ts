@@ -7,6 +7,8 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -34,6 +36,8 @@ import { InventoryComponent } from './inventory/inventory.component';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })

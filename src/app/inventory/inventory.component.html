@@ -1,17 +1,18 @@
 <div class="wrapper">
     <div class="main-panel">
 
-<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+<div *ngIf="interview" class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
     <div class="logo" style="text-align:center;">
-            Inventory
+            Question Bank
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li  *ngFor="let item of inventory" class="nav-item">
                 <a  [style.background-color]="item.id===id ? 'blue' : ''" [style.color]="item.id===id ? 'white' : ''" class="nav-link" (click)="view(item.id)"  >
-                    <i *ngIf="done[item.id]==1" class="material-icons">check_circle</i>
-                    <i *ngIf="done[item.id]==0" class="material-icons">forum</i>
-                    <p>Question {{item.id}}</p>
+                    <i *ngIf="right[item.id]==1" class="material-icons" color="primary">check_circle</i>
+                    <i *ngIf="wrong[item.id]==1" class="material-icons" color="warn">cancel</i>
+                    <i *ngIf="right[item.id]==0 && wrong[item.id]==0" class="material-icons">forum</i>
+                    <p [style.text-decoration]="relevance[item.id] == false ? 'line-through' : ''">Question {{item.id}}</p>
                     
                 </a>
             </li>
@@ -26,16 +27,16 @@
     <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
 </div>
 
-<div style="left:3000px" class="main-content">
+<div *ngIf="interview" style="left:3000px" class="main-content">
     <div *ngIf="addQuestion==false" class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12">
     <h2>Question {{id}}/{{inventory.length}}</h2>
 
-    <div class="card">
+    <div *ngIf="interview" class="card">
         <div class="card-header card-header-success">
-            <h4 class="card-title">{{topic}}</h4>
-            <p class="card-category">{{subtopic}}</p>
+            <h4 class="card-title">Topic: {{topic}}</h4>
+            <p class="card-category">Subtopic: {{subtopic}}</p>
         </div>
             <div class="card-body">
                 <div class="row">
@@ -46,9 +47,13 @@
                       <b>Expected Answer: </b> {{answer}}
                     </div>
             <br><br><br>
-            <button (click)="view(id-1)" mat-button class="btn btn-danger">Previous</button>
-          <button (click)="done[id]=1;nextview(id+1)" mat-button class="btn btn-warning">Mark as Done</button>
-          <button (click)="nextview(id+1)" mat-button class="btn btn-danger">Next</button>
+            <button (click)="prevview(id-1)" mat-button class="btn btn-warning">Previous</button>&nbsp;&nbsp;
+          <button (click)="addRight()" mat-button class="btn btn-success">Satisfactory Answer</button>&nbsp;&nbsp;
+          <button (click)="addWrong()" mat-button class="btn btn-danger">Unsatisfactory Answer</button>&nbsp;&nbsp;
+          <button (click)="nextview(id+1)" mat-button class="btn btn-warning">Next</button>&nbsp;&nbsp;
+          <button *ngIf="relevance[id]" (click)="relevance[id]=false;nextview(id+1)" mat-raised-button type="submit" color="primary" style="left:300px">Not Relevant</button>
+          <button *ngIf="relevance[id]==false" (click)="relevance[id]=true;nextview(id)" mat-raised-button type="submit" color="primary" style="left:300px">Relevant</button>
+          <button (click)="interview=false" mat-raised-button color="accent" style="left:330px">End Interview</button>
         </div>
     </div>
     </div>
@@ -105,5 +110,88 @@
 </div>
 </div>
 
+
+
+
+
 </div>
+
+
+</div>
+
+<!-- Feedback -->
+<div *ngIf="interview==false" class="card">
+    <h2>
+        Candidate Feedback Form
+    </h2>
+    <div class="card-body">
+        <h3 style="color:green">Questions answered satisfactorily</h3>
+        <p style="color:green" *ngFor="let q of right_q">{{q}}</p>
+        <h3 style="color:red">Questions answered unsatisfactorily</h3>
+        <p style="color:red" *ngFor="let q of wrong_q">{{q}}</p>
+        <mat-form>
+            <mat-form-field>
+                <mat-label>Round</mat-label>
+                <mat-select>
+                    <mat-option value="Technical">Technical</mat-option>
+                    <mat-option value="Managerial">Managerial</mat-option>
+                    <mat-option value="HR">HR</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Technical Knowledge</mat-label>
+                <mat-select>
+                    <mat-option value="1. Lacks domain knowledge">1. Lacks domain knowledge</mat-option>
+                    <mat-option value="2. Unable to recall details">2. Unable to recall details</mat-option>
+                    <mat-option value="3. Has basic knowledge of terminologies">3. Has basic knowledge of terminologies</mat-option>
+                    <mat-option value="4. Well versed with terms">4. Well versed with terms</mat-option>
+                    <mat-option value="5. Excellent, has complete knowledge of terminologies">5. Excellent, has complete knowledge of terminologies</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Understanding</mat-label>
+                <mat-select>
+                    <mat-option value="1. Does not understand basic concepts">1. Does not understand basic concepts</mat-option>
+                    <mat-option value="2. Logic is haywire and misinterprets instructions">2. Logic is haywire and misinterprets instructions</mat-option>
+                    <mat-option value="3. Is famililar with basic concepts">3. Is famililar with basic concepts</mat-option>
+                    <mat-option value="4. Has deep understanding of most concepts">4. Has deep understanding of most concepts</mat-option>
+                    <mat-option value="5. Has complete understanding of all concepts">5. Has complete understanding of all concepts</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Explainability</mat-label>
+                <mat-select>
+                    <mat-option value="1. Cannot explain their answer/code/solution">1. Cannot explain their answer/code/solution</mat-option>
+                    <mat-option value="2. Not able to bring all the pieces together">2. Not able to bring all the pieces together</mat-option>
+                    <mat-option value="3. Low level explanation, lacks details">3. Low level explanation, lacks details</mat-option>
+                    <mat-option value="4. Good explanation">4. Good explanation</mat-option>
+                    <mat-option value="5. Excellent">5. Excellent</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <label id="example-radio-group-label">Recommended for next round?</label><br>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="rec">
+  <mat-radio-button class="example-radio-button" [value]="NA">
+    Not Applicable
+  </mat-radio-button><br>
+  <mat-radio-button class="example-radio-button" [value]="yes">
+    Yes
+  </mat-radio-button><br>
+  <mat-radio-button class="example-radio-button" [value]="no">
+    No
+  </mat-radio-button>
+</mat-radio-group>
+
+<mat-form-field>
+    <textarea matInput placeholder="Feedback/Additional Comments"></textarea>
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary" >Submit</button>    
+        </mat-form>
+    </div>
 </div>
