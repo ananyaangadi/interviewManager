@@ -1,0 +1,6 @@
+{
+    "/api": {
+    "target": "https://msim-service.azurewebsites.net",
+    "secure": false
+    }
+}
