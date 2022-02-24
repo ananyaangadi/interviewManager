@@ -165,6 +165,7 @@ call_backend() {
         },
         (error) => {                              //error() callback
           console.error('Request failed with error')
+          console.log(error)
         },
         () => {                                   //complete() callback
           console.error('Request completed')      //This is actually not needed 
