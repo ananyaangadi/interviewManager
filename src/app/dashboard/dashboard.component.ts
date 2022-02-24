@@ -152,12 +152,23 @@ masterToggle() {
 }
 
 
+call() : Observable<any> {
+  return this.http.get("/api");
+}
+
 call_backend() {
-  this.http.get("https://msim-service.azurewebsites.net")
-  .subscribe((data) => {
-    console.log("here")
-      console.log(data)
-  });
+  this.call()
+      .subscribe(
+        (response) => {                           //next() callback
+          console.log('response received')
+          console.log(response)
+        },
+        (error) => {                              //error() callback
+          console.error('Request failed with error')
+        },
+        () => {                                   //complete() callback
+          console.error('Request completed')      //This is actually not needed 
+        })
 }
 
 

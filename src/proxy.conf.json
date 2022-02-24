@@ -1,6 +1,9 @@
 {
     "/api": {
     "target": "https://msim-service.azurewebsites.net",
-    "secure": false
+    "secure": false,
+    "changeOrigin": true,
+  "logLevel": "debug",
+    "pathRewrite": {"^/api" : ""}
     }
 }
