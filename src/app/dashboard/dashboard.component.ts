@@ -106,11 +106,7 @@ export class DashboardComponent implements OnInit {
     this.selection = new SelectionModel<Candidate>(allowMultiSelect, initialSelection);
 
 
-    this.http.get("https://msim-service.azurewebsites.net")
-    .subscribe((data) => {
-      console.log("here")
-        console.log(data)
-    });
+ 
     }
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -154,6 +150,16 @@ masterToggle() {
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
+
+
+call_backend() {
+  this.http.get("https://msim-service.azurewebsites.net")
+  .subscribe((data) => {
+    console.log("here")
+      console.log(data)
+  });
+}
+
 
 openInventory() {
   window.open('https://sample-angularapp.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
