@@ -22,6 +22,8 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AppFooterComponent } from './app-footer/app-footer.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,9 @@ import { InventoryComponent } from './inventory/inventory.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    InventoryComponent
+    InventoryComponent,
+    LandingPageComponent,
+    AppFooterComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
