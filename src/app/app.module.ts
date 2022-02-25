@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -24,6 +24,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { InventoryComponent } from './inventory/inventory.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AppFooterComponent } from './app-footer/app-footer.component';
+import { InterceptorService } from './interceptor/interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     MatRadioModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    }),
+    ToastrModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -51,7 +54,11 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     LandingPageComponent,
     AppFooterComponent
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
