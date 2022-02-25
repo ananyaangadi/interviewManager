@@ -149,12 +149,8 @@ masterToggle() {
 }
 
 
-call() : Observable<any> {
-  return this.http.get("/api");
-}
-
 call_backend() {
-  this.call()
+  this.http.get("/api")
       .subscribe(
         (response) => {                           //next() callback
           console.log('response received')
@@ -171,11 +167,9 @@ call_backend() {
 
 
 openInventory() {
-  window.open('https://sample-angularapp.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
+  window.open('https://InterviewManager.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
 }
 
 }
-function JSONP_CALLBACK(arg0: string, JSONP_CALLBACK: any) {
-  throw new Error('Function not implemented.');
-}
+
 
