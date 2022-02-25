@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { InventoryComponent } from './inventory/inventory.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PanelistComponent } from './panelist/panelist.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard/inventory',
-    component: InventoryComponent
+    component: PanelistComponent
   }
 ];
 

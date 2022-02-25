@@ -6,7 +6,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpClientJsonpModule, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { JobDetailsComponent } from '../jobdetails/jobdetails.component';
 
 export interface RowElement {
   ID: number;
@@ -44,28 +43,17 @@ const applications: Application[] = [
   {id: 3, title: 'UI/UX Engineer', description: 'Experience designing responsive and user-friendly UI', HR_HM: 'Melissa Allen', candidates: [{id: 5, name: 'Sage Rodriguez', status: 'R3 completed', r1_feedback: 'Knowledgable', r2_feedback: 'Experienced', r3_feedback: 'In-depth knowledge of frontend technologies', to_be_scheduled: 'NA'}, {id: 6, name: 'Ryan McCarthy', status: 'R2 completed', r1_feedback: 'Good React knowledge', r2_feedback: 'Articulate', r3_feedback: '', to_be_scheduled: 'R3'}]},
 ]
 
-const upcomingInterviews: any[] = [
-  {id: 1, name: 'Carl Sagan', round: 'R1', date: '21st Feb 2022', time: '10:00 to 11:30'},
-  {id: 2, name: 'Albert Thompson', round: 'R2', date: '1st March 2022', time: '15:30 to 16:45'},
-  {id: 3, name: 'Mark Jackson', round: 'R1', date: '23st Feb 2021', time: '12:00 to 12:30'}
-]
-
-const pastInterviews: any[] = [
-  {id: 1, name: 'Kevin Holt', round: 'R1', date: '15th Jan 2022', time: '10:00 to 11:30'},
-  {id: 2, name: 'Larissa Takchi', round: 'R2', date: '1st Feb 2022', time: '15:30 to 16:45'},
-  {id: 3, name: 'Tessa Boersma', round: 'R1', date: '23rd Dec 2021', time: '12:00 to 12:30'}
-]
 
 const initialSelection = [];
 const allowMultiSelect = true;
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-jobdetails',
+  templateUrl: './jobdetails.component.html',
+  styleUrls: ['./jobdetails.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class JobDetailsComponent implements OnInit {
   selection: SelectionModel<any>;
   panelOpenState = false
   showDetails = false
@@ -87,13 +75,11 @@ export class DashboardComponent implements OnInit {
   slotsDisplayed = [];
   displayedColumns: string[] = ['ID', 'Job_Title', 'Date_Posted', 'HR_HM'];
   displayedColumns2: string[] = ['select', 'id', 'Candidate_Name', 'Status', 'R1', 'R2', 'R3', 'to_be_scheduled', 'panelist', 'slot'];
-  displayedColumns3: string[] = ['id', 'Candidate_Name', 'Round', 'Date', 'Time', 'start'];
-  displayedColumns4: string[] = ['id', 'Candidate_Name', 'Round', 'Date', 'Time', 'feedback'];
+
   foods = ['1:Java Developer', '2:UI/UX Designer', '3:Data Engineer']
   dataSource: MatTableDataSource<RowElement> = new MatTableDataSource(ROWDATA);
   dataSource2: MatTableDataSource<Candidate> = new MatTableDataSource(applications[0]['candidates']);
-  dataSource3: MatTableDataSource<any> = new MatTableDataSource(upcomingInterviews);
-  dataSource4: MatTableDataSource<any> = new MatTableDataSource(pastInterviews);
+
 
   menuItems = [
     { path: '/dashboard', title: 'View',  icon: 'dashboard', class: '' },
@@ -163,11 +149,6 @@ call_backend() {
         () => {                                   //complete() callback
           console.error('Request completed')      //This is actually not needed 
         })
-}
-
-
-openInventory() {
-  window.open('https://InterviewManager.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
 }
 
 }

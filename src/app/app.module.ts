@@ -9,6 +9,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { PanelistComponent } from './panelist/panelist.component';
+import { PanelistModule } from './panelist/panelist.module';
 
 
 
@@ -42,6 +44,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
+    PanelistModule
+    ,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
