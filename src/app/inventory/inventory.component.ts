@@ -89,10 +89,9 @@ export class InventoryComponent implements OnInit {
     answer: new FormControl("", []),
   });
 
-  constructor(private inventoryService: InventoryService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.getJob();
     this.inventory.forEach((element) => {
       this.right[element.id] = 0;
       this.wrong[element.id] = 0;
@@ -219,16 +218,5 @@ export class InventoryComponent implements OnInit {
       this.right_q.splice(index, 1);
     }
     this.nextview(this.id + 1);
-  }
-
-  getJob() {
-    this.inventoryService.getJobs().subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 }
