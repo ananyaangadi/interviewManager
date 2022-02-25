@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DashboardModule } from '../../dashboard/dashboard.module';
+import { HttpClientJsonpModule } from '@angular/common/http';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
@@ -32,7 +33,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     DashboardModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    HttpClientJsonpModule
   ],
   declarations: [
     DashboardComponent

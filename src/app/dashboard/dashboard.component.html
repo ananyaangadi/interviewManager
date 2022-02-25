@@ -202,17 +202,17 @@
                                     <!-- R1 Column -->
                                     <ng-container matColumnDef="R1">
                                         <th mat-header-cell *matHeaderCellDef>R1 Feedback</th>
-                                        <td mat-cell *matCellDef="let element">{{element.r1_feedback}}</td>
+                                        <td mat-cell *matCellDef="let element"><button mat-button *ngIf="element.r1_feedback != ''" class="btn btn-warning" >View</button></td>
                                     </ng-container>
                                     <!-- R2 Column -->
                                     <ng-container matColumnDef="R2">
                                         <th mat-header-cell *matHeaderCellDef>R2 Feedback</th>
-                                        <td mat-cell *matCellDef="let element">{{element.r2_feedback}}</td>
+                                        <td mat-cell *matCellDef="let element"><button mat-button *ngIf="element.r2_feedback != ''" class="btn btn-warning" >View</button></td>
                                     </ng-container>
                                     <!-- R3 Column -->
                                     <ng-container matColumnDef="R3">
                                         <th mat-header-cell *matHeaderCellDef>R3 Feedback</th>
-                                        <td mat-cell *matCellDef="let element">{{element.r3_feedback}}</td>
+                                        <td mat-cell *matCellDef="let element"><button mat-button *ngIf="element.r3_feedback != ''" class="btn btn-warning" >View</button></td>
                                     </ng-container>
                                     <!-- Decision -->
                                     <ng-container matColumnDef="to_be_scheduled">
@@ -497,6 +497,10 @@
 <!-- <a (click)="openInventory()">
 Open New Window
 </a> -->
+
+
+
+<button (click)="call_backend()">backend</button>
 
 
 

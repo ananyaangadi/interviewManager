@@ -3,7 +3,7 @@ import * as Chartist from 'chartist';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientJsonpModule, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -101,13 +101,12 @@ export class DashboardComponent implements OnInit {
   ];
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
   ngOnInit() {
+
+    // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
     this.selection = new SelectionModel<Candidate>(allowMultiSelect, initialSelection);
 
 
-    this.http.get('')
-    .subscribe((data) => {
-        console.log(data)
-    });
+
     }
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -149,8 +148,34 @@ masterToggle() {
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
 
+
+call() : Observable<any> {
+  return this.http.get("/api");
+}
+
+call_backend() {
+  this.call()
+      .subscribe(
+        (response) => {                           //next() callback
+          console.log('response received')
+          console.log(response)
+        },
+        (error) => {                              //error() callback
+          console.error('Request failed with error')
+          console.log(error)
+        },
+        () => {                                   //complete() callback
+          console.error('Request completed')      //This is actually not needed 
+        })
+}
+
+
 openInventory() {
   window.open('https://sample-angularapp.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
 }
 
 }
+function JSONP_CALLBACK(arg0: string, JSONP_CALLBACK: any) {
+  throw new Error('Function not implemented.');
+}
+
