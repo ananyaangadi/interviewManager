@@ -4,7 +4,6 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpClientJsonpModule, HttpHeaders } from '@angular/common/http';
-
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -150,7 +149,7 @@ masterToggle() {
 
 
 call_backend() {
-  this.http.get("/api")
+  this.http.get("https://msim-services.azurewebsites.net")
       .subscribe(
         (response) => {                           //next() callback
           console.log('response received')
