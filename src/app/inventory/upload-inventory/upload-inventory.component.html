@@ -1,22 +1,26 @@
 <div>
   <mat-form-field>
-    <div>
-      <!-- <label for="singleFile">Upload Inventory File</label> -->
-      <input matInput hidden />
-      <input
-        type="file"
-        (change)="this.onFilechange($event)"
-        class="form-control"
-        id="formFile"
-      />
-      <button
-        float="right"
-        mat-flat-button
-        color="primary"
-        (click)="uploadInventory()"
-      >
-        Upload Inventory
-      </button>
+    <!-- <label for="singleFile">Upload Inventory File</label> -->
+    <input matInput hidden />
+    <div class="row">
+      <div class="col-md-10">
+        <input
+          type="file"
+          (change)="this.onFilechange($event)"
+          class="form-control"
+          id="formFile"
+        />
+      </div>
+      <div>
+        <button
+          float="right"
+          mat-flat-button
+          color="primary"
+          (click)="uploadInventory()"
+        >
+          Upload Inventory
+        </button>
+      </div>
     </div>
   </mat-form-field>
 </div>
