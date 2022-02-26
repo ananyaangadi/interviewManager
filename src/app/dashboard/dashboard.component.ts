@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import * as Chartist from 'chartist';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { HttpClient, HttpClientJsonpModule, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { InventoryUploadService } from "app/inventory-upload.service";
+
 
 export interface RowElement {
   ID: number;
@@ -81,6 +80,7 @@ export class DashboardComponent implements OnInit {
   expandPanelistDBoard = false
   showPortal = false
   panelists = ['Jane Austen', 'Virginia Woolf', 'Ruth Ware']
+  file: File = null;
 
   slots = {'Jane Austen': ['21/02/22: 10:30 to 11:15', '21/02/22: 14:30 to 15:15'], 'Virginia Woolf': ['21/02/22: 13:00 to 13:45', '22/02/22: 16:30 to 17:15'], 'Ruth Ware': ['22/02/22: 9:00 to 9:45', '23/02/22: 16:30 to 17:15']}
   slotsDisplayed = [];
@@ -98,7 +98,9 @@ export class DashboardComponent implements OnInit {
     { path: '/dashboard', title: 'View',  icon: 'dashboard', class: '' },
     { path: '/dashboard', title: 'Upload',  icon: 'add', class: '' },
   ];
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient,
+              private inventoryService: InventoryUploadService) { }
+
   ngOnInit() {
 
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -167,6 +169,21 @@ call_backend() {
 
 openInventory() {
   window.open('https://InterviewManager.azurewebsites.net/#/dashboard/inventory', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')
+}
+
+onFilechange(event: any) {
+  console.log(event.target.files[0]);
+  this.file = event.target.files[0];
+}
+
+uploadInventory() {
+  if (this.file) {
+    this.inventoryService.uploadInventoryFile(this.file).subscribe(resp => {
+      alert("Inventory Uploaded");
+    });
+  } else {
+    alert("Please select a file first");
+  }
 }
 
 }
