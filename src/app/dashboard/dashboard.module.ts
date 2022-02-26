@@ -16,7 +16,6 @@ import { MatRadioModule } from "@angular/material/radio";
 import { HttpClientModule } from "@angular/common/http";
 import { JobModule } from "../job/job.module";
 import { StatsModule } from "../stats/stats.module";
-import { MatFileUploadModule } from "angular-material-fileupload";
 
 @NgModule({
   imports: [
@@ -34,7 +33,6 @@ import { MatFileUploadModule } from "angular-material-fileupload";
     MatExpansionModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatFileUploadModule,
     HttpClientModule,
     JobModule,
     StatsModule,
