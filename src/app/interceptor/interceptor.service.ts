@@ -2,6 +2,7 @@ import {
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
@@ -23,6 +24,7 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     req = req.clone({
       url: `${BASE_URL}${req.url}`,
+      // headers: req.headers.set("Content-Type", "multipart/form-data"),
     });
 
     return next.handle(req).pipe(
