@@ -6,7 +6,7 @@ import {
   NgForm,
   Validators,
 } from "@angular/forms";
-import { InventoryService } from "./inventory.service";
+import { InventoryViewService } from "../inventory-view.service";
 
 interface question {
   id: number;
@@ -17,11 +17,11 @@ interface question {
 }
 
 @Component({
-  selector: "inventory",
-  templateUrl: "./inventory.component.html",
-  styleUrls: ["./inventory.component.css"],
+  selector: "app-view-inventory",
+  templateUrl: "./view-inventory.component.html",
+  styleUrls: ["./view-inventory.component.css"],
 })
-export class InventoryComponent implements OnInit {
+export class ViewInventoryComponent implements OnInit {
   id = 1;
   topic = "Java";
   subtopic = "Gradle";
