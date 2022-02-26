@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import {
   CREATE_JOB_URL,
   GET_JOB_URL,
+  SCHEDULE_URL
 } from "app/shared/constants/endpoints-constants";
 import { Observable } from "rxjs";
 import { IAddJobRequest } from "./add/add-job-request.interface";
@@ -19,5 +20,9 @@ export class JobService {
 
   getJobs(): Observable<any> {
     return this.http.get(`${GET_JOB_URL}?hmhrId=P12345`);
+  }
+
+  schedule(payload: any): Observable<any> {
+    return this.http.put(SCHEDULE_URL, payload);
   }
 }
