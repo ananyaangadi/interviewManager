@@ -4,14 +4,17 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpClientJsonpModule, HttpHeaders } from '@angular/common/http';
+import { JobDetailsService } from './jobdetails.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 export interface RowElement {
-  ID: number;
-  Job_Title: string;
-  Date_Posted: string;
-  HR_HM: string;
+  jbId: number;
+  jbDept: string;
+  jbDesig: string;
+  jbPostDate: string;
+  jbSubDept: string;
+  jbHmName: string;
 }
 
 interface Candidate {
@@ -31,11 +34,6 @@ interface Application {
   candidates: Array<Candidate>,
 }
 
-const ROWDATA: RowElement[] = [
-  {ID: 1, Job_Title: 'Java Developer', Date_Posted: '12/01/2022', HR_HM: 'Melissa Allen'},
-  {ID: 2, Job_Title: 'Data Engineer', Date_Posted: '15/02/2022', HR_HM: 'Melissa Allen'},
-  {ID: 3, Job_Title: 'UI/UX Designer', Date_Posted: '23/12/2021', HR_HM: 'Melissa Allen'}
-]
 
 const applications: Application[] = [
   {id: 1, title: 'Java Developer', description: 'Skilled Java professional with Spring experience', HR_HM: 'Melissa Allen', candidates: [{id: 1, name: 'Dakota Rice', status: 'R1 completed', r1_feedback: 'Good java basics', r2_feedback: '', r3_feedback: '', to_be_scheduled: 'R2'}, {id: 2, name: 'Philip Chaney', status: 'New', r1_feedback: '', r2_feedback: '', r3_feedback: '', to_be_scheduled: 'R1'}]},
@@ -60,38 +58,47 @@ export class JobDetailsComponent implements OnInit {
   showJobTable = true
   selectedJob = 1
   details = applications
-  id: number
-  title: string
-  description: string
-  HR_HM: string
+  jbId: number
+ jbDesig: string
+ jbDept: string
+ jbSubDept: string
+ jbHmName: string
+ jbPostDate:string
+
   newreq = false
   expandView = false
   expandUpload = false
   expandPanelistDBoard = false
   showPortal = false
+  openJobList: RowElement[];
   panelists = ['Jane Austen', 'Virginia Woolf', 'Ruth Ware']
+
+  candidates = {}
 
   slots = {'Jane Austen': ['21/02/22: 10:30 to 11:15', '21/02/22: 14:30 to 15:15'], 'Virginia Woolf': ['21/02/22: 13:00 to 13:45', '22/02/22: 16:30 to 17:15'], 'Ruth Ware': ['22/02/22: 9:00 to 9:45', '23/02/22: 16:30 to 17:15']}
   slotsDisplayed = [];
-  displayedColumns: string[] = ['ID', 'Job_Title', 'Date_Posted', 'HR_HM'];
-  displayedColumns2: string[] = ['select', 'id', 'Candidate_Name', 'Status', 'R1', 'R2', 'R3', 'to_be_scheduled', 'panelist', 'slot'];
+  displayedColumns: string[] = ['jbId', 'jbDept', 'jbSubDept', 'jbDesig', 'jbPostDate','jbHmName'];
+  displayedColumns2: string[] = ['select', 'canId', 'canName', 'canQual', 'canStatus', 'R1', 'R2', 'R3', 'to_be_scheduled', 'panelist', 'slot'];
 
   foods = ['1:Java Developer', '2:UI/UX Designer', '3:Data Engineer']
-  dataSource: MatTableDataSource<RowElement> = new MatTableDataSource(ROWDATA);
-  dataSource2: MatTableDataSource<Candidate> = new MatTableDataSource(applications[0]['candidates']);
+  dataSource: MatTableDataSource<RowElement>;
+  dataSource2: MatTableDataSource<any>;
 
 
   menuItems = [
     { path: '/dashboard', title: 'View',  icon: 'dashboard', class: '' },
     { path: '/dashboard', title: 'Upload',  icon: 'add', class: '' },
   ];
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private JobService:JobDetailsService) { }
   ngOnInit() {
-
+    this.openJobList = []
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
     this.selection = new SelectionModel<Candidate>(allowMultiSelect, initialSelection);
-
-
+    this.getOpenJobPositions();
+    var hello = [{'jbId':1,'jbDept':'A','jbSubDept':'A','jbDesig':'A','jbPostDate':'A','jbHmName':'A'}]
+    //this.dataSource = new MatTableDataSource(hello);
+    console.log("ere2")
+    console.log(this.dataSource)
 
     }
     applyFilter(event: Event) {
@@ -103,17 +110,19 @@ export class JobDetailsComponent implements OnInit {
     this.showDetails = true;
     this.showJobTable = false;
     this.selectedJob = id;
-
-    applications.forEach(element => {
-      if (element.id == id) {
-        this.dataSource2 = new MatTableDataSource(element.candidates)
-        console.log(element.candidates[0].id)
-        this.id = id
-        this.title = element.title
-        this.description = element.description
-        this.HR_HM = element.HR_HM
+    this.openJobList.forEach(element => {
+      if(id == element.jbId)
+      {
+        this.jbId = id
+        this.jbDept = element.jbDept
+        this.jbDesig = element.jbDesig
+        this.jbSubDept = element.jbSubDept
+        this.jbHmName = element.jbHmName
+        this.jbPostDate = element.jbPostDate
       }
     });
+    this.dataSource2 = new MatTableDataSource(this.candidates[id])
+
   }
 
   setPanelist(value) {
@@ -132,6 +141,45 @@ masterToggle() {
   this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+}
+
+getOpenJobPositions() {
+  this.JobService.getJobs().subscribe(
+    (res) => {
+      console.log(res)
+      res.forEach(element => {
+        var obj:RowElement = {
+          jbId: 0,
+          jbDept: '',
+          jbDesig: '',
+          jbPostDate: '',
+          jbSubDept: '',
+          jbHmName: ''
+        }
+        obj.jbId= element.job.jbId
+        obj.jbDept = element.job.jbDept
+        obj.jbDesig = element.job.jbDesig
+        obj.jbPostDate = element.job.jbPostDate
+        obj.jbSubDept = element.job.jbSubDept
+        obj.jbHmName = element.job.jbHmName
+
+        this.candidates[obj.jbId] = element.canDetList
+        console.log("here")
+
+        this.openJobList.push(obj)
+        console.log(this.openJobList)
+
+        this.dataSource = new MatTableDataSource(this.openJobList);
+
+
+
+      });
+      
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 }
 
 

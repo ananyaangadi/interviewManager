@@ -17,6 +17,7 @@ import { DashboardModule } from '../../dashboard/dashboard.module';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { JobDetailsModule } from '../../jobdetails/jobdetails.module';
 import { PanelistModule } from '../../panelist/panelist.module';
+import { StatsModule } from '../../stats/stats.module';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
@@ -38,7 +39,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTabsModule,
     HttpClientJsonpModule,
     JobDetailsModule,
-    PanelistModule
+    PanelistModule,
+    StatsModule
   ],
   declarations: [
     DashboardComponent

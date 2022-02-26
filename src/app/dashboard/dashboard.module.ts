@@ -15,6 +15,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { JobDetailsModule } from '../jobdetails/jobdetails.module';
+import { StatsModule } from '../stats/stats.module';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { JobDetailsModule } from '../jobdetails/jobdetails.module';
     MatCheckboxModule,
     MatRadioModule,
     HttpClientModule,
-    JobDetailsModule
+    JobDetailsModule,
+    StatsModule
   ],
   declarations: [
   ]
