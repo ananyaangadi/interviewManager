@@ -19,7 +19,7 @@ import { AppComponent } from "./app.component";
 
 import { AgmCoreModule } from "@agm/core";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { InventoryComponent } from "./inventory/inventory.component";
+
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { AppFooterComponent } from "./app-footer/app-footer.component";
 import { InterceptorService } from "./interceptor/interceptor.service";
@@ -49,7 +49,6 @@ import { ToastrModule } from "ngx-toastr";
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    InventoryComponent,
     LandingPageComponent,
     AppFooterComponent,
   ],

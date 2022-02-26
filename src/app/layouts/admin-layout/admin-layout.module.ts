@@ -20,6 +20,7 @@ import { PanelistModule } from "../../panelist/panelist.module";
 import { StatsModule } from "../../stats/stats.module";
 
 import { MatExpansionModule } from "@angular/material/expansion";
+import { InventoryModule } from "app/inventory/inventory.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -39,6 +40,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
     MatTabsModule,
     HttpClientJsonpModule,
     JobModule,
+    InventoryModule,
     PanelistModule,
     StatsModule,
   ],

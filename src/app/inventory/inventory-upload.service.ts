@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UPLOAD_INVENTORY } from "./shared/constants/endpoints-constants";
+import { UPLOAD_INVENTORY } from "../shared/constants/endpoints-constants";
 
 @Injectable({
   providedIn: "root",
