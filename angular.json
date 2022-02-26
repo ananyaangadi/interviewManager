@@ -68,15 +68,7 @@
             },
             "development": {
              "buildOptimizer": false,
-             "optimization": {
-                "scripts": true,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": true
-                },
-                "fonts": true
-              },
-             "outputHashing": "all"
+             "optimization": false
            }
           }
         },
