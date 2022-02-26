@@ -1,8 +1,4 @@
 <div class="card">
-  <div class="card-header" background-color="indigo">
-    <h4 class="card-title">New Job Request</h4>
-    <p class="card-category">Enter job details</p>
-  </div>
   <div class="card-body">
     <form [formGroup]="createJobForm" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -48,17 +44,96 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Hiring Manager Name" type="text" />
+              <input
+                matInput
+                placeholder="Department"
+                name="department"
+                type="text"
+              />
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="HR Name" type="text" />
+              <input
+                matInput
+                placeholder="Sub Department"
+                name="subDepartment"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Minimum Experience"
+                name="minExperience"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Maximum Experience"
+                name="maxExperience"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Skills" name="skills" type="text" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Job Type"
+                name="maxExperience"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Qualification"
+                name="qualification"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Closing Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="dp3"
+                disabled
+                name="closingDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dp3"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
       </div>
-
       <button mat-raised-button type="submit" color="primary">Submit</button>
       <div class="clearfix"></div>
     </form>
