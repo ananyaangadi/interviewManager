@@ -6,6 +6,7 @@ import {
   HttpRequest,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { BASE_URL } from "app/shared/constants/endpoints-constants";
 import { ToastrService } from "ngx-toastr";
 import { Observable, of, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -21,12 +22,15 @@ export class InterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     req = req.clone({
+      url: `${BASE_URL}${req.url}`,
       headers: req.headers.set("Content-Type", "application/json"),
     });
 
-    return next.handle(req).pipe(catchError((error: any, caught: Observable<any>) => {
-      return this.handleError(error,req);
-    }));
+    return next.handle(req).pipe(
+      catchError((error: any, caught: Observable<any>) => {
+        return this.handleError(error, req);
+      })
+    );
   }
 
   handleError(error: HttpErrorResponse, req: any): Observable<any> {

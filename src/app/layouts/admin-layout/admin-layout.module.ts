@@ -1,25 +1,25 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatRippleModule} from '@angular/material/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatTabsModule} from '@angular/material/tabs';
-import { DashboardModule } from '../../dashboard/dashboard.module';
-import { HttpClientJsonpModule } from '@angular/common/http';
-import { JobDetailsModule } from '../../jobdetails/jobdetails.module';
-import { PanelistModule } from '../../panelist/panelist.module';
-import { StatsModule } from '../../stats/stats.module';
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AdminLayoutRoutes } from "./admin-layout.routing";
+import { DashboardComponent } from "../../dashboard/dashboard.component";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatRippleModule } from "@angular/material/core";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatTabsModule } from "@angular/material/tabs";
+import { DashboardModule } from "../../dashboard/dashboard.module";
+import { HttpClientJsonpModule } from "@angular/common/http";
+import { JobModule } from "../../job/job.module";
+import { PanelistModule } from "../../panelist/panelist.module";
+import { StatsModule } from "../../stats/stats.module";
 
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from "@angular/material/expansion";
 @NgModule({
   imports: [
     CommonModule,
@@ -38,13 +38,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCheckboxModule,
     MatTabsModule,
     HttpClientJsonpModule,
-    JobDetailsModule,
+    JobModule,
     PanelistModule,
-    StatsModule
+    StatsModule,
   ],
-  declarations: [
-    DashboardComponent
-  ]
+  declarations: [DashboardComponent],
 })
-
 export class AdminLayoutModule {}
