@@ -15,6 +15,7 @@ export class PanelistComponent implements OnInit {
     "id",
     "Candidate_Name",
     "Round",
+    "Feedback",
     "Date",
     "start",
   ];
@@ -61,4 +62,8 @@ export class PanelistComponent implements OnInit {
   showUpcoming() {
     this.isPastSelected = false;
   }
+
+
+
+
 }
