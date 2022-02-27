@@ -42,6 +42,10 @@ export class AddJobComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  isButtonDisabled(): boolean {
+    return this.createJobForm.invalid || !this.createJobForm.dirty;
+  }
+
   onSubmit() {
     const req: IAddJobRequest = {
       closingDate: this.formControls["closingDate"].value,

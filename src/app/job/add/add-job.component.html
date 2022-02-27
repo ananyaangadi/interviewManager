@@ -1,35 +1,39 @@
 <div class="card">
   <div class="card-body">
     <form [formGroup]="createJobForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="col-md-12">
-          <mat-form-field class="example-full-width">
-            <input
-              matInput
-              placeholder="Job Title"
-              name="jobTitle"
-              type="text"
-            />
-          </mat-form-field>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                placeholder="Job Title"
+                formControlName="title"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
         </div>
 
-        <div class="col-md-12">
-          <mat-form-field>
-            <textarea
-              matInput
-              placeholder="Job Description"
-              name="jobDescription"
-            ></textarea>
-          </mat-form-field>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <textarea
+                matInput
+                placeholder="Job Description"
+                formControlName="description"
+              ></textarea>
+            </mat-form-field>
+          </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
           <div class="col-md-6">
             <mat-form-field>
               <input
                 matInput
                 placeholder="Hiring Manager Name"
-                name="hm"
+                formControlName="hm"
                 type="text"
               />
             </mat-form-field>
@@ -41,13 +45,13 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
           <div class="col-md-6">
             <mat-form-field>
               <input
                 matInput
                 placeholder="Department"
-                name="department"
+                formControlName="department"
                 type="text"
               />
             </mat-form-field>
@@ -64,13 +68,13 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
           <div class="col-md-6">
             <mat-form-field>
               <input
                 matInput
                 placeholder="Minimum Experience"
-                name="minExperience"
+                formControlName="minExperience"
                 type="text"
               />
             </mat-form-field>
@@ -80,17 +84,22 @@
               <input
                 matInput
                 placeholder="Maximum Experience"
-                name="maxExperience"
+                formControlName="maxExperience"
                 type="text"
               />
             </mat-form-field>
           </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Skills" name="skills" type="text" />
+              <input
+                matInput
+                placeholder="Skills"
+                formControlName="skills"
+                type="text"
+              />
             </mat-form-field>
           </div>
           <div class="col-md-6">
@@ -98,20 +107,20 @@
               <input
                 matInput
                 placeholder="Job Type"
-                name="maxExperience"
+                formControlName="maxExperience"
                 type="text"
               />
             </mat-form-field>
           </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
           <div class="col-md-6">
             <mat-form-field>
               <input
                 matInput
                 placeholder="Qualification"
-                name="qualification"
+                formControlName="qualification"
                 type="text"
               />
             </mat-form-field>
@@ -123,7 +132,7 @@
                 matInput
                 [matDatepicker]="dp3"
                 disabled
-                name="closingDate"
+                formControlName="closingDate"
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -134,7 +143,17 @@
           </div>
         </div>
       </div>
-      <button mat-raised-button type="submit" color="primary">Submit</button>
+
+      <div class="col-md-12">
+        <button
+          mat-raised-button
+          [disabled]="isButtonDisabled()"
+          type="submit"
+          color="primary"
+        >
+          Submit
+        </button>
+      </div>
       <div class="clearfix"></div>
     </form>
   </div>
