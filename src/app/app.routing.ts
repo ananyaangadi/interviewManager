@@ -29,7 +29,6 @@ const routes: Routes = [
     path: "inventory",
     component: ViewInventoryComponent,
   },
-  { path: "**", component: AdminLayoutComponent },
 ];
 
 @NgModule({

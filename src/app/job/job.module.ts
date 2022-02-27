@@ -39,7 +39,7 @@ import { JobDetailsComponent } from "./jobdetails/jobdetails.component";
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
   declarations: [JobDetailsComponent, AddJobComponent],
