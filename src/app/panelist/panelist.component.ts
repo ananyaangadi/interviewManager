@@ -20,7 +20,13 @@ export class PanelistComponent implements OnInit {
     "start",
   ];
 
-  pastInterviewColumns: string[] = ["id", "Candidate_Name", "Round", "Date"];
+  pastInterviewColumns: string[] = [
+    "id",
+    "Candidate_Name",
+    "Round",
+    "Feedback",
+    "Date",
+  ];
   upcomingInterviewList: MatTableDataSource<IInterView>;
   pastInterviewList: MatTableDataSource<IInterView>;
 
@@ -62,8 +68,4 @@ export class PanelistComponent implements OnInit {
   showUpcoming() {
     this.isPastSelected = false;
   }
-
-
-
-
 }

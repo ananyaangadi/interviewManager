@@ -1,7 +1,3 @@
-<div class="wrapper">
-    <div class="main-panel">
-        <app-navbar></app-navbar>
-
 <div
   class="sidebar"
   data-color="danger"
@@ -85,6 +81,12 @@
             <td mat-cell *matCellDef="let element">{{ element.intRound }}</td>
           </ng-container>
 
+          <!-- Feedback Column -->
+          <ng-container matColumnDef="Feedback">
+            <th mat-header-cell *matHeaderCellDef>Feedback</th>
+            <td mat-cell *matCellDef="let element">check feedback</td>
+          </ng-container>
+
           <!-- R1 Column -->
           <ng-container matColumnDef="Date">
             <th mat-header-cell *matHeaderCellDef>Date</th>
@@ -139,6 +141,12 @@
             <td mat-cell *matCellDef="let element">{{ element.intRound }}</td>
           </ng-container>
 
+          <!-- Feedback Column -->
+          <ng-container matColumnDef="Feedback">
+            <th mat-header-cell *matHeaderCellDef>Feedback</th>
+            <td mat-cell *matCellDef="let element">check feedback</td>
+          </ng-container>
+
           <!-- R1 Column -->
           <ng-container matColumnDef="Date">
             <th mat-header-cell *matHeaderCellDef>Date</th>
@@ -155,6 +163,4 @@
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>
