@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -17,6 +17,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { JobModule } from "../job/job.module";
 import { StatsModule } from "../stats/stats.module";
 import { InventoryModule } from "app/inventory/inventory.module";
+import { CandidateModule } from "app/candidate/candidate.module";
 
 @NgModule({
   imports: [
@@ -37,8 +38,10 @@ import { InventoryModule } from "app/inventory/inventory.module";
     HttpClientModule,
     JobModule,
     InventoryModule,
+    CandidateModule,
     StatsModule,
   ],
   declarations: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DashboardModule {}
