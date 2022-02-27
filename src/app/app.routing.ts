@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: "dashboard/inventory",
     component: ViewInventoryComponent,
-  },
+  }
 ];
 
 @NgModule({

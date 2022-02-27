@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver,OnInit,ViewChild, ViewContainerRef, Injector } from '@angular/core';
 import * as Chartist from 'chartist';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
@@ -55,6 +55,8 @@ const allowMultiSelect = true;
 })
 
 export class JobDetailsComponent implements OnInit {
+  injector:Injector
+  OpenWindow:any
   selection: SelectionModel<any>;
   panelOpenState = false
   showDetails = false
@@ -67,6 +69,9 @@ export class JobDetailsComponent implements OnInit {
  jbSubDept: string
  jbHmName: string
  jbPostDate:string
+ rounds = ['Technical','Managerial'];
+ roundType = ""
+ roundNumber=0
 
   newreq = false
   expandView = false
@@ -80,11 +85,17 @@ export class JobDetailsComponent implements OnInit {
   availablePanelists = []
   selectedPanelist={}
   selectedSlot={}
+  actions = ['Schedule','Offer','Reject']
+  action={}
+
+  scheduleWindowPanelists=[]
+  scheduleWindowPanelistIds=[]
+  scheduleWindowElement={}
 
   slots = {'Jane Austen': ['21/02/22: 10:30 to 11:15', '21/02/22: 14:30 to 15:15'], 'Virginia Woolf': ['21/02/22: 13:00 to 13:45', '22/02/22: 16:30 to 17:15'], 'Ruth Ware': ['22/02/22: 9:00 to 9:45', '23/02/22: 16:30 to 17:15']}
   slotsDisplayed = [];
   displayedColumns: string[] = ['jbId', 'jbDept', 'jbSubDept', 'jbDesig', 'jbPostDate','jbHmName'];
-  displayedColumns2: string[] = ['select', 'canId', 'canName', 'canQual', 'canStatus', 'R1', 'R2', 'R3', 'to_be_scheduled', 'panelist', 'slot'];
+  displayedColumns2: string[] = ['canId', 'canName', 'canSkill', 'canStatus', 'Feedback', 'Action', 'button'];
 
   foods = ['1:Java Developer', '2:UI/UX Designer', '3:Data Engineer']
   dataSource: MatTableDataSource<RowElement>;
@@ -97,7 +108,7 @@ panelistSlots = {}
     { path: '/dashboard', title: 'Upload',  icon: 'add', class: '' },
   ];
   
-  constructor(private route: ActivatedRoute, private http: HttpClient, private JobService:JobService, private toast:ToastrService) { }
+  constructor(private route: ActivatedRoute, private resolver: ComponentFactoryResolver, private JobService:JobService, private toast:ToastrService) { }
   ngOnInit() {
     this.openJobList = []
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -141,19 +152,22 @@ panelistSlots = {}
       console.log(row.can.canId)
       this.candidateTimeSlot[row.can.canId] = ""
       console.log("here2")
-      element.pnlDetList.forEach(ele => {
-        row.panelistId.push(ele.pnl.pnlId)
-        row.panelistNames.push(ele.pnl.pnlName)
+      element.pnlList.forEach(ele => {
+        console.log("ele")
+        console.log(ele)
+        console.log(ele.pnlId)
+        row.panelistId.push(ele.pnlId)
+        row.panelistNames.push(ele.pnlName)
 
         var slots = []
-        var json = JSON.parse(ele.pnl.pnlTimeSlot);
+        var json = JSON.parse(ele.pnlTimeSlot);
         json["TIMESLOT"].forEach(element => {
           element["TIME"].forEach(ele => {
               var str="" +element["DATE"] +" " +ele["START_TIME"]+" " + json["TIMEZONE"]
               slots.push(str)
           });
         });
-        this.panelistSlots[ele.pnl.pnlId] = slots
+        this.panelistSlots[ele.pnlId] = slots
       });
       temp.push(row)
     });
@@ -235,15 +249,66 @@ getOpenJobPositions() {
   );
 }
 
-schedule() {
-  var to_be_scheduled = this.selection.selected
-  console.log(to_be_scheduled)
+close(){
+  this.OpenWindow.close()
+}
 
-  to_be_scheduled.forEach(element => {
-    var req={"candidateId":0,"round":"2","panelistId":"P34570","status":"SCHEDULE","interviewTime":""}
-    req["candidateId"] = element["can"]["canId"]
-    req["panelistId"] = this.selectedPanelist[element["can"]["canId"]]
-    req["interviewTime"] = this.selectedSlot[element["can"]["canId"]]
+schedule(to_be_scheduled) {
+  console.log(to_be_scheduled)
+  
+  this.scheduleWindowPanelists = to_be_scheduled.panelistNames
+  this.scheduleWindowPanelistIds = to_be_scheduled.panelistId
+  this.scheduleWindowElement = to_be_scheduled
+  this.showPortal=true
+
+  console.log("jajajaj")
+  console.log(this.scheduleWindowPanelistIds)
+
+  // this.openSchedule(to_be_scheduled)
+
+  // to_be_scheduled.forEach(element => {
+  //   var req={"candidateId":0,"round":"2","panelistId":"P34570","status":"SCHEDULE","interviewTime":""}
+  //   req["candidateId"] = element["can"]["canId"]
+  //   req["panelistId"] = this.selectedPanelist[element["can"]["canId"]]
+  //   req["interviewTime"] = this.selectedSlot[element["can"]["canId"]]
+
+
+  //   req = JSON.parse(JSON.stringify(req))
+  //   console.log(req)
+
+  //   const payload:ISchedule = {
+  //     candidateId:req["candidateId"],
+  //     round:req["round"],
+  //     panelistId:req['panelistId'],
+  //     status:req['status'],
+  //     interviewTime:req['interviewTime']
+  //   }
+  //   const payload:ISchedule = {
+  //     candidateId:3,
+  //     round:"2",
+  //     panelistId:"P34570",
+  //     status:"SCHEDULE",
+  //     interviewTime:"2022-02-01 14:00:00.000"
+  //   }
+  //   this.JobService.schedule(payload).subscribe(
+  //     (res) => {
+  //       console.log(res)
+  //     },
+  //     (err) => {
+  //       this.toast.error(err);
+  //     }
+  //   );
+
+  // });
+
+}
+
+saveSchedule() {
+  var req={"candidateId":0,"round":"2","panelistId":"P34570","status":"SCHEDULE","interviewTime":""}
+  req["candidateId"] = this.scheduleWindowElement["can"]["canId"]
+  req["panelistId"] = this.selectedPanelist[this.scheduleWindowElement["can"]["canId"]]
+  req["interviewTime"] = this.selectedSlot[this.scheduleWindowElement["can"]["canId"]]
+  req["round"] = ""+this.roundNumber
 
 
     req = JSON.parse(JSON.stringify(req))
@@ -263,17 +328,67 @@ schedule() {
       status:"SCHEDULE",
       interviewTime:"2022-02-01 14:00:00.000"
     }
+    var temp =[]
     this.JobService.schedule(payload).subscribe(
       (res) => {
         console.log(res)
+        this.availablePanelists.forEach(element => {
+          var temp1 = JSON.parse(JSON.stringify(element))
+          if(element.can.canId === this.scheduleWindowElement["can"]["canId"])
+          {
+            temp1.can.canStatus = "R"+this.roundNumber+ " SCHEDULED"
+            this.action[element.can.canId] = ""
+          }
+          temp.push(temp1)
+        });
+
+        this.availablePanelists = temp
+        this.dataSource2 = new MatTableDataSource(this.availablePanelists)
+
+
       },
       (err) => {
         this.toast.error(err);
       }
     );
-
-  });
 }
+
+offer(ele) {
+
+ var  temp =[]
+  this.availablePanelists.forEach(element => {
+    var temp1 = JSON.parse(JSON.stringify(element))
+    if(element.can.canId === ele["can"]["canId"])
+    {
+      temp1.can.canStatus = "OFFERED"
+    }
+    temp.push(temp1)
+  });
+
+  this.availablePanelists = temp
+  this.action[ele.can.canId] = ""
+  this.dataSource2 = new MatTableDataSource(this.availablePanelists)
+
+}
+
+reject(ele) {
+
+  var  temp =[]
+   this.availablePanelists.forEach(element => {
+     var temp1 = JSON.parse(JSON.stringify(element))
+     if(element.can.canId === ele["can"]["canId"])
+     {
+       temp1.can.canStatus = "REJECTED"
+     }
+     temp.push(temp1)
+   });
+ 
+   this.availablePanelists = temp
+   this.action[ele.can.canId] = ""
+   this.dataSource2 = new MatTableDataSource(this.availablePanelists)
+ 
+ }
+
 
 }
 

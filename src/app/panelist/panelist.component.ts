@@ -86,7 +86,7 @@ export class PanelistComponent implements OnInit {
 
   openInventory() {
     window.open(
-      "https://InterviewManager.azurewebsites.net/#/dashboard/inventory",
+      "http://localhost:4200/#/dashboard/inventory",
       "_blank",
       "location=yes,height=570,width=520,scrollbars=yes,status=yes"
     );
