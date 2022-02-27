@@ -21,6 +21,7 @@ import { StatsModule } from "../../stats/stats.module";
 
 import { MatExpansionModule } from "@angular/material/expansion";
 import { InventoryModule } from "app/inventory/inventory.module";
+import { CandidateModule } from "app/candidate/candidate.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -40,6 +41,7 @@ import { InventoryModule } from "app/inventory/inventory.module";
     MatTabsModule,
     HttpClientJsonpModule,
     JobModule,
+    CandidateModule,
     InventoryModule,
     PanelistModule,
     StatsModule,
