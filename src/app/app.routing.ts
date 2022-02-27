@@ -26,6 +26,18 @@ const routes: Routes = [
     ],
   },
   {
+    path: "interview",
+    children: [
+      {
+        path: "",
+        loadChildren: () =>
+          import("./interview/interview-routing.module").then(
+            (m) => m.InterviewRoutingModule
+          ),
+      },
+    ],
+  },
+  {
     path: "inventory",
     component: ViewInventoryComponent,
   },

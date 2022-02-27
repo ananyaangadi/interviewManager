@@ -1,0 +1,127 @@
+<!-- Feedback -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h2>Candidate Feedback Form</h2>
+        </div>
+        <div class="card-body">
+          <h3 style="color: green">Questions answered satisfactorily</h3>
+          <p style="color: green" *ngFor="let q of answeredQuestions">
+            {{ q }}
+          </p>
+          <h3 style="color: red">Questions answered unsatisfactorily</h3>
+          <p style="color: red" *ngFor="let q of notQuestions">{{ q }}</p>
+
+          <form [formGroup]="feedbackForm" (submit)="onSubmit()">
+            <mat-form-field>
+              <mat-label>Round</mat-label>
+              <mat-select formControlName="round">
+                <mat-option value="Technical">Technical</mat-option>
+                <mat-option value="Managerial">Managerial</mat-option>
+                <mat-option value="HR">HR</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Technical Knowledge</mat-label>
+              <mat-select formControlName="technicalKnowledge">
+                <mat-option value="1. Lacks domain knowledge"
+                  >1. Lacks domain knowledge</mat-option
+                >
+                <mat-option value="2. Unable to recall details"
+                  >2. Unable to recall details</mat-option
+                >
+                <mat-option value="3. Has basic knowledge of terminologies"
+                  >3. Has basic knowledge of terminologies</mat-option
+                >
+                <mat-option value="4. Well versed with terms"
+                  >4. Well versed with terms</mat-option
+                >
+                <mat-option
+                  value="5. Excellent, has complete knowledge of terminologies"
+                  >5. Excellent, has complete knowledge of
+                  terminologies</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Understanding</mat-label>
+              <mat-select formControlName="understanding">
+                <mat-option value="1. Does not understand basic concepts"
+                  >1. Does not understand basic concepts</mat-option
+                >
+                <mat-option
+                  value="2. Logic is haywire and misinterprets instructions"
+                  >2. Logic is haywire and misinterprets
+                  instructions</mat-option
+                >
+                <mat-option value="3. Is famililar with basic concepts"
+                  >3. Is famililar with basic concepts</mat-option
+                >
+                <mat-option value="4. Has deep understanding of most concepts"
+                  >4. Has deep understanding of most concepts</mat-option
+                >
+                <mat-option
+                  value="5. Has complete understanding of all concepts"
+                  >5. Has complete understanding of all concepts</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Explainability</mat-label>
+              <mat-select formControlName="explainiablity">
+                <mat-option value="1. Cannot explain their answer/code/solution"
+                  >1. Cannot explain their answer/code/solution</mat-option
+                >
+                <mat-option value="2. Not able to bring all the pieces together"
+                  >2. Not able to bring all the pieces together</mat-option
+                >
+                <mat-option value="3. Low level explanation, lacks details"
+                  >3. Low level explanation, lacks details</mat-option
+                >
+                <mat-option value="4. Good explanation"
+                  >4. Good explanation</mat-option
+                >
+                <mat-option value="5. Excellent">5. Excellent</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <label id="example-radio-group-label"
+              >Recommended for next round?</label
+            ><br />
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              formControlName="recomendedForNextRound"
+            >
+              <mat-radio-button class="example-radio-button" [value]="'NA'">
+                Not Applicable </mat-radio-button
+              ><br />
+              <mat-radio-button class="example-radio-button" [value]="'yes'">
+                Yes </mat-radio-button
+              ><br />
+              <mat-radio-button class="example-radio-button" [value]="'no'">
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field>
+              <textarea
+                formControlName="additionalComment"
+                matInput
+                placeholder="Feedback/Additional Comments"
+              ></textarea>
+            </mat-form-field>
+            <button mat-raised-button type="submit" color="primary">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
