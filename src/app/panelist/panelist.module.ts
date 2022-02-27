@@ -16,6 +16,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { JobModule } from "../job/job.module";
 import { PanelistComponent } from "./panelist.component";
+import { ComponentsModule } from "../components/components.module"
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { PanelistComponent } from "./panelist.component";
     HttpClientModule,
     JobModule,
     MatTabsModule,
+    ComponentsModule
   ],
   declarations: [PanelistComponent],
   exports: [PanelistComponent],

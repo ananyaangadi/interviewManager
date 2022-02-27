@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute } from "@angular/router";
+import { PanelistService } from "./panelist.service";
+import { ToastrComponentlessModule, ToastrService } from "ngx-toastr";
 
 const upcomingInterviews: any[] = [
   {
@@ -64,6 +66,7 @@ export class PanelistComponent implements OnInit {
     "id",
     "Candidate_Name",
     "Round",
+    "Feedback",
     "Date",
     "Time",
     "start",
@@ -76,13 +79,17 @@ export class PanelistComponent implements OnInit {
     "Time",
     "feedback",
   ];
+  interviews=[]
   dataSource3: MatTableDataSource<any> = new MatTableDataSource(
     upcomingInterviews
   );
   dataSource4: MatTableDataSource<any> = new MatTableDataSource(pastInterviews);
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
-  ngOnInit() {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private service:PanelistService, private toast:ToastrService) {}
+  ngOnInit() {
+    this.getInt()
+
+  }
 
   openInventory() {
     window.open(
@@ -91,4 +98,33 @@ export class PanelistComponent implements OnInit {
       "location=yes,height=570,width=520,scrollbars=yes,status=yes"
     );
   }
+
+
+  getInt() {
+    this.service.getInterviews().subscribe(
+      (res) => {
+        console.log(res)
+        this.toast.success();
+
+        var temp = []
+        res.forEach(element => {
+          var spl = element.intTime.split('T')
+          console.log(spl)
+          var date = spl[0]
+          var time = spl[1].split('\.')[0]
+          console.log(date)
+          var temp1={id:element.intCanId,name:element.intCanName,round:element.intRound,feedback:element.intFeedback,date:date,time:time}
+          temp.push(temp1)
+        });
+        this.interviews = temp
+        this.dataSource3 = new MatTableDataSource(temp)
+
+
+      },
+      (err) => {
+        this.toast.error(err);
+      }
+    );
+  }
+
 }
