@@ -14,8 +14,11 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { StatsModule } from "app/stats/stats.module";
 import { JobModule } from "../job/job.module";
 import { PanelistComponent } from "./panelist.component";
+import { UpcomingCardComponent } from './upcoming-card/upcoming-card.component';
+import { CompletedCardComponent } from './completed-card/completed-card.component';
 
 @NgModule({
   imports: [
@@ -36,8 +39,9 @@ import { PanelistComponent } from "./panelist.component";
     HttpClientModule,
     JobModule,
     MatTabsModule,
+    StatsModule,
   ],
-  declarations: [PanelistComponent],
+  declarations: [PanelistComponent, UpcomingCardComponent, CompletedCardComponent],
   exports: [PanelistComponent],
 })
 export class PanelistModule {}

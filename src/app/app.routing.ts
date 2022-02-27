@@ -1,13 +1,10 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule } from "@angular/router";
-
-import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { LandingPageComponent } from "./landing-page/landing-page.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { PanelistComponent } from "./panelist/panelist.component";
+import { RouterModule, Routes } from "@angular/router";
 import { ViewInventoryComponent } from "./inventory/view-inventory/view-inventory.component";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 
 const routes: Routes = [
   {
@@ -29,13 +26,10 @@ const routes: Routes = [
     ],
   },
   {
-    path: "dashboard/panelist",
-    component: PanelistComponent,
-  },
-  {
-    path: "dashboard/inventory",
+    path: "inventory",
     component: ViewInventoryComponent,
   },
+  { path: "**", component: AdminLayoutComponent },
 ];
 
 @NgModule({

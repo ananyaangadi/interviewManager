@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 const upcomingInterviews: any[] = [
   {
@@ -81,14 +81,11 @@ export class PanelistComponent implements OnInit {
   );
   dataSource4: MatTableDataSource<any> = new MatTableDataSource(pastInterviews);
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {}
+
   ngOnInit() {}
 
-  openInventory() {
-    window.open(
-      "https://InterviewManager.azurewebsites.net/#/dashboard/inventory",
-      "_blank",
-      "location=yes,height=570,width=520,scrollbars=yes,status=yes"
-    );
+  startInterview(data) {
+    this.router.navigate(["inventory"]);
   }
 }
