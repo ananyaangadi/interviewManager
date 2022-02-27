@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { InventoryUploadService } from "app/inventory/inventory-upload.service";
-import { UploadInventoryComponent } from "app/inventory/upload-inventory/upload-inventory.component";
 import { JobService } from "app/job/job.service";
+import { UploadService } from "app/shared/services/upload.service";
 
 @Component({
   selector: "app-upload-candidate",
@@ -12,13 +11,10 @@ import { JobService } from "app/job/job.service";
 export class UploadCandidateComponent implements OnInit {
   addCandidateForm: FormGroup;
   file: File = null;
-  jobIds = [];
   jobsArray: JobDetails[] = [];
-  changeDetectorRef: any;
-  jobName: any;
 
   constructor(
-    private uploadCandidateService: InventoryUploadService,
+    private uploadCandidateService: UploadService,
     private getJobService: JobService,
     private formBuilder: FormBuilder
   ) {}
@@ -38,7 +34,6 @@ export class UploadCandidateComponent implements OnInit {
       (res) => {
         console.log("res ", res);
         res.forEach((element) => {
-          this.jobIds.push(element.job.jbId);
           this.jobsArray.push(element.job);
         });
       },
@@ -47,14 +42,6 @@ export class UploadCandidateComponent implements OnInit {
       }
     );
   }
-
-  // getJobName() {
-  //   this.addCandidateForm.controls.canaddJbId.valueChanges.subscribe(() => {
-  //   this.changeDetectorRef.detectChanges();
-  //   this.jobName = this.jobsArray.filter(id => {
-  //     return id === this.jobsArray.filter();
-  //   }).jbSkill;
-  // });
 
   onFilechange(event: any) {
     console.log(event.target.files[0]);
