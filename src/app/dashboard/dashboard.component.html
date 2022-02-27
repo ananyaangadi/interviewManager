@@ -87,16 +87,20 @@
               <mat-form-field>
                 <div>
                   <input matInput />
-                  <input type="file" />
+                  <input mat-raised-button type="file" />
                   <button float="right" mat-flat-button color="primary">
                     Upload Bulk Candidate Details
                   </button>
                 </div>
               </mat-form-field>
             </div>
-            <br />
-            <b>OR</b>
-            <br /><br /><br />
+
+            <div class="row">
+              <div class="col-12 text-center splitter-container my-3">
+                <span class="splitter-text">OR</span>
+              </div>
+            </div>
+
             <form>
               <div class="row">
                 <div class="col-md-12">
@@ -109,7 +113,7 @@
                 <mat-form-field>
                   <div>
                     <input matInput />
-                    <input type="file" />
+                    <input mat-raised-button type="file" />
                     <button float="right" mat-flat-button color="primary">
                       Upload resume
                     </button>
