@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute } from "@angular/router";
-import { InventoryUploadService } from "app/inventory-upload.service";
 
 export interface RowElement {
   ID: number;
@@ -204,7 +203,6 @@ export class DashboardComponent implements OnInit {
   expandPanelistDBoard = false;
   showPortal = false;
   panelists = ["Jane Austen", "Virginia Woolf", "Ruth Ware"];
-  file: File = null;
 
   slots = {
     "Jane Austen": ["21/02/22: 10:30 to 11:15", "21/02/22: 14:30 to 15:15"],
@@ -255,11 +253,7 @@ export class DashboardComponent implements OnInit {
     { path: "/dashboard", title: "View", icon: "dashboard", class: "" },
     { path: "/dashboard", title: "Upload", icon: "add", class: "" },
   ];
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private inventoryService: InventoryUploadService
-  ) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -333,20 +327,5 @@ export class DashboardComponent implements OnInit {
       "_blank",
       "location=yes,height=570,width=520,scrollbars=yes,status=yes"
     );
-  }
-
-  onFilechange(event: any) {
-    console.log(event.target.files[0]);
-    this.file = event.target.files[0];
-  }
-
-  uploadInventory() {
-    if (this.file) {
-      this.inventoryService.uploadInventoryFile(this.file).subscribe((resp) => {
-        alert("Inventory Uploaded");
-      });
-    } else {
-      alert("Please select a file first");
-    }
   }
 }

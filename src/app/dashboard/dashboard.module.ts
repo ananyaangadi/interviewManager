@@ -16,6 +16,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { HttpClientModule } from "@angular/common/http";
 import { JobModule } from "../job/job.module";
 import { StatsModule } from "../stats/stats.module";
+import { InventoryModule } from "app/inventory/inventory.module";
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { StatsModule } from "../stats/stats.module";
     MatRadioModule,
     HttpClientModule,
     JobModule,
+    InventoryModule,
     StatsModule,
   ],
   declarations: [],
