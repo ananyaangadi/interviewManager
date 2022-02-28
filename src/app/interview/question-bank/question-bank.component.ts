@@ -112,7 +112,7 @@ export class QuestionBankComponent implements OnInit {
         this.question=this.inventory[0].question
         this.answer=this.inventory[0].answer
         console.log(this.topic,this.question,this.answer)
-        this.toast.success();
+        // this.toast.success();
 
         this.inventory.forEach((element) => {
           this.right[element.id] = 0;

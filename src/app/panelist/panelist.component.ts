@@ -90,6 +90,7 @@ export class PanelistComponent implements OnInit {
   }
 
   viewFeedback(data: IInterView) {
+    console.log(data)
     const feedBackPreview: IInterviewFeedback[] = data.intFeedback;
     this.feedbackPreviewService.openDialog(feedBackPreview);
   }

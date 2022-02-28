@@ -22,6 +22,9 @@ import { ToastrService } from "ngx-toastr";
 import { ISchedule } from './schedule.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { ChangeDetectorRef } from '@angular/core';
+import { IInterView } from "app/shared/models/interview.interface";
+import { IInterviewFeedback } from "app/shared/models/interview-feedback.interface";
+import { FeedBackPreviewService } from "app/shared/services/feed-back-preview.service";
 
 
 export interface RowElement {
@@ -31,6 +34,7 @@ export interface RowElement {
   jbPostDate: string;
   jbSubDept: string;
   jbHmName: string;
+  jbHrName:string
 }
 
 interface Candidate {
@@ -153,6 +157,7 @@ export class JobDetailsComponent implements OnInit {
  jbDept: string
  jbSubDept: string
  jbHmName: string
+ jbHrName: string
  jbPostDate:string
  rounds = ['Technical','Managerial'];
  roundType = ""
@@ -192,6 +197,7 @@ export class JobDetailsComponent implements OnInit {
     "jbDesig",
     "jbPostDate",
     "jbHmName",
+    "jbHrName"
   ];
   displayedColumns2: string[] = [
     "canId",
@@ -214,7 +220,8 @@ export class JobDetailsComponent implements OnInit {
     { path: "/dashboard", title: "Upload", icon: "add", class: "" },
   ];
   
-  constructor(private ref: ChangeDetectorRef,private route: ActivatedRoute, private resolver: ComponentFactoryResolver, private JobService:JobService, private toast:ToastrService) { }
+  constructor(private ref: ChangeDetectorRef,private route: ActivatedRoute, private resolver: ComponentFactoryResolver, private JobService:JobService, 
+    private toast:ToastrService, private feedbackPreviewService:FeedBackPreviewService) { }
   ngOnInit() {
     this.openJobList = [];
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -262,6 +269,7 @@ export class JobDetailsComponent implements OnInit {
         this.jbDesig = element.jbDesig;
         this.jbSubDept = element.jbSubDept;
         this.jbHmName = element.jbHmName;
+        this.jbHrName = element.jbHrName;
         this.jbPostDate = element.jbPostDate;
       }
     });
@@ -349,6 +357,7 @@ isAllSelected() {
             jbPostDate: "",
             jbSubDept: "",
             jbHmName: "",
+            jbHrName: "",
           };
           obj.jbId = element.job.jbId;
           obj.jbDept = element.job.jbDept;
@@ -356,7 +365,9 @@ isAllSelected() {
           obj.jbPostDate = element.job.jbPostDate;
           obj.jbSubDept = element.job.jbSubDept;
           obj.jbHmName = element.job.jbHmName;
-
+          obj.jbHrName = element.job.jbHrName;
+          console.log("here")
+          console.log(res)
           this.candidates[obj.jbId] = element.canDetList;
 
           this.openJobList.push(obj);
@@ -499,5 +510,11 @@ isAllSelected() {
     this.availablePanelists = temp;
     this.action[ele.can.canId] = "";
     this.dataSource2 = new MatTableDataSource(this.availablePanelists);
+  }
+
+  viewFeedback(data: IInterView) {
+    console.log(data)
+    const feedBackPreview: IInterviewFeedback[] = data.intFeedback;
+    this.feedbackPreviewService.openDialog(feedBackPreview);
   }
 }
