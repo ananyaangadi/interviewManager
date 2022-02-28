@@ -1,160 +1,181 @@
-<div class="card">
-  <div class="card-body">
-    <form [formGroup]="createJobForm" (ngSubmit)="onSubmit()">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="example-full-width">
-              <input
-                matInput
-                placeholder="Job Title"
-                formControlName="title"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field>
-              <textarea
-                matInput
-                placeholder="Job Description"
-                formControlName="description"
-              ></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Hiring Manager Name"
-                formControlName="hm"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="HR Name" name="hr" type="text" />
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Department"
-                formControlName="department"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Sub Department"
-                name="subDepartment"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Minimum Experience"
-                formControlName="minExperience"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Maximum Experience"
-                formControlName="maxExperience"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Skills"
-                formControlName="skills"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Job Type"
-                formControlName="maxExperience"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Qualification"
-                formControlName="qualification"
-                type="text"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field appearance="fill">
-              <mat-label>Closing Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="dp3"
-                disabled
-                formControlName="closingDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="dp3"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+<div class="m-3">
+  <form [formGroup]="addJobForm">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Job Skill</mat-label>
+          <input
+            matInput
+            placeholder="Enter Job Skill"
+            type="text"
+            formControlName="jbSkill"
+            required
+          />
+        </mat-form-field>
       </div>
-
-      <div class="col-md-12">
-        <button
-          mat-raised-button
-          [disabled]="isButtonDisabled()"
-          type="submit"
-          color="primary"
-        >
-          Submit
-        </button>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Designation</mat-label>
+          <input
+            matInput
+            placeholder="Enter Designation"
+            type="text"
+            formControlName="jbDesig"
+            required
+          />
+        </mat-form-field>
       </div>
-      <div class="clearfix"></div>
-    </form>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="jbTyp" required>
+            <mat-option *ngFor="let type of jobTypes" [value]="type">
+              {{ type === "F" ? "Full-Time" : "Part-Time" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Qualification</mat-label>
+          <input
+            matInput
+            placeholder="Enter Qualification"
+            type="text"
+            formControlName="jbQual"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Min. Experience Years</mat-label>
+          <input
+            matInput
+            placeholder="Enter Min. Experience in Years"
+            type="text"
+            formControlName="jbMinExp"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Max. Experience Years</mat-label>
+          <input
+            matInput
+            placeholder="Enter Max. Experience in Year"
+            type="text"
+            formControlName="jbMaxExp"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Hiring Manager</mat-label>
+          <input
+            matInput
+            placeholder="Enter HM Name"
+            type="text"
+            formControlName="jbHmName"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>HR</mat-label>
+          <input
+            matInput
+            placeholder="Enter HR Name"
+            type="text"
+            formControlName="jbHrName"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Job Closing Date</mat-label>
+          <input
+            matInput
+            placeholder="Select Closing Date"
+            [matDatepicker]="picker"
+            formControlName="jbCloseDate"
+            [min]="minDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Department</mat-label>
+          <input
+            matInput
+            placeholder="Enter Department"
+            type="text"
+            formControlName="jbDept"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-label>Sub Department</mat-label>
+          <input
+            matInput
+            placeholder="Enter Sub-Department"
+            type="text"
+            formControlName="jbSubDept"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <input
+          [disabled]="this.resetFlag"
+          type="file"
+          (change)="this.onFilechange($event)"
+          class="form-control"
+          #formFile
+          required
+        />
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-end mt-2">
+    <button
+      [hidden]="!this.resetFlag"
+      mat-raised-button
+      color="primary"
+      (click)="resetForm()"
+      class="mr-1"
+    >
+      Add New Job
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!addJobForm.valid"
+      [hidden]="this.resetFlag"
+      (click)="uploadJob()"
+    >
+      Add Job
+    </button>
   </div>
+  <!-- <div class="clearfix"></div> -->
 </div>
