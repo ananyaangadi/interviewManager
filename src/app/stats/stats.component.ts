@@ -20,6 +20,7 @@ export class StatsComponent implements OnInit {
   ) {}
   async ngOnInit() {
     this.getStats();
+    this.getPendingInterviewCount();
   }
 
   getStats() {
@@ -27,6 +28,17 @@ export class StatsComponent implements OnInit {
       (res: { TotalCount: number }[]) => {
         this.stats.openPositions = res[0].TotalCount;
         this.stats.noOfHires = res[1].TotalCount;
+      },
+      (err) => {
+        this.toastr.error(err);
+      }
+    );
+  }
+
+  getPendingInterviewCount() {
+    this.statService.getPendingInterviewCount().subscribe(
+      (res: { intCount: string }[]) => {
+        this.stats.pendingInterviews = Number(res[0].intCount);
       },
       (err) => {
         this.toastr.error(err);

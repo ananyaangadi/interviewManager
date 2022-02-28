@@ -9,6 +9,7 @@ export const UPLOAD_CANDIDATE = "addCan";
 export const RECOMMENDED_QUESTIONS = "getrecommend";
 export const GET_INT_URL = "getint";
 export const DISPLAY_INV = "getkball";
+export const GET_PENDING_INTERVIEW_COUNT = "getIntCount";
 
 export const BASE_FUNCTION_URL =
   "https://msim-function-app.azurewebsites.net/api/";

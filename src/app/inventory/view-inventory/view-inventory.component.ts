@@ -7,7 +7,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { InventoryViewService } from "../inventory-view.service"
+import { InventoryViewService } from "../inventory-view.service";
 
 interface question {
   id: number;
@@ -73,7 +73,7 @@ export class ViewInventoryComponent implements OnInit {
   //     answer: "No fixed answer",
   //   },
   // ];
-  inventory:question[]=[]
+  inventory: question[] = [];
   addQuestion = false;
   interview = true;
 
@@ -91,28 +91,34 @@ export class ViewInventoryComponent implements OnInit {
     answer: new FormControl("", []),
   });
 
-  constructor(private service:InventoryViewService, private toast:ToastrService) {}
+  constructor(
+    private service: InventoryViewService,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit() {
-   
-    var req={pnlId:"PNL1"}
+    var req = { pnlId: "PNL1" };
     this.service.getRecommendedQuestions(req).subscribe(
       (res) => {
-        var temp = []
-        var id = 1
-        console.log(res)
-        res.forEach(element => {
-          var temp1 = {id:id,topic:element.kbTopic,question:element.kbQu,answer:element.kbSln}
-          console.log(temp1)
+        var temp = [];
+        var id = 1;
+        console.log(res);
+        res.forEach((element) => {
+          var temp1 = {
+            id: id,
+            topic: element.kbTopic,
+            question: element.kbQu,
+            answer: element.kbSln,
+          };
+          console.log(temp1);
           id++;
-          temp.push(temp1)
+          temp.push(temp1);
         });
-        this.inventory = temp
-        this.topic=this.inventory[0].topic
-        this.question=this.inventory[0].question
-        this.answer=this.inventory[0].answer
-        console.log(this.topic,this.question,this.answer)
-        this.toast.success();
+        this.inventory = temp;
+        this.topic = this.inventory[0].topic;
+        this.question = this.inventory[0].question;
+        this.answer = this.inventory[0].answer;
+        console.log(this.topic, this.question, this.answer);
 
         this.inventory.forEach((element) => {
           this.right[element.id] = 0;
@@ -124,7 +130,6 @@ export class ViewInventoryComponent implements OnInit {
         this.toast.error(err);
       }
     );
-
   }
   view(id) {
     if (id === this.inventory.length + 1) {
@@ -247,6 +252,4 @@ export class ViewInventoryComponent implements OnInit {
     }
     this.nextview(this.id + 1);
   }
-
-  
 }

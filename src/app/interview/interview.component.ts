@@ -39,9 +39,7 @@ export class InterviewComponent {
         this.router.navigate(["admin/panelist"]);
       },
       (err) => {
-        this.toastr.success(INTERVIEW_SAVE_SUCCESS);
-        this.isInterviewExisted = false;
-        this.router.navigate(["admin/panelist"]);
+        this.toastr.error(err);
       }
     );
   }

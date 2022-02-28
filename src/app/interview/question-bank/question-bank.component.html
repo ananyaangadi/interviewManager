@@ -81,28 +81,28 @@
                   <button
                     (click)="prevview(id - 1)"
                     mat-button
-                    class="btn btn-warning"
+                    class="btn btn-sm btn-warning"
                   >
                     Previous</button
                   >&nbsp;&nbsp;
                   <button
                     (click)="addRight()"
                     mat-button
-                    class="btn btn-success"
+                    class="btn btn-sm btn-success"
                   >
                     Satisfactory Answer</button
                   >&nbsp;&nbsp;
                   <button
                     (click)="addWrong()"
                     mat-button
-                    class="btn btn-danger"
+                    class="btn btn-sm btn-danger"
                   >
                     Unsatisfactory Answer</button
                   >&nbsp;&nbsp;
                   <button
                     (click)="nextview(id + 1)"
                     mat-button
-                    class="btn btn-warning"
+                    class="btn btn-sm btn-warning"
                   >
                     Next</button
                   >&nbsp;&nbsp;
@@ -112,7 +112,7 @@
                     mat-raised-button
                     type="submit"
                     color="primary"
-                    style="left: 300px"
+                    class="btn btn-sm"
                   >
                     Not Relevant
                   </button>
@@ -122,21 +122,21 @@
                     mat-raised-button
                     type="submit"
                     color="primary"
-                    style="left: 300px"
+                    class="btn btn-sm"
                   >
                     Relevant
                   </button>
+                  <mat-button
+                    (click)="endInterview()"
+                    mat-raised-button
+                    color="accent"
+                    class="btn btn-sm btn-success"
+                  >
+                    End Interview
+                  </mat-button>
                 </div>
               </div>
             </div>
-            <button
-              (click)="endInterview()"
-              mat-raised-button
-              color="accent"
-              style="left: 950px"
-            >
-              End Interview
-            </button>
           </div>
         </div>
       </div>
