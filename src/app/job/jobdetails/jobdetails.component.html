@@ -50,6 +50,12 @@
      <tr mat-row (click)="onJobSelect(row.jbId)" *matRowDef="let row; columns: displayedColumns;"></tr>
       
         </table>
+
+        <mat-paginator #paginator1 [hidden]="!showJobTable" [length]="openJobList.length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>
         <!-- <button *ngIf="newreq==false"(click)="newreq=true;"mat-raised-button class="btn btn-success pull-right">New Post</button>
                       <div class="clearfix"></div> -->
         
@@ -160,7 +166,14 @@
                      <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
                       
                         </table>
+                      
+                        
                     </div>
+                    <mat-paginator #paginator2 [hidden]="!showDetails" [length]="availablePanelists.length"
+                        [pageSize]="5"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        aria-label="Select page">
+          </mat-paginator>
                     <button *ngIf="showPortal==false"(click)="showDetails=false;showJobTable=true;" mat-raised-button type="submit" class="btn btn-warning pull-right">Back</button>
                     
                     <div class="clearfix"></div>

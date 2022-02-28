@@ -9,6 +9,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ToastrService } from "ngx-toastr";
 import { ISchedule } from './schedule.interface';
+import { MatPaginator } from '@angular/material/paginator';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 export interface RowElement {
@@ -72,6 +74,8 @@ export class JobDetailsComponent implements OnInit {
  rounds = ['Technical','Managerial'];
  roundType = ""
  roundNumber=0
+ @ViewChild('paginator1') paginator1: MatPaginator;
+@ViewChild('paginator2') paginator2: MatPaginator;
 
   newreq = false
   expandView = false
@@ -108,7 +112,7 @@ panelistSlots = {}
     { path: '/dashboard', title: 'Upload',  icon: 'add', class: '' },
   ];
   
-  constructor(private route: ActivatedRoute, private resolver: ComponentFactoryResolver, private JobService:JobService, private toast:ToastrService) { }
+  constructor(private ref: ChangeDetectorRef,private route: ActivatedRoute, private resolver: ComponentFactoryResolver, private JobService:JobService, private toast:ToastrService) { }
   ngOnInit() {
     this.openJobList = []
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -118,8 +122,16 @@ panelistSlots = {}
     //this.dataSource = new MatTableDataSource(hello);
     console.log("ere2")
     console.log(this.dataSource)
+    
+      
 
     }
+
+
+    ngAfterViewInit() {
+      
+    }
+
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -142,6 +154,8 @@ panelistSlots = {}
     });
 
     var temp = []
+
+    
     
     
 
@@ -174,7 +188,9 @@ panelistSlots = {}
     this.availablePanelists = temp
     console.log(this.availablePanelists)
     this.dataSource2 = new MatTableDataSource(temp)
+    this.ref.detectChanges();
 
+    this.dataSource2.paginator = this.paginator2;
 
   }
 
@@ -237,7 +253,7 @@ getOpenJobPositions() {
         console.log(this.openJobList)
 
         this.dataSource = new MatTableDataSource(this.openJobList);
-
+        this.dataSource.paginator = this.paginator1;
 
 
       });
