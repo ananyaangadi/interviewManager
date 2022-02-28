@@ -15,6 +15,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { UploadInventoryComponent } from "./upload-inventory/upload-inventory.component";
 import { ViewInventoryComponent } from "./view-inventory/view-inventory.component";
+import { FinalFeedbackComponent } from "./view-inventory/final-feedback/final-feedback.component";
 
 @NgModule({
   imports: [
@@ -34,7 +35,7 @@ import { ViewInventoryComponent } from "./view-inventory/view-inventory.componen
     MatRadioModule,
     HttpClientModule,
   ],
-  declarations: [UploadInventoryComponent, ViewInventoryComponent],
+  declarations: [UploadInventoryComponent, ViewInventoryComponent,FinalFeedbackComponent],
   exports: [UploadInventoryComponent, ViewInventoryComponent],
 })
 export class InventoryModule {}

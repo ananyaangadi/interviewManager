@@ -6,12 +6,13 @@ import {
   NgForm,
   Validators,
 } from "@angular/forms";
-import { InventoryViewService } from "../inventory-view.service";
+import { ToastrService } from "ngx-toastr";
+import { InventoryViewService } from "../inventory-view.service"
 
 interface question {
   id: number;
   topic: string;
-  subtopic: string;
+  //subtopic: string;
   question: string;
   answer: string;
 }
@@ -23,55 +24,56 @@ interface question {
 })
 export class ViewInventoryComponent implements OnInit {
   id = 1;
-  topic = "Java";
-  subtopic = "Gradle";
-  question = "What are the benefits of working with Gradle";
-  answer = "Best features of both Ant and Maven, highly scalable";
+  topic = "";
+  subtopic = "";
+  question = "";
+  answer = "";
   selectedIndex = 1;
-  inventory: question[] = [
-    {
-      id: 1,
-      topic: "Java",
-      subtopic: "Gradle",
-      question: "What are the benefits of working with Gradle",
-      answer: "Best features of both Ant and Maven, highly scalable",
-    },
-    {
-      id: 2,
-      topic: "C++",
-      subtopic: "OOP",
-      question: "How does virtual function dispatch work",
-      answer: "Using vtable and ptr",
-    },
-    {
-      id: 3,
-      topic: "System Design",
-      subtopic: "Architecture",
-      question: "Benefits of client-server vs P2P",
-      answer: "Client-server: less management overhead, P2P:more scalable",
-    },
-    {
-      id: 4,
-      topic: "Java",
-      subtopic: "Spring",
-      question: "What are the benefits of working with Spring",
-      answer: "Lightweight, flexible and loose coupling",
-    },
-    {
-      id: 5,
-      topic: "Behavioural",
-      subtopic: "Strengths",
-      question: "What do you consider your biggest strengths",
-      answer: "No fixed answer",
-    },
-    {
-      id: 6,
-      topic: "Managerial",
-      subtopic: "Team Management",
-      question: "Would you call yourself a team player",
-      answer: "No fixed answer",
-    },
-  ];
+  // inventory: question[] = [
+  //   {
+  //     id: 1,
+  //     topic: "Java",
+  //     //subtopic: "Gradle",
+  //     question: "What are the benefits of working with Gradle",
+  //     answer: "Best features of both Ant and Maven, highly scalable",
+  //   },
+  //   {
+  //     id: 2,
+  //     topic: "C++",
+  //     //subtopic: "OOP",
+  //     question: "How does virtual function dispatch work",
+  //     answer: "Using vtable and ptr",
+  //   },
+  //   {
+  //     id: 3,
+  //     topic: "System Design",
+  //     //subtopic: "Architecture",
+  //     question: "Benefits of client-server vs P2P",
+  //     answer: "Client-server: less management overhead, P2P:more scalable",
+  //   },
+  //   {
+  //     id: 4,
+  //     topic: "Java",
+  //     //subtopic: "Spring",
+  //     question: "What are the benefits of working with Spring",
+  //     answer: "Lightweight, flexible and loose coupling",
+  //   },
+  //   {
+  //     id: 5,
+  //     topic: "Behavioural",
+  //     //subtopic: "Strengths",
+  //     question: "What do you consider your biggest strengths",
+  //     answer: "No fixed answer",
+  //   },
+  //   {
+  //     id: 6,
+  //     topic: "Managerial",
+  //     //subtopic: "Team Management",
+  //     question: "Would you call yourself a team player",
+  //     answer: "No fixed answer",
+  //   },
+  // ];
+  inventory:question[]=[]
   addQuestion = false;
   interview = true;
 
@@ -89,14 +91,40 @@ export class ViewInventoryComponent implements OnInit {
     answer: new FormControl("", []),
   });
 
-  constructor() {}
+  constructor(private service:InventoryViewService, private toast:ToastrService) {}
 
   ngOnInit() {
-    this.inventory.forEach((element) => {
-      this.right[element.id] = 0;
-      this.wrong[element.id] = 0;
-      this.relevance[element.id] = true;
-    });
+   
+    var req={pnlId:"PNL1"}
+    this.service.getRecommendedQuestions(req).subscribe(
+      (res) => {
+        var temp = []
+        var id = 1
+        console.log(res)
+        res.forEach(element => {
+          var temp1 = {id:id,topic:element.kbTopic,question:element.kbQu,answer:element.kbSln}
+          console.log(temp1)
+          id++;
+          temp.push(temp1)
+        });
+        this.inventory = temp
+        this.topic=this.inventory[0].topic
+        this.question=this.inventory[0].question
+        this.answer=this.inventory[0].answer
+        console.log(this.topic,this.question,this.answer)
+        this.toast.success();
+
+        this.inventory.forEach((element) => {
+          this.right[element.id] = 0;
+          this.wrong[element.id] = 0;
+          this.relevance[element.id] = true;
+        });
+      },
+      (err) => {
+        this.toast.error(err);
+      }
+    );
+
   }
   view(id) {
     if (id === this.inventory.length + 1) {
@@ -110,7 +138,7 @@ export class ViewInventoryComponent implements OnInit {
     this.inventory.forEach((element) => {
       if (element.id == id) {
         this.topic = element.topic;
-        this.subtopic = element.subtopic;
+        //this.subtopic = element.subtopic;
         this.question = element.question;
         this.answer = element.answer;
       }
@@ -136,7 +164,7 @@ export class ViewInventoryComponent implements OnInit {
     this.inventory.forEach((element) => {
       if (element.id == id) {
         this.topic = element.topic;
-        this.subtopic = element.subtopic;
+        //this.subtopic = element.subtopic;
         this.question = element.question;
         this.answer = element.answer;
       }
@@ -164,7 +192,7 @@ export class ViewInventoryComponent implements OnInit {
     this.inventory.forEach((element) => {
       if (element.id == id) {
         this.topic = element.topic;
-        this.subtopic = element.subtopic;
+        //this.subtopic = element.subtopic;
         this.question = element.question;
         this.answer = element.answer;
       }
@@ -175,7 +203,7 @@ export class ViewInventoryComponent implements OnInit {
     const obj: question = {
       id: this.inventory.length + 1,
       topic: this.myForm.value.topic,
-      subtopic: this.myForm.value.subtopic,
+      //subtopic: this.myForm.value.subtopic,
       question: this.myForm.value.question,
       answer: this.myForm.value.answer,
     };
@@ -219,4 +247,6 @@ export class ViewInventoryComponent implements OnInit {
     }
     this.nextview(this.id + 1);
   }
+
+  
 }
