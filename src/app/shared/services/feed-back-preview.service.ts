@@ -13,7 +13,6 @@ export class FeedBackPreviewService {
     this.dialog.open(FeedBackPreviewComponent, {
       data: fb,
       width: "70vw",
-      height: "90vh",
     });
   }
 }

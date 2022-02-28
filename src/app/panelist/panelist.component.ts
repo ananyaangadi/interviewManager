@@ -82,7 +82,7 @@ export class PanelistComponent implements OnInit {
         this.pastList = res.filter((interview: IInterView) =>
           moment(interview.intDate).isBefore(new Date())
         );
-        this.upcomingInterviewList = new MatTableDataSource(this.upcomingList);
+        this.upcomingInterviewList = new MatTableDataSource(this.pastList);
         this.pastInterviewList = new MatTableDataSource(this.pastList);
       });
   }
