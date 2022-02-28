@@ -38,7 +38,8 @@ export class UploadService {
     return this.httpClient.post(UPLOAD_CANDIDATE, formParams);
 
     // Local testing
-    //   "https://msim-services.azurewebsites.net/addcan",
+    // return this.httpClient.post(
+    //   "https://msim-services.azurewebsites.net/addCan",
     //   formParams
     // );
   }
