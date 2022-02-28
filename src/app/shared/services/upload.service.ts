@@ -27,7 +27,6 @@ export class UploadService {
   public uploadCandidateFile(candidate: AddCandidate, file: File) {
     let formParams = new FormData();
     formParams.append("file", file);
-    console.log("Candidate: ", candidate);
     formParams.append("canaddJbId", candidate.canaddJbId);
     formParams.append("canaddName", candidate.canaddName);
     formParams.append("canaddEmail", candidate.canaddEmail);

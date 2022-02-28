@@ -32,7 +32,6 @@ export class UploadCandidateComponent implements OnInit {
 
     this.getJobService.getJobs().subscribe(
       (res) => {
-        console.log("res ", res);
         res.forEach((element) => {
           this.jobsArray.push(element.job);
         });
@@ -44,9 +43,7 @@ export class UploadCandidateComponent implements OnInit {
   }
 
   onFilechange(event: any) {
-    console.log(event.target.files[0]);
     this.file = event.target.files[0];
-    console.log("form status: ", this.addCandidateForm.status);
   }
 
   uploadCandidate() {

@@ -68,7 +68,6 @@ export class AddJobComponent {
   }
 
   addJob(addJobRequest: IAddJobRequest) {
-    console.log(addJobRequest);
     this.jobService.addJob(addJobRequest).subscribe(
       (res) => {
         this.toast.success(ADD_JOB_SUCCESS);

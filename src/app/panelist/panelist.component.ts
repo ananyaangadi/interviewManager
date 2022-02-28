@@ -51,10 +51,10 @@ export class PanelistComponent implements OnInit {
       .getInterviewListByPanelId()
       .subscribe((res: IInterView[]) => {
         this.upcomingList = res.filter((interview: IInterView) =>
-          moment(interview.intDate).isAfter(new Date('2000-11-16T00:00:00'))
+          moment(interview.intDate).isAfter(new Date())
         );
         this.pastList = res.filter((interview: IInterView) =>
-          moment(interview.intDate).isBefore(new Date('2000-11-16T00:00:00'))
+          moment(interview.intDate).isBefore(new Date())
         );
         this.upcomingInterviewList = new MatTableDataSource(this.upcomingList);
         this.pastInterviewList = new MatTableDataSource(this.pastList);
