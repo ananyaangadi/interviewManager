@@ -17,8 +17,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { StatsModule } from "app/stats/stats.module";
 import { JobModule } from "../job/job.module";
 import { PanelistComponent } from "./panelist.component";
-import { UpcomingCardComponent } from './upcoming-card/upcoming-card.component';
-import { CompletedCardComponent } from './completed-card/completed-card.component';
+import { UpcomingCardComponent } from "./upcoming-card/upcoming-card.component";
+import { CompletedCardComponent } from "./completed-card/completed-card.component";
+import { SharedModule } from "app/shared/shared.module";
 
 @NgModule({
   imports: [
@@ -40,8 +41,13 @@ import { CompletedCardComponent } from './completed-card/completed-card.componen
     JobModule,
     MatTabsModule,
     StatsModule,
+    SharedModule,
   ],
-  declarations: [PanelistComponent, UpcomingCardComponent, CompletedCardComponent],
+  declarations: [
+    PanelistComponent,
+    UpcomingCardComponent,
+    CompletedCardComponent,
+  ],
   exports: [PanelistComponent],
 })
 export class PanelistModule {}
