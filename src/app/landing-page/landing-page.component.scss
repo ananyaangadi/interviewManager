@@ -1,25 +1,26 @@
 body {
-    background-color: #00B0FF;
-    background-image: -webkit-linear-gradient(65deg, #00B0FF 50%, #1976D2 50% );
+  background-color: #00b0ff;
+  background-image: -webkit-linear-gradient(65deg, #00b0ff 50%, #1976d2 50%);
 }
 
-.main{
-    font-family: system-ui;
-    font-weight: 400;
+.main {
+  font-family: system-ui;
+  font-weight: 400;
 }
 
-.btn{
-    left: 35%;
-}
+// .btn {
+//   left: 35%;
+// }
 
-.card-title{
-    font-family: system-ui;
-    font-weight: bold;
-    font-size: 20px;
+.card-title {
+  font-family: system-ui;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
 }
 
 img {
-    width: 200px;
-    height: 200px;
-    margin: auto;
+  width: 400px;
+  height: 400px;
+  margin: auto;
 }
