@@ -42,7 +42,7 @@
       <li class="nav-item">
         <a class="nav-link" (click)="displayInv = true; displayInventory()">
           <i class="material-icons">list_alt</i>
-          <p>Inventory</p>
+          <p>Knowledge Bank</p>
         </a>
       </li>
       <li class="nav-item">
@@ -77,7 +77,7 @@
 
       <mat-expansion-panel [expanded]="expandUpload" id="upload" hideToggle>
         <mat-tab-group>
-          <mat-tab label="Upload Inventory ">
+          <mat-tab label="Upload Knowledge Bank ">
             <app-upload-inventory></app-upload-inventory>
           </mat-tab>
           <mat-tab label="Upload New Job">
@@ -106,7 +106,7 @@ Open New Window
 
 <div *ngIf="displayInv" class="main-content">
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <h3>Inventory</h3>
+  <h3>Knowledge Bank</h3>
 
   <mat-table id="inv" [dataSource]="dataSource3" class="table table-hover">
     <!-- ID Column -->
