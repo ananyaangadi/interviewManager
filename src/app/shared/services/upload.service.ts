@@ -51,7 +51,7 @@ export class UploadService {
   public uploadJobFile(job: IAddJobRequest, file: File): Observable<any> {
     let formParams = new FormData();
     formParams.append("file", file);
-    formParams.append("jbId", job.jbId);
+    // formParams.append("jbId", job.jbId);
     formParams.append("jbHrId", job.jbHrId);
     formParams.append("jbHmId", job.jbHmId);
     formParams.append("jbHrName", job.jbHrName);
@@ -66,14 +66,14 @@ export class UploadService {
     formParams.append("jbQual", job.jbQual);
     formParams.append("jbPostDate", job.jbPostDate);
     formParams.append("jbStatus", job.jbStatus);
-    formParams.append("jbDir", job.jbDir);
+    // formParams.append("jbDir", job.jbDir);
     formParams.append("jbCloseDate", job.jbCloseDate);
     return this.httpClient.post(UPLOAD_JOB, formParams);
 
     // Local testing
-    // return this.httpClient.post<any>(
-    //   "https://msim-services.azurewebsites.net/addJob",
-    //   formParams
-    // );
+    //   return this.httpClient.post<any>(
+    //     "https://msim-services.azurewebsites.net/addJob",
+    //     formParams
+    //   );
   }
 }

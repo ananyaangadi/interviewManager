@@ -29,7 +29,7 @@ export class UploadCandidateComponent implements OnInit {
       canaddName: [{ value: "", disabled: false }, Validators.required],
       canaddEmail: [{ value: "", disabled: false }, Validators.required],
       canaddSkill: [{ value: "", disabled: false }, Validators.required],
-      canaddQual: [null],
+      canaddQual: [{ value: "", disabled: false }, Validators.required],
       canaddStatus: [null],
       canaddResumeDir: [null],
     });
