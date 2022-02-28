@@ -31,7 +31,6 @@ interface Application {
   candidates: Array<Candidate>;
 }
 
-
 const applications: Application[] = [
   {
     id: 1,
@@ -113,9 +112,6 @@ const applications: Application[] = [
   },
 ];
 
-
-
-
 const initialSelection = [];
 const allowMultiSelect = true;
 
@@ -125,9 +121,8 @@ const allowMultiSelect = true;
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   selection: SelectionModel<any>;
   panelOpenState = false;
   showDetails = false;
@@ -142,15 +137,22 @@ export class DashboardComponent implements OnInit {
   expandView = false;
   expandUpload = false;
   expandPanelistDBoard = false;
-  displayInv=false;
+  displayInv = false;
   showPortal = false;
   panelists = ["Jane Austen", "Virginia Woolf", "Ruth Ware"];
-  questionbank = []
-  dataSource3: MatTableDataSource<any> ; 
+  questionbank = [];
+  dataSource3: MatTableDataSource<any>;
 
   /* display Inventory */
 
-  displayedColumns3:string[]=['id','topic','diflevel','minexp','question','expectedans']
+  displayedColumns3: string[] = [
+    "id",
+    "topic",
+    "diflevel",
+    "minexp",
+    "question",
+    "expectedans",
+  ];
 
   slots = {
     "Jane Austen": ["21/02/22: 10:30 to 11:15", "21/02/22: 14:30 to 15:15"],
@@ -173,17 +175,20 @@ export class DashboardComponent implements OnInit {
   ];
 
   foods = ["1:Java Developer", "2:UI/UX Designer", "3:Data Engineer"];
-  dataSource: MatTableDataSource<RowElement> ;
+  dataSource: MatTableDataSource<RowElement>;
   dataSource2: MatTableDataSource<Candidate> = new MatTableDataSource(
     applications[0]["candidates"]
   );
-  
 
   menuItems = [
     { path: "/dashboard", title: "View", icon: "dashboard", class: "" },
     { path: "/dashboard", title: "Upload", icon: "add", class: "" },
   ];
-  constructor(private service: DashboardService, private http: HttpClient,private toast:ToastrService) {}
+  constructor(
+    private service: DashboardService,
+    private http: HttpClient,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit() {
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -191,8 +196,6 @@ export class DashboardComponent implements OnInit {
       allowMultiSelect,
       initialSelection
     );
-
-
   }
 
   ngAfterViewInit() {
@@ -211,7 +214,6 @@ export class DashboardComponent implements OnInit {
     applications.forEach((element) => {
       if (element.id == id) {
         this.dataSource2 = new MatTableDataSource(element.candidates);
-        console.log(element.candidates[0].id);
         this.id = id;
         this.title = element.title;
         this.description = element.description;
@@ -242,17 +244,12 @@ export class DashboardComponent implements OnInit {
     this.http.get("https://msim-services.azurewebsites.net").subscribe(
       (response) => {
         //next() callback
-        console.log("response received");
-        console.log(response);
       },
       (error) => {
         //error() callback
-        console.error("Request failed with error");
-        console.log(error);
       },
       () => {
         //complete() callback
-        console.error("Request completed"); //This is actually not needed
       }
     );
   }
@@ -268,24 +265,23 @@ export class DashboardComponent implements OnInit {
   displayInventory() {
     this.service.displayInv().subscribe(
       (res) => {
-        var temp = []
-        res.forEach(element => {
-          var temp1={
-            id:element.imKbId,
-            topic:element.imKbTopic,
-            subtopic:element.imKbSubTopic,
-            diflevel:element.imKbDifLevel,
-            minexp:element.imKbMinExp,
-            maxexp:element.imKbMaxExp,
-            question:element.imKbQues,
-            expectedans:element.imKbSolu
-          }
-          temp.push(temp1)
+        var temp = [];
+        res.forEach((element) => {
+          var temp1 = {
+            id: element.imKbId,
+            topic: element.imKbTopic,
+            subtopic: element.imKbSubTopic,
+            diflevel: element.imKbDifLevel,
+            minexp: element.imKbMinExp,
+            maxexp: element.imKbMaxExp,
+            question: element.imKbQues,
+            expectedans: element.imKbSolu,
+          };
+          temp.push(temp1);
         });
-        this.questionbank = temp
-        this.dataSource3 = new MatTableDataSource(this.questionbank)
+        this.questionbank = temp;
+        this.dataSource3 = new MatTableDataSource(this.questionbank);
         this.dataSource3.paginator = this.paginator;
-        console.log(res)
         this.toast.success();
       },
       (err) => {

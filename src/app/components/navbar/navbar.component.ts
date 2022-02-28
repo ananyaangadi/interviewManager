@@ -120,9 +120,8 @@ export class NavbarComponent implements OnInit {
 
   getTitle() {
     let titlee = this.location.prepareExternalUrl(this.location.path());
-    console.log("titlee=",titlee)
     if (titlee === "#/admin/panelist") {
-      return "Panelist Dashboard"
+      return "Panelist Dashboard";
     }
     if (titlee.charAt(0) === "#") {
       titlee = titlee.slice(1);

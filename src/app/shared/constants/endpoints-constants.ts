@@ -1,4 +1,5 @@
 export const BASE_URL = "https://msim-services.azurewebsites.net/";
+
 export const CREATE_JOB_URL = "addJob";
 export const GET_JOB_URL = "getjob";
 
@@ -9,5 +10,7 @@ export const RECOMMENDED_QUESTIONS = "getrecommend";
 export const GET_INT_URL = "getint";
 export const DISPLAY_INV = "getkball";
 
-export const INTERVIEW_URL =
-  "https://msim-function-app.azurewebsites.net/api/ImInt";
+export const BASE_FUNCTION_URL =
+  "https://msim-function-app.azurewebsites.net/api/";
+export const INTERVIEW_URL = "ImInt";
+export const JOB_COUNT = "JobCount";

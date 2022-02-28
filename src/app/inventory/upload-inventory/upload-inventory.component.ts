@@ -11,7 +11,6 @@ export class UploadInventoryComponent {
   constructor(private inventoryService: UploadService) {}
 
   onFilechange(event: any) {
-    console.log(event.target.files[0]);
     this.file = event.target.files[0];
   }
 
