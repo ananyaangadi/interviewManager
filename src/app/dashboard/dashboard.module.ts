@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
@@ -17,7 +17,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { JobModule } from "../job/job.module";
 import { StatsModule } from "../stats/stats.module";
 import { InventoryModule } from "app/inventory/inventory.module";
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { CandidateModule } from "app/candidate/candidate.module";
 
 @NgModule({
@@ -41,9 +41,10 @@ import { CandidateModule } from "app/candidate/candidate.module";
     InventoryModule,
     CandidateModule,
     StatsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [DatePipe],
 })
 export class DashboardModule {}

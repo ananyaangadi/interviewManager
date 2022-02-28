@@ -1,18 +1,19 @@
 export interface IAddJobRequest {
-  closingDate?: Date;
-  hmId?: number;
-  hmName?: string;
-  hrId?: number;
-  hrName?: string;
-  jobDept?: string;
-  jobDesignation?: string;
-  jobMaxExp?: number;
-  jobMinExp?: number;
-  jobSkill?: string;
-  jobType?: string;
-  jobTitle?: string;
-  postingDate?: Date;
-  qualification?: string;
-  subDept?: string;
-  description?: string;
+  jbId?: string;
+  jbHrId?: string;
+  jbHmId?: string;
+  jbHrName?: string;
+  jbHmName?: string;
+  jbDesig?: string;
+  jbMinExp?: string;
+  jbMaxExp?: string;
+  jbTyp?: string;
+  jbDept?: string;
+  jbSubDept?: string;
+  jbSkill?: string;
+  jbQual?: string;
+  jbPostDate?: string;
+  jbStatus?: string;
+  jbDir?: string;
+  jbCloseDate?: string;
 }
