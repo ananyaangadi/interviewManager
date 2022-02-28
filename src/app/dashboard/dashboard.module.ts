@@ -17,6 +17,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { JobModule } from "../job/job.module";
 import { StatsModule } from "../stats/stats.module";
 import { InventoryModule } from "app/inventory/inventory.module";
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { InventoryModule } from "app/inventory/inventory.module";
     JobModule,
     InventoryModule,
     StatsModule,
+    MatPaginatorModule
   ],
   declarations: [],
 })

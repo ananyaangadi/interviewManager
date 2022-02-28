@@ -1,4 +1,4 @@
-<div
+<div *ngIf="displayInventory"
   class="sidebar"
   data-color="danger"
   data-background-color="white"
@@ -28,10 +28,10 @@
           class="nav-link"
           pageScroll
           href="#view"
-          (click)="expandView = true; expandUpload = false"
+          (click)="displayInv=false;expandView = true; expandUpload = false;"
         >
           <i class="material-icons">dashboard</i>
-          <p>View</p>
+          <p>My Items</p>
         </a>
       </li>
       <li class="nav-item">
@@ -39,10 +39,20 @@
           class="nav-link"
           pageScroll
           href="#upload"
-          (click)="expandUpload = true; expandView = false"
+          (click)="displayInv=false;expandUpload = true; expandView = false"
         >
           <i class="material-icons">add</i>
           <p>Upload</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          
+          (click)="displayInv = true;displayInventory()"
+        >
+          <i class="material-icons">list_alt</i>
+          <p>Display Inventory</p>
         </a>
       </li>
     </ul>
@@ -53,7 +63,7 @@
   ></div>
 </div>
 
-<div class="main-content">
+<div *ngIf="!displayInv" class="main-content">
   <app-stats></app-stats>
 
   <div class="col-md-12">
@@ -137,3 +147,71 @@
 <!-- <a (click)="openInventory()">
 Open New Window
 </a> -->
+
+
+<div *ngIf="displayInv" class="main-content">
+
+  <br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<h3>Inventory</h3>
+
+
+<mat-table id="inv" [dataSource]="dataSource3" class="table table-hover">
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{element.id}}</td>
+  </ng-container>
+  <!-- Dept Column -->
+  <ng-container matColumnDef="topic">
+    <th mat-header-cell *matHeaderCellDef>Topic/Subtopic</th>
+    <td mat-cell *matCellDef="let element">{{element.topic}}/{{element.subtopic}}</td>
+</ng-container>
+<!-- Dept Column -->
+<!-- <ng-container matColumnDef="subtopic">
+  <th mat-header-cell *matHeaderCellDef>SubDept</th>
+  <td mat-cell *matCellDef="let element">{{element.subtopic}}</td>
+</ng-container> -->
+
+  <!-- Job Title Column -->
+  <ng-container matColumnDef="diflevel">
+      <th mat-header-cell *matHeaderCellDef>Difficulty</th>
+      <td mat-cell *matCellDef="let element">{{element.diflevel}}</td>
+  </ng-container>
+  <!-- Candidate Name Column -->
+  <ng-container matColumnDef="minexp">
+      <th mat-header-cell *matHeaderCellDef>Min Exp/Max Exp</th>
+      <td mat-cell *matCellDef="let element">{{element.minexp}}/{{element.maxexp}}</td>
+  </ng-container>
+
+  <!-- Status Column -->
+  <!-- <ng-container matColumnDef="maxexp">
+      <th mat-header-cell *matHeaderCellDef>Max Exp.</th>
+      <td mat-cell *matCellDef="let element">{{element.maxexp}}</td>
+  </ng-container> -->
+
+  <!-- Candidate Name Column -->
+  <ng-container matColumnDef="question">
+    <th mat-header-cell *matHeaderCellDef>Question</th>
+    <td mat-cell *matCellDef="let element">{{element.question}}</td>
+</ng-container>
+
+<!-- Status Column -->
+<ng-container matColumnDef="expectedans">
+    <th mat-header-cell *matHeaderCellDef>Expected Answer</th>
+    <td mat-cell *matCellDef="let element">{{element.expectedans}}</td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+<!-- <tr mat-row [routerLink]="['/view',row.ID]" *matRowDef="let row; columns: displayedColumns;"></tr> -->
+<tr mat-row  *matRowDef="let row; columns: displayedColumns3;"></tr>
+
+</mat-table>
+
+</div>
+
+<mat-paginator [hidden]="!displayInv" [length]="questionbank.length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>

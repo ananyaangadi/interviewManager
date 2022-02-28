@@ -6,3 +6,4 @@ export const SCHEDULE_URL = "saveSchedule";
 export const UPLOAD_INVENTORY = "upload/inventory";
 export const RECOMMENDED_QUESTIONS = "getrecommend";
 export const GET_INT_URL = "getint";
+export const DISPLAY_INV = "getkball"

@@ -121,7 +121,7 @@ export class NavbarComponent implements OnInit {
   getTitle() {
     let titlee = this.location.prepareExternalUrl(this.location.path());
     console.log("titlee=",titlee)
-    if (titlee === "#/dashboard/panelist") {
+    if (titlee === "#/admin/panelist") {
       return "Panelist Dashboard"
     }
     if (titlee.charAt(0) === "#") {
@@ -136,6 +136,6 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return "Dashboard";
+    return "HR/HM Dashboard";
   }
 }

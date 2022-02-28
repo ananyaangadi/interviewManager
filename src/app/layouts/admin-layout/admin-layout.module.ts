@@ -21,6 +21,7 @@ import { StatsModule } from "../../stats/stats.module";
 
 import { MatExpansionModule } from "@angular/material/expansion";
 import { InventoryModule } from "app/inventory/inventory.module";
+import { MatPaginatorModule } from "@angular/material/paginator";
 @NgModule({
   imports: [
     CommonModule,
@@ -43,6 +44,7 @@ import { InventoryModule } from "app/inventory/inventory.module";
     InventoryModule,
     PanelistModule,
     StatsModule,
+    MatPaginatorModule
   ],
   declarations: [DashboardComponent],
 })
