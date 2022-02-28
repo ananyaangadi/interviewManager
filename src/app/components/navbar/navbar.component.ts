@@ -135,6 +135,6 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return "HR/HM Dashboard";
+    return "Hiring Dashboard";
   }
 }

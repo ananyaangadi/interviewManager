@@ -66,29 +66,36 @@
     <div class="row">
       <div class="col-md-12">
         <input
+          [disabled]="this.resetFlag"
           type="file"
           (change)="this.onFilechange($event)"
           class="form-control"
-          id="formFile"
+          #formFile
           required
         />
       </div>
     </div>
   </form>
 
-  <!-- <button float="right" mat-flat-button color="primary">
-    Upload resume
-  </button> -->
-  <!-- <div class="col-md-12"> -->
-
   <div class="d-flex justify-content-end mt-5">
+    <button
+      [hidden]="!this.resetFlag"
+      mat-raised-button
+      color="primary"
+      (click)="resetForm()"
+      class="mr-1"
+    >
+      Add New Candidate
+    </button>
+
     <button
       mat-raised-button
       color="primary"
       [disabled]="!addCandidateForm.valid"
+      [hidden]="this.resetFlag"
       (click)="uploadCandidate()"
     >
-      Upload Candidate
+      Add Candidate
     </button>
   </div>
   <!-- <div class="clearfix"></div> -->

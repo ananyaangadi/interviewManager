@@ -12,19 +12,22 @@ import {
 export class UploadService {
   constructor(private httpClient: HttpClient) {}
 
-  public uploadInventoryFile(file: File) {
+  public uploadInventoryFile(file: File): Observable<any> {
     let formParams = new FormData();
     formParams.append("file", file);
-    return this.httpClient.post(UPLOAD_INVENTORY, formParams);
+    // return this.httpClient.post(UPLOAD_INVENTORY, formParams);
 
     // Local Testing
-    // return this.httpClient.post(
-    //   "https://msim-services.azurewebsites.net/upload/inventory",
-    //   formParams
-    // );
+    return this.httpClient.post(
+      "https://msim-services.azurewebsites.net/upload/inventory",
+      formParams
+    );
   }
 
-  public uploadCandidateFile(candidate: AddCandidate, file: File) {
+  public uploadCandidateFile(
+    candidate: AddCandidate,
+    file: File
+  ): Observable<any> {
     let formParams = new FormData();
     formParams.append("file", file);
     formParams.append("canaddJbId", candidate.canaddJbId);
@@ -34,12 +37,12 @@ export class UploadService {
     formParams.append("canaddQual", candidate.canaddQual);
     formParams.append("canaddStatus", candidate.canaddStatus);
     formParams.append("canaddResumeDir", candidate.canaddResumeDir);
-    return this.httpClient.post(UPLOAD_CANDIDATE, formParams);
+    // return this.httpClient.post(UPLOAD_CANDIDATE, formParams);
 
     // Local testing
-    // return this.httpClient.post(
-    //   "https://msim-services.azurewebsites.net/addCan",
-    //   formParams
-    // );
+    return this.httpClient.post<any>(
+      "https://msim-services.azurewebsites.net/addCan",
+      formParams
+    );
   }
 }
