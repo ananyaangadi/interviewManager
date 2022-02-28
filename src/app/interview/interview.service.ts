@@ -16,8 +16,9 @@ import { IQuestionBank } from "./questionBank.interface";
 export class InterviewService {
   constructor(private http: HttpClient) {}
 
-  getRecommendedQuestions(param: IQuestionBankRequest): Observable<any> {
-    return this.http.get(BASE_URL + RECOMMENDED_QUESTIONS);
+  
+  getRecommendedQuestions(param: any): Observable<any> {
+    return this.http.get("https://msim-services.azurewebsites.net/getRecommend?pnlId=P34570");
   }
 
   submitInterviewFeedback(payload: IInterView): Observable<any> {
