@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { InventoryUploadService } from "../inventory-upload.service";
+import { UploadService } from "app/shared/services/upload.service";
 
 @Component({
   selector: "app-upload-inventory",
@@ -8,7 +8,7 @@ import { InventoryUploadService } from "../inventory-upload.service";
 })
 export class UploadInventoryComponent {
   file: File = null;
-  constructor(private inventoryService: InventoryUploadService) {}
+  constructor(private inventoryService: UploadService) {}
 
   onFilechange(event: any) {
     console.log(event.target.files[0]);

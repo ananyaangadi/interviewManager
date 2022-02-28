@@ -1,12 +1,15 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { UPLOAD_INVENTORY } from "../shared/constants/endpoints-constants";
+import {
+  UPLOAD_CANDIDATE,
+  UPLOAD_INVENTORY,
+} from "../constants/endpoints-constants";
 
 @Injectable({
   providedIn: "root",
 })
-export class InventoryUploadService {
+export class UploadService {
   constructor(private httpClient: HttpClient) {}
 
   public uploadInventoryFile(file: File) {
@@ -21,10 +24,7 @@ export class InventoryUploadService {
     // );
   }
 
-  public uploadCandidateFile(
-    candidate: AddCandidate,
-    file: File
-  ): Observable<AddCandidate> {
+  public uploadCandidateFile(candidate: AddCandidate, file: File) {
     let formParams = new FormData();
     formParams.append("file", file);
     console.log("Candidate: ", candidate);
@@ -35,11 +35,11 @@ export class InventoryUploadService {
     formParams.append("canaddQual", candidate.canaddQual);
     formParams.append("canaddStatus", candidate.canaddStatus);
     formParams.append("canaddResumeDir", candidate.canaddResumeDir);
-    return this.httpClient.post<AddCandidate>(
-      // UPLOAD_CANDIDATE, formParams);
+    return this.httpClient.post(UPLOAD_CANDIDATE, formParams);
 
-      "https://msim-services.azurewebsites.net/addcan",
-      formParams
-    );
+    // Local testing
+    //   "https://msim-services.azurewebsites.net/addcan",
+    //   formParams
+    // );
   }
 }

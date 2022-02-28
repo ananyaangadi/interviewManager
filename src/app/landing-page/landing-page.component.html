@@ -5,7 +5,7 @@
         <img src="/assets/img/hr.png" alt="HR" />
         <div class="card-body">
           <h5 class="card-title">HR/HM Portal</h5>
-          <p class="card-text">
+          <!-- <p class="card-text">
             Portal for Hiring Manager's/HR's and host the following features:
           </p>
           <ul>
@@ -14,10 +14,15 @@
             <li>View & Upload Candidates</li>
             <li>Schedule Interviews</li>
             <li>View Candidate's Feedbacks</li>
-          </ul>
-          <button class="btn btn-primary" [routerLink]="['/admin/dashboard']">
-            Open
-          </button>
+          </ul> -->
+          <div class="d-flex justify-content-center">
+            <button
+              class="btn btn-primary d-flex justify-content-center"
+              [routerLink]="['/admin/dashboard']"
+            >
+              Open
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -26,7 +31,7 @@
         <img src="/assets/img/panelist.png" alt="panelist" />
         <div class="card-body">
           <h5 class="card-title">Panelist Portal</h5>
-          <p class="card-text">
+          <!-- <p class="card-text">
             Portal for Panelist and host the following features:
           </p>
           <ul>
@@ -35,10 +40,12 @@
             <li>Add/Remove suggested questions</li>
             <li>Conduct interview</li>
             <li>Add/Update feedback</li>
-          </ul>
-          <button class="btn btn-primary" [routerLink]="['/admin/panelist']">
-            Open
-          </button>
+          </ul> -->
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" [routerLink]="['/admin/panelist']">
+              Open
+            </button>
+          </div>
         </div>
       </div>
     </div>
