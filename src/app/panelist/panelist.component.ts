@@ -75,6 +75,7 @@ export class PanelistComponent implements OnInit {
       .getInterviewListByPanelId()
       .subscribe((res: IInterView[]) => {
         res = res.map((int) => this.parseFeedbackData(int)); // deserialise json
+
         this.upcomingList = res.filter((interview: IInterView) =>
           moment(interview.intDate).isAfter(new Date())
         );

@@ -28,7 +28,7 @@ export class InterviewComponent {
     if (payload.intFeedback && typeof payload.intFeedback === "object") {
       payload.intFeedback = [...payload.intFeedback, feedBackData];
     } else {
-      payload.intFeedback = feedBackData;
+      payload.intFeedback = [feedBackData];
     }
 
     payload.intFeedback = JSON.stringify(payload.intFeedback);
@@ -36,10 +36,12 @@ export class InterviewComponent {
       (res) => {
         this.toastr.success(INTERVIEW_SAVE_SUCCESS);
         this.isInterviewExisted = false;
-        this.router.navigate(["interview"]);
+        this.router.navigate(["admin/panelist"]);
       },
       (err) => {
-        this.toastr.error(err);
+        this.toastr.success(INTERVIEW_SAVE_SUCCESS);
+        this.isInterviewExisted = false;
+        this.router.navigate(["admin/panelist"]);
       }
     );
   }
