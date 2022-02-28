@@ -4,10 +4,22 @@
       type="file"
       (change)="this.onFilechange($event)"
       class="form-control mr-3"
-      id="formFile"
+      #formFile
+      [disabled]="this.disableFlag"
     />
     <button
-      class="ml-3"
+      [hidden]="!this.disableFlag"
+      mat-raised-button
+      color="primary"
+      (click)="resetForm()"
+      class="mr-1"
+    >
+      Upload new file
+    </button>
+    <button
+      [disabled]="this.disableFlag"
+      [hidden]="this.disableFlag"
+      class="ml-1"
       mat-raised-button
       color="primary"
       (click)="uploadInventory()"

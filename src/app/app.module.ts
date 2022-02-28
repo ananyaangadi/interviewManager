@@ -1,29 +1,23 @@
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AgmCoreModule } from "@agm/core";
+import { CdkTableModule } from "@angular/cdk/table";
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
-import { CdkTableModule } from "@angular/cdk/table";
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
 import { MatRadioModule } from "@angular/material/radio";
-import { PanelistComponent } from "./panelist/panelist.component";
-import { PanelistModule } from "./panelist/panelist.module";
-
+import { MatSelectModule } from "@angular/material/select";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterModule } from "@angular/router";
+import { ToastrModule } from "ngx-toastr";
+import { AppFooterComponent } from "./app-footer/app-footer.component";
+import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing";
 import { ComponentsModule } from "./components/components.module";
-
-import { AppComponent } from "./app.component";
-
-import { AgmCoreModule } from "@agm/core";
-import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-
 import { LandingPageComponent } from "./landing-page/landing-page.component";
-import { AppFooterComponent } from "./app-footer/app-footer.component";
-import { InterceptorService } from "./interceptor/interceptor.service";
-import { ToastrModule } from "ngx-toastr";
+import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
+import { PanelistModule } from "./panelist/panelist.module";
 
 @NgModule({
   imports: [
@@ -51,13 +45,6 @@ import { ToastrModule } from "ngx-toastr";
     AdminLayoutComponent,
     LandingPageComponent,
     AppFooterComponent,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent],
 })
