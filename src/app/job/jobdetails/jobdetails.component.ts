@@ -19,13 +19,12 @@ import { JobService } from "../job.service";
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { ToastrService } from "ngx-toastr";
-import { ISchedule } from './schedule.interface';
-import { MatPaginator } from '@angular/material/paginator';
-import { ChangeDetectorRef } from '@angular/core';
+import { ISchedule } from "./schedule.interface";
+import { MatPaginator } from "@angular/material/paginator";
+import { ChangeDetectorRef } from "@angular/core";
 import { IInterView } from "app/shared/models/interview.interface";
 import { IInterviewFeedback } from "app/shared/models/interview-feedback.interface";
 import { FeedBackPreviewService } from "app/shared/services/feed-back-preview.service";
-
 
 export interface RowElement {
   jbId: number;
@@ -34,7 +33,7 @@ export interface RowElement {
   jbPostDate: string;
   jbSubDept: string;
   jbHmName: string;
-  jbHrName:string
+  jbHrName: string;
 }
 
 interface Candidate {
@@ -147,29 +146,29 @@ export class JobDetailsComponent implements OnInit {
   injector: Injector;
   OpenWindow: any;
   selection: SelectionModel<any>;
-  panelOpenState = false
-  showDetails = false
-  showJobTable = true
-  selectedJob = 1
-  details = applications
-  jbId: number
- jbDesig: string
- jbDept: string
- jbSubDept: string
- jbHmName: string
- jbHrName: string
- jbPostDate:string
- rounds = ['Technical','Managerial'];
- roundType = ""
- roundNumber=0
- @ViewChild('paginator1') paginator1: MatPaginator;
-@ViewChild('paginator2') paginator2: MatPaginator;
+  panelOpenState = false;
+  showDetails = false;
+  showJobTable = true;
+  selectedJob = 1;
+  details = applications;
+  jbId: number;
+  jbDesig: string;
+  jbDept: string;
+  jbSubDept: string;
+  jbHmName: string;
+  jbHrName: string;
+  jbPostDate: string;
+  rounds = ["Technical", "Managerial"];
+  roundType = "";
+  roundNumber = 0;
+  @ViewChild("paginator1") paginator1: MatPaginator;
+  @ViewChild("paginator2") paginator2: MatPaginator;
 
-  newreq = false
-  expandView = false
-  expandUpload = false
-  expandPanelistDBoard = false
-  showPortal = false
+  newreq = false;
+  expandView = false;
+  expandUpload = false;
+  expandPanelistDBoard = false;
+  showPortal = false;
   openJobList: RowElement[];
   panelists = ["Jane Austen", "Virginia Woolf", "Ruth Ware"];
   candidateTimeSlot = {};
@@ -197,7 +196,7 @@ export class JobDetailsComponent implements OnInit {
     "jbDesig",
     "jbPostDate",
     "jbHmName",
-    "jbHrName"
+    "jbHrName",
   ];
   displayedColumns2: string[] = [
     "canId",
@@ -219,9 +218,15 @@ export class JobDetailsComponent implements OnInit {
     { path: "/dashboard", title: "View", icon: "dashboard", class: "" },
     { path: "/dashboard", title: "Upload", icon: "add", class: "" },
   ];
-  
-  constructor(private ref: ChangeDetectorRef,private route: ActivatedRoute, private resolver: ComponentFactoryResolver, private JobService:JobService, 
-    private toast:ToastrService, private feedbackPreviewService:FeedBackPreviewService) { }
+
+  constructor(
+    private ref: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private resolver: ComponentFactoryResolver,
+    private JobService: JobService,
+    private toast: ToastrService,
+    private feedbackPreviewService: FeedBackPreviewService
+  ) {}
   ngOnInit() {
     this.openJobList = [];
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -241,21 +246,15 @@ export class JobDetailsComponent implements OnInit {
       },
     ];
     //this.dataSource = new MatTableDataSource(hello);
-    console.log("ere2")
-    console.log(this.dataSource)
-    
-      
+    console.log("ere2");
+    console.log(this.dataSource);
+  }
 
-    }
+  ngAfterViewInit() {}
 
-
-    ngAfterViewInit() {
-      
-    }
-
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   onJobSelect(id) {
@@ -303,13 +302,12 @@ export class JobDetailsComponent implements OnInit {
       });
       temp.push(row);
     });
-    this.availablePanelists = temp
-    console.log(this.availablePanelists)
-    this.dataSource2 = new MatTableDataSource(temp)
+    this.availablePanelists = temp;
+    console.log(this.availablePanelists);
+    this.dataSource2 = new MatTableDataSource(temp);
     this.ref.detectChanges();
 
     this.dataSource2.paginator = this.paginator2;
-
   }
 
   setPanelist(value, names, ids, element) {
@@ -328,16 +326,11 @@ export class JobDetailsComponent implements OnInit {
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected == numRows;
-}
-
-
-
-
-
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected == numRows;
+  }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
@@ -366,15 +359,15 @@ isAllSelected() {
           obj.jbSubDept = element.job.jbSubDept;
           obj.jbHmName = element.job.jbHmName;
           obj.jbHrName = element.job.jbHrName;
-          console.log("here")
-          console.log(res)
+          console.log("here");
+          console.log(res);
           this.candidates[obj.jbId] = element.canDetList;
 
           this.openJobList.push(obj);
 
           this.dataSource = new MatTableDataSource(this.openJobList);
           this.ref.detectChanges();
-          this.dataSource.paginator = this.paginator1
+          this.dataSource.paginator = this.paginator1;
         });
       },
       (error) => {}
@@ -513,8 +506,8 @@ isAllSelected() {
   }
 
   viewFeedback(data: IInterView) {
-    console.log(data)
-    const feedBackPreview: IInterviewFeedback[] = data.intFeedback;
+    const feedBackPreview: IInterviewFeedback[] =
+      data.intFeedback as IInterviewFeedback[];
     this.feedbackPreviewService.openDialog(feedBackPreview);
   }
 }
