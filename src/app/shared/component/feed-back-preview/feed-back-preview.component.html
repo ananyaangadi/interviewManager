@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>Round Wise Feedback</h2>
+<mat-dialog-content
+  class="mat-typography mb-4"
+  *ngFor="let feedback of feedbackData"
+>
+  <h3 class="border-bottom">{{ feedback.round }}</h3>
+  <mat-dialog-content class="mat-typography">
+    <h4 style="color: green">Questions answered satisfactorily</h4>
+    <ul *ngFor="let question of feedback.answeredList">
+      <li>{{ question }}</li>
+    </ul>
+  </mat-dialog-content>
+
+  <mat-dialog-content class="mat-typography">
+    <h4 style="color: red">Questions answered unsatisfactorily</h4>
+    <ul *ngFor="let question of feedback.unansweredList">
+      <li>{{ question }}</li>
+    </ul>
+  </mat-dialog-content>
+
+  <mat-form>
+    <form-field class="mb-2">
+      <label class="mr-2">Round :</label>
+      <span>{{ feedback.round | titlecase }}</span>
+    </form-field>
+    <br />
+
+    <form-field class="mb-2">
+      <label class="mr-2">Technical Knowledge: </label>
+      <span>{{ feedback.technicalKnowledge | titlecase }}</span>
+    </form-field>
+    <br />
+
+    <form-field class="mb-2">
+      <label class="mr-2">Understanding :</label>
+      <span>{{ feedback.understanding | titlecase }}</span>
+    </form-field>
+    <br />
+
+    <form-field class="mb-2">
+      <label class="mr-2">Explainability :</label>
+      <span>{{ feedback.explainability | titlecase }}</span>
+    </form-field>
+    <br />
+
+    <form-field class="mb-2">
+      <label class="mr-2">Recommended for next round? :</label>
+      <span>{{ feedback.recommendedForNextRound | titlecase }}</span>
+    </form-field>
+    <br />
+
+    <form-field class="mb-2">
+      <label class="mr-2">Feedback Additional Comments :</label>
+      <span>{{ feedback.comment | titlecase }}</span>
+    </form-field>
+    <br />
+  </mat-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { IInterviewFeedback } from "app/shared/models/interview-feedback.interface";
 import { IInterView } from "app/shared/models/interview.interface";
+import { FeedBackPreviewService } from "app/shared/services/feed-back-preview.service";
 import * as moment from "moment";
 import { PanelistService } from "./panelist.service";
 
@@ -36,7 +38,8 @@ export class PanelistComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private panelistService: PanelistService
+    private panelistService: PanelistService,
+    private feedbackPreviewService: FeedBackPreviewService
   ) {}
 
   ngOnInit() {
@@ -65,7 +68,13 @@ export class PanelistComponent implements OnInit {
   showCompleted() {
     this.isPastSelected = true;
   }
+
   showUpcoming() {
     this.isPastSelected = false;
+  }
+
+  viewFeedback(data: IInterView) {
+    const feedBackPreview: IInterviewFeedback[] = data.intFeedback;
+    this.feedbackPreviewService.openDialog(feedBackPreview);
   }
 }
