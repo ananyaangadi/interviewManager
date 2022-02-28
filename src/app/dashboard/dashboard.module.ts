@@ -17,6 +17,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { JobModule } from "../job/job.module";
 import { StatsModule } from "../stats/stats.module";
 import { InventoryModule } from "app/inventory/inventory.module";
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { CandidateModule } from "app/candidate/candidate.module";
 
 @NgModule({
@@ -40,6 +41,7 @@ import { CandidateModule } from "app/candidate/candidate.module";
     InventoryModule,
     CandidateModule,
     StatsModule,
+    MatPaginatorModule
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

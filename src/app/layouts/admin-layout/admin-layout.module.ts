@@ -21,6 +21,7 @@ import { StatsModule } from "../../stats/stats.module";
 
 import { MatExpansionModule } from "@angular/material/expansion";
 import { InventoryModule } from "app/inventory/inventory.module";
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { CandidateModule } from "app/candidate/candidate.module";
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { CandidateModule } from "app/candidate/candidate.module";
     InventoryModule,
     PanelistModule,
     StatsModule,
+    MatPaginatorModule
   ],
   declarations: [DashboardComponent],
 })

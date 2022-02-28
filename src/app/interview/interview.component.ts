@@ -23,6 +23,7 @@ export class InterviewComponent implements OnInit {
     };
     this.interviewService.getRecommendedQuestions(req).subscribe(
       (res: IQuestionBank[]) => {
+        console.log(res)
         this.questionBankList = res;
       },
       (err) => {

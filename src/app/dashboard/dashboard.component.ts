@@ -1,8 +1,11 @@
 import { SelectionModel } from "@angular/cdk/collections";
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute } from "@angular/router";
+import { DashboardService } from "./dashboard.service";
+import { ToastrService } from "ngx-toastr";
+import { MatPaginator } from "@angular/material/paginator";
 
 export interface RowElement {
   ID: number;
@@ -28,26 +31,6 @@ interface Application {
   candidates: Array<Candidate>;
 }
 
-const ROWDATA: RowElement[] = [
-  {
-    ID: 1,
-    Job_Title: "Java Developer",
-    Date_Posted: "12/01/2022",
-    HR_HM: "Melissa Allen",
-  },
-  {
-    ID: 2,
-    Job_Title: "Data Engineer",
-    Date_Posted: "15/02/2022",
-    HR_HM: "Melissa Allen",
-  },
-  {
-    ID: 3,
-    Job_Title: "UI/UX Designer",
-    Date_Posted: "23/12/2021",
-    HR_HM: "Melissa Allen",
-  },
-];
 
 const applications: Application[] = [
   {
@@ -130,53 +113,8 @@ const applications: Application[] = [
   },
 ];
 
-const upcomingInterviews: any[] = [
-  {
-    id: 1,
-    name: "Carl Sagan",
-    round: "R1",
-    date: "21st Feb 2022",
-    time: "10:00 to 11:30",
-  },
-  {
-    id: 2,
-    name: "Albert Thompson",
-    round: "R2",
-    date: "1st March 2022",
-    time: "15:30 to 16:45",
-  },
-  {
-    id: 3,
-    name: "Mark Jackson",
-    round: "R1",
-    date: "23st Feb 2021",
-    time: "12:00 to 12:30",
-  },
-];
 
-const pastInterviews: any[] = [
-  {
-    id: 1,
-    name: "Kevin Holt",
-    round: "R1",
-    date: "15th Jan 2022",
-    time: "10:00 to 11:30",
-  },
-  {
-    id: 2,
-    name: "Larissa Takchi",
-    round: "R2",
-    date: "1st Feb 2022",
-    time: "15:30 to 16:45",
-  },
-  {
-    id: 3,
-    name: "Tessa Boersma",
-    round: "R1",
-    date: "23rd Dec 2021",
-    time: "12:00 to 12:30",
-  },
-];
+
 
 const initialSelection = [];
 const allowMultiSelect = true;
@@ -187,6 +125,9 @@ const allowMultiSelect = true;
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
   selection: SelectionModel<any>;
   panelOpenState = false;
   showDetails = false;
@@ -201,8 +142,15 @@ export class DashboardComponent implements OnInit {
   expandView = false;
   expandUpload = false;
   expandPanelistDBoard = false;
+  displayInv=false;
   showPortal = false;
   panelists = ["Jane Austen", "Virginia Woolf", "Ruth Ware"];
+  questionbank = []
+  dataSource3: MatTableDataSource<any> ; 
+
+  /* display Inventory */
+
+  displayedColumns3:string[]=['id','topic','diflevel','minexp','question','expectedans']
 
   slots = {
     "Jane Austen": ["21/02/22: 10:30 to 11:15", "21/02/22: 14:30 to 15:15"],
@@ -223,37 +171,19 @@ export class DashboardComponent implements OnInit {
     "panelist",
     "slot",
   ];
-  displayedColumns3: string[] = [
-    "id",
-    "Candidate_Name",
-    "Round",
-    "Date",
-    "Time",
-    "start",
-  ];
-  displayedColumns4: string[] = [
-    "id",
-    "Candidate_Name",
-    "Round",
-    "Date",
-    "Time",
-    "feedback",
-  ];
+
   foods = ["1:Java Developer", "2:UI/UX Designer", "3:Data Engineer"];
-  dataSource: MatTableDataSource<RowElement> = new MatTableDataSource(ROWDATA);
+  dataSource: MatTableDataSource<RowElement> ;
   dataSource2: MatTableDataSource<Candidate> = new MatTableDataSource(
     applications[0]["candidates"]
   );
-  dataSource3: MatTableDataSource<any> = new MatTableDataSource(
-    upcomingInterviews
-  );
-  dataSource4: MatTableDataSource<any> = new MatTableDataSource(pastInterviews);
+  
 
   menuItems = [
     { path: "/dashboard", title: "View", icon: "dashboard", class: "" },
     { path: "/dashboard", title: "Upload", icon: "add", class: "" },
   ];
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private service: DashboardService, private http: HttpClient,private toast:ToastrService) {}
 
   ngOnInit() {
     // var headers = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*');
@@ -261,6 +191,12 @@ export class DashboardComponent implements OnInit {
       allowMultiSelect,
       initialSelection
     );
+
+
+  }
+
+  ngAfterViewInit() {
+    this.dataSource3.paginator = this.paginator;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -326,6 +262,35 @@ export class DashboardComponent implements OnInit {
       "https://InterviewManager.azurewebsites.net/#/dashboard/inventory",
       "_blank",
       "location=yes,height=570,width=520,scrollbars=yes,status=yes"
+    );
+  }
+
+  displayInventory() {
+    this.service.displayInv().subscribe(
+      (res) => {
+        var temp = []
+        res.forEach(element => {
+          var temp1={
+            id:element.imKbId,
+            topic:element.imKbTopic,
+            subtopic:element.imKbSubTopic,
+            diflevel:element.imKbDifLevel,
+            minexp:element.imKbMinExp,
+            maxexp:element.imKbMaxExp,
+            question:element.imKbQues,
+            expectedans:element.imKbSolu
+          }
+          temp.push(temp1)
+        });
+        this.questionbank = temp
+        this.dataSource3 = new MatTableDataSource(this.questionbank)
+        this.dataSource3.paginator = this.paginator;
+        console.log(res)
+        this.toast.success();
+      },
+      (err) => {
+        this.toast.error(err);
+      }
     );
   }
 }

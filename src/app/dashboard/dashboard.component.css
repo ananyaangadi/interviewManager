@@ -1,10 +1,3 @@
-.mat-column-select {
-  overflow: initial;
-}
-
-.mat-footer-row,
-.mat-header-row,
 .mat-row {
-  display: inline-flex;
-  min-width: 100%;
+  min-height: 150px !important;
 }
