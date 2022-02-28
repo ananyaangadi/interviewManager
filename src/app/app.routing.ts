@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule, Routes } from "@angular/router";
+import { InterviewComponent } from "./interview/interview.component";
 import { ViewInventoryComponent } from "./inventory/view-inventory/view-inventory.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
@@ -27,15 +28,7 @@ const routes: Routes = [
   },
   {
     path: "interview",
-    children: [
-      {
-        path: "",
-        loadChildren: () =>
-          import("./interview/interview-routing.module").then(
-            (m) => m.InterviewRoutingModule
-          ),
-      },
-    ],
+    component: InterviewComponent,
   },
   {
     path: "inventory",

@@ -14,7 +14,7 @@ export class StatsService {
 
   getjobCount(params: string[]): Observable<any> {
     const apiCollection = params.map((query) =>
-      this.http.get(`${BASE_FUNCTION_URL}${JOB_COUNT}`)
+      this.http.get(`${BASE_FUNCTION_URL}${JOB_COUNT}?jobStatus=${query}`)
     );
     return forkJoin(apiCollection);
   }

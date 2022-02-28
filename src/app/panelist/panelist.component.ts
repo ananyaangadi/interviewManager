@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { InterviewService } from "app/interview/interview.service";
 import { IInterviewFeedback } from "app/shared/models/interview-feedback.interface";
 import { IInterView } from "app/shared/models/interview.interface";
 import { FeedBackPreviewService } from "app/shared/services/feed-back-preview.service";
@@ -39,7 +40,8 @@ export class PanelistComponent implements OnInit {
   constructor(
     private router: Router,
     private panelistService: PanelistService,
-    private feedbackPreviewService: FeedBackPreviewService
+    private feedbackPreviewService: FeedBackPreviewService,
+    private interviewService: InterviewService
   ) {}
 
   ngOnInit() {
@@ -50,19 +52,41 @@ export class PanelistComponent implements OnInit {
     this.panelistService
       .getInterviewListByPanelId()
       .subscribe((res: IInterView[]) => {
+        res = res.map((int) => this.parseFeedbackData(int)); // deserialise json
         this.upcomingList = res.filter((interview: IInterView) =>
           moment(interview.intDate).isAfter(new Date())
         );
         this.pastList = res.filter((interview: IInterView) =>
           moment(interview.intDate).isBefore(new Date())
         );
-        this.upcomingInterviewList = new MatTableDataSource(this.upcomingList);
+        this.upcomingInterviewList = new MatTableDataSource(this.pastList);
         this.pastInterviewList = new MatTableDataSource(this.pastList);
       });
   }
 
+  parseFeedbackData(interview: IInterView): IInterView {
+    const feedbackData = interview.intFeedback;
+    if (this.IsJsonString(feedbackData)) {
+      interview.intFeedback = JSON.parse(interview.intFeedback as string);
+    } else {
+      interview.intFeedback = [];
+    }
+
+    return interview;
+  }
+
+  IsJsonString(str): boolean {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
   startInterview(data) {
-    this.router.navigate(["inventory"]);
+    this.interviewService.setInterview(data);
+    this.router.navigate(["interview"]);
   }
 
   showCompleted() {
@@ -74,7 +98,8 @@ export class PanelistComponent implements OnInit {
   }
 
   viewFeedback(data: IInterView) {
-    const feedBackPreview: IInterviewFeedback[] = data.intFeedback;
+    const feedBackPreview: IInterviewFeedback[] =
+      data.intFeedback as IInterviewFeedback[];
     this.feedbackPreviewService.openDialog(feedBackPreview);
   }
 }

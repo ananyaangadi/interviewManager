@@ -5,7 +5,7 @@ export interface IInterView {
   intRound?: string;
   pnlId?: string;
   intStatus?: string;
-  intFeedback?: IInterviewFeedback[];
+  intFeedback?: IInterviewFeedback[] | string;
   intDate?: Date;
   canName?: string;
 }

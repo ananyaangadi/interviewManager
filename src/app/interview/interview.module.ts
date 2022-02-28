@@ -1,11 +1,6 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-
-import { InterviewRoutingModule } from "./interview-routing.module";
-import { QuestionBankComponent } from "./question-bank/question-bank.component";
-import { FinalFeedbackComponent } from "./final-feedback/final-feedback.component";
-import { InterviewComponent } from "./interview.component";
 import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -18,6 +13,9 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { FinalFeedbackComponent } from "./final-feedback/final-feedback.component";
+import { InterviewComponent } from "./interview.component";
+import { QuestionBankComponent } from "./question-bank/question-bank.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +39,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatCheckboxModule,
     MatRadioModule,
     HttpClientModule,
-    InterviewRoutingModule,
   ],
 })
 export class InterviewModule {}

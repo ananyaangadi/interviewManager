@@ -14,11 +14,21 @@ import { IQuestionBankRequest } from "./questionBank-request.interface";
   providedIn: "root",
 })
 export class InterviewService {
+  interviewData: IInterView;
   constructor(private http: HttpClient) {}
 
-  
-  getRecommendedQuestions(param: any): Observable<any> {
-    return this.http.get("https://msim-services.azurewebsites.net/getRecommend?pnlId=P34570");
+  getRecommendedQuestions(pnlId: string): Observable<any> {
+    return this.http.get(
+      "https://msim-services.azurewebsites.net/getRecommend?pnlId=" + pnlId
+    );
+  }
+
+  setInterview(interview: IInterView) {
+    this.interviewData = interview;
+  }
+
+  getInterview(): IInterView {
+    return this.interviewData;
   }
 
   submitInterviewFeedback(payload: IInterView): Observable<any> {

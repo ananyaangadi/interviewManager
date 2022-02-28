@@ -13,7 +13,7 @@ export class StatsComponent implements OnInit {
     noOfHires: 0,
     pendingInterviews: 0,
   };
-  data = ["open", "noOfHires", "pending"];
+  data = ["y", "c"];
   constructor(
     private statService: StatsService,
     private toastr: ToastrService
@@ -27,7 +27,6 @@ export class StatsComponent implements OnInit {
       (res: { TotalCount: number }[]) => {
         this.stats.openPositions = res[0].TotalCount;
         this.stats.noOfHires = res[1].TotalCount;
-        this.stats.pendingInterviews = res[2].TotalCount;
       },
       (err) => {
         this.toastr.error(err);

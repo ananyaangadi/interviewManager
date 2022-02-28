@@ -1,6 +1,14 @@
-<app-question-bank ></app-question-bank>
-<!-- <app-final-feedback
-  [answeredQuestions]=""
-  [unAnsweredQuestions]=""
-  (saveInterviewFeedBack)="submitInterviewData($event)"
-></app-final-feedback> -->
+<ng-container *ngIf="!isInterviewExisted">
+  <app-question-bank
+    (exitInterview)="onInterviewExit($event)"
+  ></app-question-bank>
+</ng-container>
+
+<ng-container *ngIf="isInterviewExisted">
+  <app-final-feedback
+    *ngIf="isInterviewExisted"
+    [answeredQuestions]="answeredQuestion"
+    [unAnsweredQuestions]="unAnsweredQuestion"
+    (saveInterviewFeedBack)="submitInterviewData($event)"
+  ></app-final-feedback>
+</ng-container>

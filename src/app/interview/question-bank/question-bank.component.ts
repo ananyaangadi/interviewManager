@@ -1,13 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  FormControl,
-  FormGroupDirective,
-  FormGroup,
-  NgForm,
-  Validators,
-} from "@angular/forms";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { InterviewService } from "../interview.service"
+import { InterviewService } from "../interview.service";
 
 interface question {
   id: number;
@@ -23,6 +17,13 @@ interface question {
   styleUrls: ["./question-bank.component.scss"],
 })
 export class QuestionBankComponent implements OnInit {
+  @Output() exitInterview: EventEmitter<{
+    answeredList: string[];
+    unAnsweredList: string[];
+  }> = new EventEmitter<{
+    answeredList: string[];
+    unAnsweredList: string[];
+  }>();
   id = 1;
   topic = "";
   subtopic = "";
@@ -73,7 +74,7 @@ export class QuestionBankComponent implements OnInit {
   //     answer: "No fixed answer",
   //   },
   // ];
-  inventory:question[]=[]
+  inventory: question[] = [];
   addQuestion = false;
   interview = true;
 
@@ -91,28 +92,30 @@ export class QuestionBankComponent implements OnInit {
     answer: new FormControl("", []),
   });
 
-  constructor(private service:InterviewService, private toast:ToastrService) {}
+  constructor(
+    private service: InterviewService,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit() {
-   
-    var req={pnlId:"PNL1"}
-    this.service.getRecommendedQuestions(req).subscribe(
+    this.service.getRecommendedQuestions("P34570").subscribe(
       (res) => {
-        var temp = []
-        var id = 1
-        console.log(res)
-        res.forEach(element => {
-          var temp1 = {id:id,topic:element.kbTopic,question:element.kbQu,answer:element.kbSln}
-          console.log(temp1)
+        var temp = [];
+        var id = 1;
+        res.forEach((element) => {
+          var temp1 = {
+            id: id,
+            topic: element.kbTopic,
+            question: element.kbQu,
+            answer: element.kbSln,
+          };
           id++;
-          temp.push(temp1)
+          temp.push(temp1);
         });
-        this.inventory = temp
-        this.topic=this.inventory[0].topic
-        this.question=this.inventory[0].question
-        this.answer=this.inventory[0].answer
-        console.log(this.topic,this.question,this.answer)
-        this.toast.success();
+        this.inventory = temp;
+        this.topic = this.inventory[0].topic;
+        this.question = this.inventory[0].question;
+        this.answer = this.inventory[0].answer;
 
         this.inventory.forEach((element) => {
           this.right[element.id] = 0;
@@ -124,7 +127,6 @@ export class QuestionBankComponent implements OnInit {
         this.toast.error(err);
       }
     );
-
   }
   view(id) {
     if (id === this.inventory.length + 1) {
@@ -248,5 +250,11 @@ export class QuestionBankComponent implements OnInit {
     this.nextview(this.id + 1);
   }
 
-  
+  endInterview() {
+    const data = {
+      answeredList: this.right_q,
+      unAnsweredList: this.wrong_q,
+    };
+    this.exitInterview.emit(data);
+  }
 }

@@ -1,128 +1,223 @@
 <div class="wrapper">
-    <div class="main-panel">
-
-<div *ngIf="interview" class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
-    <div class="logo" style="text-align:center;">
-            Question Bank
-    </div>
-    <div class="sidebar-wrapper">
+  <div class="main-panel">
+    <div
+      class="sidebar"
+      data-color="danger"
+      data-background-color="white"
+      data-image="./assets/img/sidebar-1.jpg"
+    >
+      <div class="logo" style="text-align: center">Question Bank</div>
+      <div class="sidebar-wrapper">
         <ul class="nav">
-            <li  *ngFor="let item of inventory" class="nav-item">
-                <a  [style.background-color]="item.id===id ? 'blue' : ''" [style.color]="item.id===id ? 'white' : ''" class="nav-link" (click)="view(item.id)"  >
-                    <i *ngIf="right[item.id]==1" class="material-icons" color="primary">check_circle</i>
-                    <i *ngIf="wrong[item.id]==1" class="material-icons" color="warn">cancel</i>
-                    <i *ngIf="right[item.id]==0 && wrong[item.id]==0" class="material-icons">forum</i>
-                    <p [style.text-decoration]="relevance[item.id] == false ? 'line-through' : ''">Question {{item.id}}</p>
-                    
-                </a>
-            </li>
-            <li>
-                <a  [style.background-color]="id===(inventory.length+1) ? 'blue' : ''" [style.color]="id===(inventory.length+1) ? 'white' : ''" class="nav-link" (click)="view(inventory.length + 1)"  >
-                    <i class="material-icons">add</i>
-                    <p>Add Question</p>
-                </a>
-            </li>
+          <li *ngFor="let item of inventory" class="nav-item">
+            <a
+              [style.background-color]="item.id === id ? 'blue' : ''"
+              [style.color]="item.id === id ? 'white' : ''"
+              class="nav-link"
+              (click)="view(item.id)"
+            >
+              <i
+                *ngIf="right[item.id] == 1"
+                class="material-icons"
+                color="primary"
+                >check_circle</i
+              >
+              <i *ngIf="wrong[item.id] == 1" class="material-icons" color="warn"
+                >cancel</i
+              >
+              <i
+                *ngIf="right[item.id] == 0 && wrong[item.id] == 0"
+                class="material-icons"
+                >forum</i
+              >
+              <p
+                [style.text-decoration]="
+                  relevance[item.id] == false ? 'line-through' : ''
+                "
+              >
+                Question {{ item.id }}
+              </p>
+            </a>
+          </li>
+          <li>
+            <a
+              [style.background-color]="
+                id === inventory.length + 1 ? 'blue' : ''
+              "
+              [style.color]="id === inventory.length + 1 ? 'white' : ''"
+              class="nav-link"
+              (click)="view(inventory.length + 1)"
+            >
+              <i class="material-icons">add</i>
+              <p>Add Question</p>
+            </a>
+          </li>
         </ul>
+      </div>
+      <div
+        class="sidebar-background"
+        style="background-image: url(./assets/img/sidebar-4.jpg)"
+      ></div>
     </div>
-    <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
-</div>
 
-<div *ngIf="interview" style="left:3000px" class="main-content">
-    <div *ngIf="addQuestion==false" class="container-fluid">
+    <div *ngIf="interview" style="left: 3000px" class="main-content">
+      <div *ngIf="addQuestion == false" class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
-    <h2>Question {{id}}/{{inventory.length}}</h2>
+          <div class="col-lg-12 col-md-12">
+            <h2>Question {{ id }}/{{ inventory.length }}</h2>
 
-    <div *ngIf="interview" class="card">
-        <div class="card-header card-header-success">
-            <h4 class="card-title">Topic: {{topic}}</h4>
-            <p class="card-category">Subtopic: {{subtopic}}</p>
-        </div>
-            <div class="card-body">
+            <div *ngIf="interview" class="card">
+              <div class="card-header card-header-success">
+                <h4 class="card-title">Topic: {{ topic }}</h4>
+                <p class="card-category">Subtopic: {{ subtopic }}</p>
+              </div>
+              <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <b>Question: </b> {{question}}
-                      </div>
-                    <div class="col-md-12">
-                      <b>Expected Answer: </b> {{answer}}
-                    </div>
-            <br><br><br>
-            <button (click)="prevview(id-1)" mat-button class="btn btn-warning">Previous</button>&nbsp;&nbsp;
-          <button (click)="addRight()" mat-button class="btn btn-success">Satisfactory Answer</button>&nbsp;&nbsp;
-          <button (click)="addWrong()" mat-button class="btn btn-danger">Unsatisfactory Answer</button>&nbsp;&nbsp;
-          <button (click)="nextview(id+1)" mat-button class="btn btn-warning">Next</button>&nbsp;&nbsp;
-          <button *ngIf="relevance[id]" (click)="relevance[id]=false;nextview(id+1)" mat-raised-button type="submit" color="primary" style="left:300px">Not Relevant</button>
-          <button *ngIf="relevance[id]==false" (click)="relevance[id]=true;nextview(id)" mat-raised-button type="submit" color="primary" style="left:300px">Relevant</button>
-          
+                  <div class="col-md-12"><b>Question: </b> {{ question }}</div>
+                  <div class="col-md-12">
+                    <b>Expected Answer: </b> {{ answer }}
+                  </div>
+                  <br /><br /><br />
+                  <button
+                    (click)="prevview(id - 1)"
+                    mat-button
+                    class="btn btn-warning"
+                  >
+                    Previous</button
+                  >&nbsp;&nbsp;
+                  <button
+                    (click)="addRight()"
+                    mat-button
+                    class="btn btn-success"
+                  >
+                    Satisfactory Answer</button
+                  >&nbsp;&nbsp;
+                  <button
+                    (click)="addWrong()"
+                    mat-button
+                    class="btn btn-danger"
+                  >
+                    Unsatisfactory Answer</button
+                  >&nbsp;&nbsp;
+                  <button
+                    (click)="nextview(id + 1)"
+                    mat-button
+                    class="btn btn-warning"
+                  >
+                    Next</button
+                  >&nbsp;&nbsp;
+                  <button
+                    *ngIf="relevance[id]"
+                    (click)="relevance[id] = false; nextview(id + 1)"
+                    mat-raised-button
+                    type="submit"
+                    color="primary"
+                    style="left: 300px"
+                  >
+                    Not Relevant
+                  </button>
+                  <button
+                    *ngIf="relevance[id] == false"
+                    (click)="relevance[id] = true; nextview(id)"
+                    mat-raised-button
+                    type="submit"
+                    color="primary"
+                    style="left: 300px"
+                  >
+                    Relevant
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              (click)="endInterview()"
+              mat-raised-button
+              color="accent"
+              style="left: 950px"
+            >
+              End Interview
+            </button>
+          </div>
         </div>
-        
-    </div>
-    
-    </div>
-    <button (click)="interview=false" mat-raised-button color="accent" style="left:950px">End Interview</button>
-    </div>
-</div>
-</div>
+      </div>
 
+      <div *ngIf="addQuestion" class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h2>Add Question</h2>
 
-<div *ngIf="addQuestion" class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-<h2>Add Question</h2>
-
-<div class="card">
-    <div class="card-header card-header-warning">
-        <p class="card-category">New Question</p>
-    </div>
-        <div class="card-body">
-            <form [formGroup]="myForm">
-                <div class="row">
+            <div class="card">
+              <div class="card-header card-header-warning">
+                <p class="card-category">New Question</p>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="myForm">
+                  <div class="row">
                     <div class="col-md-6">
-                        <mat-form-field class="col-md-6">
-                          <input matInput formControlName="topic" placeholder="Topic" type="text">
-                        </mat-form-field>
+                      <mat-form-field class="col-md-6">
+                        <input
+                          matInput
+                          formControlName="topic"
+                          placeholder="Topic"
+                          type="text"
+                        />
+                      </mat-form-field>
                     </div>
                     <div class="col-md-6">
-                        <mat-form-field class="col-md-6">
-                          <input matInput formControlName="subtopic" placeholder="Subtopic" type="text">
-                        </mat-form-field>
+                      <mat-form-field class="col-md-6">
+                        <input
+                          matInput
+                          formControlName="subtopic"
+                          placeholder="Subtopic"
+                          type="text"
+                        />
+                      </mat-form-field>
                     </div>
                   </div>
-                    
-                      <div class="col-md-6">
-                        <mat-form-field>
-                          <textarea matInput formControlName="question" placeholder="Question"></textarea>
-                        </mat-form-field>
-                      </div>
 
-                      <div class="col-md-6">
-                        <mat-form-field>
-                          <textarea matInput formControlName="answer" placeholder="Expected Answer"></textarea>
-                        </mat-form-field>
-                      </div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <textarea
+                        matInput
+                        formControlName="question"
+                        placeholder="Question"
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
 
-                
-           
-                <button mat-raised-button type="submit" (click)="updateInv()" color="primary" >Submit</button>
-                <button mat-raised-button type="submit" (click)="id=1;addQuestion=false;view(id)" color="primary" >Cancel</button>
-                <div class="clearfix"></div>
-            </form>
-</div>
-</div>
-</div>
-</div>
-</div>
+                  <div class="col-md-6">
+                    <mat-form-field>
+                      <textarea
+                        matInput
+                        formControlName="answer"
+                        placeholder="Expected Answer"
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
 
-
-
-
-
-</div>
-
-
-</div>
-
-<!-- Feedback -->
-<div *ngIf="interview==false" class="card">
-    <app-final-feedback [answeredQuestions]="right_q" [notQuestions]="wrong_q"></app-final-feedback>
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    (click)="updateInv()"
+                    color="primary"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    (click)="id = 1; addQuestion = false; view(id)"
+                    color="primary"
+                  >
+                    Cancel
+                  </button>
+                  <div class="clearfix"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

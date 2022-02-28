@@ -46,9 +46,7 @@ export class FinalFeedbackComponent {
         comment: this.formControls["additionalComment"].value,
       };
 
-      this.saveInterviewFeedBack.emit();
+      this.saveInterviewFeedBack.emit(interviewFeedbackData);
     }
   }
-
-  
 }

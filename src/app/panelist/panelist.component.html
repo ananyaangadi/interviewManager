@@ -46,10 +46,10 @@
   <div class="container-fluid card">
     <div class="row">
       <div class="col-3 offset-3">
-        <app-upcoming-card [count]="upcomingList.length"></app-upcoming-card>
+        <app-upcoming-card [count]="upcomingList?.length"></app-upcoming-card>
       </div>
       <div class="col-3">
-        <app-completed-card [count]="pastList.length"></app-completed-card>
+        <app-completed-card [count]="pastList?.length"></app-completed-card>
       </div>
     </div>
   </div>
