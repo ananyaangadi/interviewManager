@@ -7,4 +7,7 @@ export const UPLOAD_INVENTORY = "upload/inventory";
 export const UPLOAD_CANDIDATE = "addcan";
 export const RECOMMENDED_QUESTIONS = "getrecommend";
 export const GET_INT_URL = "getint";
-export const DISPLAY_INV = "getkball"
+export const DISPLAY_INV = "getkball";
+
+export const INTERVIEW_URL =
+  "https://msim-function-app.azurewebsites.net/api/ImInt";

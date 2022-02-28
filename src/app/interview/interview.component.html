@@ -1,1 +1,6 @@
 <app-question-bank></app-question-bank>
+<app-final-feedback
+  [answeredQuestions]=""
+  [unAnsweredQuestions]=""
+  (saveInterviewFeedBack)="submitInterviewData($event)"
+></app-final-feedback>

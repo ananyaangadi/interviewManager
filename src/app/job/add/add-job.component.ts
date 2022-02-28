@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ADD_JOB_SUCCESS } from "app/shared/constants/messages-constant";
 import { ToastrService } from "ngx-toastr";
@@ -10,7 +10,7 @@ import { IAddJobRequest } from "./add-job-request.interface";
   templateUrl: "./add-job.component.html",
   styleUrls: ["./add-job.component.scss"],
 })
-export class AddJobComponent implements OnInit {
+export class AddJobComponent {
   createJobForm: FormGroup = this.buildForm();
   constructor(
     private jobService: JobService,
@@ -39,8 +39,6 @@ export class AddJobComponent implements OnInit {
   get formControls() {
     return this.createJobForm.controls;
   }
-
-  ngOnInit(): void {}
 
   isButtonDisabled(): boolean {
     return this.createJobForm.invalid || !this.createJobForm.dirty;

@@ -12,7 +12,9 @@
             {{ q }}
           </p>
           <h3 style="color: red">Questions answered unsatisfactorily</h3>
-          <p style="color: red" *ngFor="let q of notQuestions">{{ q }}</p>
+          <p style="color: red" *ngFor="let q of unAnsweredQuestions">
+            {{ q }}
+          </p>
 
           <form [formGroup]="feedbackForm" (submit)="onSubmit()">
             <mat-form-field>

@@ -5,6 +5,6 @@ export interface IInterviewFeedback {
   technicalKnowledge?: string;
   understanding?: string;
   explainability?: string;
-  recommendedForNextRound?: string;
+  recommendedForNextRound?: "yes" | "no" | "na";
   comment?: string;
 }
