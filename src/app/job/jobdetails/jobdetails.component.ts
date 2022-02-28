@@ -362,6 +362,8 @@ isAllSelected() {
           this.openJobList.push(obj);
 
           this.dataSource = new MatTableDataSource(this.openJobList);
+          this.ref.detectChanges();
+          this.dataSource.paginator = this.paginator1
         });
       },
       (error) => {}
