@@ -79,6 +79,7 @@
     <div class="col-md-12">
 
             <div class="card-body">
+              <br>
                 <form>
                     <div class="row">
                         <div class="col-md-3">
@@ -91,6 +92,7 @@
                             <b>SubDept: </b> {{jbSubDept}}
                           </div>
                           </div>
+                          <br>
                           <div class="row">
                           <div class="col-md-3">
                             <b>Designation: </b> {{jbDesig}}
@@ -101,10 +103,10 @@
                           <div class="col-md-3">
                             <b>HR: </b> {{jbHrName}}
                           </div>
-                          <div class="col-md-3">
+                          <!-- <div class="col-md-3">
                             <b>Date Posted: </b> {{jbPostDate}}
-                          </div>
-                          <br>
+                          </div> -->
+                          <br><br>
                           <table *ngIf="showPortal==false" mat-table [dataSource]="dataSource2" class="table table-hover">
 
                             <!-- ID Column -->
@@ -177,14 +179,14 @@
                      <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
                       
                         </table>
-                      
-                        
-                    </div>
-                    <mat-paginator #paginator2 [hidden]="!showDetails" [length]="availablePanelists.length"
+                        <mat-paginator #paginator2 [hidden]="!showDetails || showPortal" [length]="availablePanelists.length"
                         [pageSize]="5"
                         [pageSizeOptions]="[5, 10, 25, 100]"
                         aria-label="Select page">
           </mat-paginator>
+                        
+                    </div>
+
                     <button *ngIf="showPortal==false"(click)="showDetails=false;showJobTable=true;" mat-raised-button type="submit" class="btn btn-warning pull-right">Back</button>
                     
                     <div class="clearfix"></div>
@@ -197,9 +199,11 @@
               <div class="row">
               <div class="col-md-3"><b>Candidate ID:</b> {{scheduleWindowElement.can.canId}}</div>
               <div class="col-md-3"><b>Candidate Name:</b> {{scheduleWindowElement.can.canName}}</div>
+              <div class="col-md-3"><b>Email:</b> {{scheduleWindowElement.can.canEmail}}</div>
                 <div class="col-md-3"><b>Status:</b> {{scheduleWindowElement.can.canStatus}}</div>
-                <div class="col-md-3"><b>Email:</b> {{scheduleWindowElement.can.canEmail}}</div>
+                
               </div>
+              <br>
                 <div class="col-md-6">
                   <mat-form-field>
       <mat-label>Interview Type</mat-label>

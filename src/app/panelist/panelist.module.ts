@@ -21,6 +21,7 @@ import { UpcomingCardComponent } from "./upcoming-card/upcoming-card.component";
 import { CompletedCardComponent } from "./completed-card/completed-card.component";
 import { SharedModule } from "app/shared/shared.module";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { RouterModule } from "@angular/router"
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatTabsModule,
     StatsModule,
     SharedModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    RouterModule
   ],
   declarations: [
     PanelistComponent,

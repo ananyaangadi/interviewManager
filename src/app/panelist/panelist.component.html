@@ -5,7 +5,7 @@
   data-image="./assets/img/sidebar-1.jpg"
 >
   <div class="logo">
-    <a href="https://interviewmanager.azurewebsites.net/#/" class="simple-text">
+    <a [routerLink]="['']" class="simple-text">
       MSInterview Manager
     </a>
   </div>
@@ -38,7 +38,7 @@
       <li class="nav-item">
         <a class="nav-link" (click)="displayInv = true; displayInventory()">
           <i class="material-icons">list_alt</i>
-          <p>Display Inventory</p>
+          <p>Inventory</p>
         </a>
       </li>
     </ul>

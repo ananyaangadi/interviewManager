@@ -34,6 +34,18 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" [routerLink]="['../../admin/panelist']">
+          <i class="material-icons">description</i>
+          <p>My Interviews</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="displayInv = true; displayInventory()">
+          <i class="material-icons">list_alt</i>
+          <p>Inventory</p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a
           class="nav-link"
           pageScroll
@@ -44,18 +56,8 @@
           <p>Upload</p>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="displayInv = true; displayInventory()">
-          <i class="material-icons">list_alt</i>
-          <p>Inventory</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['admin/panelist']">
-          <i class="material-icons">description</i>
-          <p>My Interviews</p>
-        </a>
-      </li>
+
+
     </ul>
   </div>
   <div
