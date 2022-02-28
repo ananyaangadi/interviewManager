@@ -20,6 +20,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { AddJobComponent } from "./add/add-job.component";
 import { JobDetailsComponent } from "./jobdetails/jobdetails.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { JobDetailsComponent } from "./jobdetails/jobdetails.component";
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
   declarations: [JobDetailsComponent, AddJobComponent],

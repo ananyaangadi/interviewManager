@@ -20,6 +20,7 @@ import { PanelistComponent } from "./panelist.component";
 import { UpcomingCardComponent } from "./upcoming-card/upcoming-card.component";
 import { CompletedCardComponent } from "./completed-card/completed-card.component";
 import { SharedModule } from "app/shared/shared.module";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { SharedModule } from "app/shared/shared.module";
     MatTabsModule,
     StatsModule,
     SharedModule,
+    MatPaginatorModule
   ],
   declarations: [
     PanelistComponent,

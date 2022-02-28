@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JobService } from "app/job/job.service";
 import { UploadService } from "app/shared/services/upload.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-upload-candidate",
@@ -12,11 +13,14 @@ export class UploadCandidateComponent implements OnInit {
   addCandidateForm: FormGroup;
   file: File = null;
   jobsArray: JobDetails[] = [];
+  resetFlag: boolean;
+  @ViewChild("formFile") candidateFile: ElementRef;
 
   constructor(
     private uploadCandidateService: UploadService,
     private getJobService: JobService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toasterService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -52,14 +56,26 @@ export class UploadCandidateComponent implements OnInit {
         .uploadCandidateFile(this.addCandidateForm.value, this.file)
         .subscribe(
           (resp) => {
-            alert("Candidate Uploaded");
+            this.toasterService.success(
+              "Candidate Uploaded, id: " + resp.canaddId
+            );
+            this.addCandidateForm.disable();
+            this.resetFlag = true;
           },
           (error) => {
-            alert(error.error.message);
+            this.toasterService.error(error.error.errMsg);
           }
         );
     } else {
-      alert("Please select a resume first");
+      this.toasterService.error("Please select a resume first");
     }
+  }
+
+  resetForm() {
+    this.addCandidateForm.reset();
+    this.addCandidateForm.enable();
+    this.candidateFile.nativeElement.value = "";
+    this.file = null;
+    this.resetFlag = false;
   }
 }
