@@ -318,7 +318,7 @@ export class JobDetailsComponent implements OnInit {
     var id = ids[index];
     this.candidateTimeSlot[element.can.canId] = this.panelistSlots[id];
 
-    this.selectedPanelist[element.can.canId] = value;
+    this.selectedPanelist[element.can.canId] = id;
   }
 
   setSlot(value, names, ids, element) {
@@ -380,7 +380,6 @@ export class JobDetailsComponent implements OnInit {
               temp.push(round.intFeedback)
             });
             this.feedbacks[can.can.canId] = temp
-            
           });
           
         });
@@ -452,6 +451,7 @@ export class JobDetailsComponent implements OnInit {
       this.selectedSlot[this.scheduleWindowElement["can"]["canId"]];
     req["round"] = "" + this.roundNumber;
 
+    console.log("reqqqqqqqqqqqqqq=",req)
     req = JSON.parse(JSON.stringify(req));
 
     const payload:ISchedule = {
@@ -527,8 +527,11 @@ export class JobDetailsComponent implements OnInit {
     console.log(fb)
     var feedback:IInterviewFeedback[] = []
     fb.forEach(element => {
+      if (element != "") 
+      {
       console.log(element)
       feedback.push(JSON.parse(element))
+      }
     });
     console.log("view feedback")
     console.log(feedback)

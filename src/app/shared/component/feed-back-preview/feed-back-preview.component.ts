@@ -7,8 +7,10 @@ import { IInterviewFeedback } from "app/shared/models/interview-feedback.interfa
   templateUrl: "./feed-back-preview.component.html",
 })
 export class FeedBackPreviewComponent {
-  feedbackData: IInterviewFeedback[];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IInterviewFeedback[]) {
-    this.feedbackData = data;
+  feedbackData: any[];
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any[]) {
+    this.feedbackData = data[0];
+    console.log("feeeeddback")
+    console.log(data)
   }
 }
