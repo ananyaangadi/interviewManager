@@ -438,20 +438,20 @@ export class JobDetailsComponent implements OnInit {
 
     req = JSON.parse(JSON.stringify(req));
 
-    // const payload:ISchedule = {
-    //   candidateId:req["candidateId"],
-    //   round:req["round"],
-    //   panelistId:req['panelistId'],
-    //   status:req['status'],
-    //   interviewTime:req['interviewTime']
-    // }
-    const payload: ISchedule = {
-      candidateId: 3,
-      round: "2",
-      panelistId: "P34570",
-      status: "SCHEDULE",
-      interviewTime: "2022-02-01 14:00:00.000",
-    };
+    const payload:ISchedule = {
+      candidateId:req["candidateId"],
+      round:req["round"],
+      panelistId:req['panelistId'],
+      status:req['status'],
+      interviewTime:req['interviewTime']
+    }
+    // const payload: ISchedule = {
+    //   candidateId: 3,
+    //   round: "2",
+    //   panelistId: "P34570",
+    //   status: "SCHEDULE",
+    //   interviewTime: "2022-02-01 14:00:00.000",
+    // };
     var temp = [];
     this.JobService.schedule(payload).subscribe(
       (res) => {
