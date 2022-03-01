@@ -524,10 +524,14 @@ export class JobDetailsComponent implements OnInit {
   viewFeedback(data) {
     console.log(data)
     var fb = this.feedbacks[data.can.canId]
+    console.log(fb)
     var feedback:IInterviewFeedback[] = []
     fb.forEach(element => {
+      console.log(element)
       feedback.push(JSON.parse(element))
     });
+    console.log("view feedback")
+    console.log(feedback)
     // const feedBackPreview: IInterviewFeedback[] =
     //   data.intFeedback as IInterviewFeedback[];
     this.feedbackPreviewService.openDialog(feedback);
