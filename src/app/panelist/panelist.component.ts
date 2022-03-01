@@ -36,12 +36,14 @@ export class PanelistComponent implements OnInit {
   upcomingInterviewList: MatTableDataSource<IInterView>;
   pastInterviewList: MatTableDataSource<IInterView>;
 
+
   isPastSelected: boolean;
   upcomingList: IInterView[];
   pastList: IInterView[];
   displayInv: boolean = false;
   questionbank = [];
   dataSource3: MatTableDataSource<any>;
+  feedbacks = {}
 
   /* display Inventory */
 
@@ -64,6 +66,25 @@ export class PanelistComponent implements OnInit {
 
   ngOnInit() {
     this.getInterviewList();
+
+    this.panelistService.getJobs().subscribe(
+      (res) => {
+        res.forEach((element) => {
+
+
+          element.canDetList.forEach(can => {
+            var temp = []
+            can.intDetList.forEach(round => {
+              temp.push(round.intFeedback)
+            });
+            this.feedbacks[can.can.canId] = temp
+          });
+          
+        });
+        console.log(this.feedbacks)
+      },
+      (error) => {}
+    );
   }
 
   ngAfterViewInit() {
@@ -120,10 +141,23 @@ export class PanelistComponent implements OnInit {
     this.isPastSelected = false;
   }
 
-  viewFeedback(data: IInterView) {
-    const feedBackPreview: IInterviewFeedback[] =
-      data.intFeedback as IInterviewFeedback[];
-    this.feedbackPreviewService.openDialog(feedBackPreview);
+  viewFeedback(data) {
+    console.log(data)
+    var fb = this.feedbacks[data.canId]
+    console.log(fb)
+    var feedback:IInterviewFeedback[] = []
+    fb.forEach(element => {
+      if (element != "" && element !=null) 
+      {
+      console.log(element)
+      feedback.push(JSON.parse(element))
+      }
+    });
+    console.log("view feedback")
+    console.log(feedback)
+    // const feedBackPreview: IInterviewFeedback[] =
+    //   data.intFeedback as IInterviewFeedback[];
+    this.feedbackPreviewService.openDialog(feedback);
   }
 
   displayInventory() {

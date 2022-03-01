@@ -3,7 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import {
   BASE_URL,
-  DISPLAY_INV
+  DISPLAY_INV,
+  GET_JOB_URL
 } from "app/shared/constants/endpoints-constants";
 @Injectable({
   providedIn: "root",
@@ -19,5 +20,9 @@ export class PanelistService {
 
   displayInv(): Observable<any> {
     return this.http.get(`${BASE_URL + DISPLAY_INV}`);
+  }
+
+  getJobs(): Observable<any> {
+    return this.http.get(`${BASE_URL + GET_JOB_URL}?hmhrId=P12345`);
   }
 }
