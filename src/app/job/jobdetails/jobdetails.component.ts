@@ -163,6 +163,7 @@ export class JobDetailsComponent implements OnInit {
   roundNumber = 0;
   @ViewChild("paginator1") paginator1: MatPaginator;
   @ViewChild("paginator2") paginator2: MatPaginator;
+  panelistsAvailable={}
 
   newreq = false;
   expandView = false;
@@ -178,7 +179,7 @@ export class JobDetailsComponent implements OnInit {
   selectedSlot = {};
   actions = ["Schedule", "Offer", "Reject"];
   action = {};
-
+  feedbacks = {}
   scheduleWindowPanelists = [];
   scheduleWindowPanelistIds = [];
   scheduleWindowElement = {};
@@ -368,7 +369,22 @@ export class JobDetailsComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.openJobList);
           this.ref.detectChanges();
           this.dataSource.paginator = this.paginator1;
+
+          element.canDetList.forEach(can => {
+            var temp = []
+            if(can.pnlList.length == 0)
+              this.panelistsAvailable[can.can.canId] = false
+            else
+            this.panelistsAvailable[can.can.canId] = true
+            can.intDetList.forEach(round => {
+              temp.push(round.intFeedback)
+            });
+            this.feedbacks[can.can.canId] = temp
+            
+          });
+          
         });
+        console.log(this.feedbacks)
       },
       (error) => {}
     );
@@ -505,9 +521,15 @@ export class JobDetailsComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource(this.availablePanelists);
   }
 
-  viewFeedback(data: IInterView) {
-    const feedBackPreview: IInterviewFeedback[] =
-      data.intFeedback as IInterviewFeedback[];
-    this.feedbackPreviewService.openDialog(feedBackPreview);
+  viewFeedback(data) {
+    console.log(data)
+    var fb = this.feedbacks[data.can.canId]
+    var feedback:IInterviewFeedback[] = []
+    fb.forEach(element => {
+      feedback.push(JSON.parse(element))
+    });
+    // const feedBackPreview: IInterviewFeedback[] =
+    //   data.intFeedback as IInterviewFeedback[];
+    this.feedbackPreviewService.openDialog(feedback);
   }
 }

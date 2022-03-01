@@ -32,6 +32,7 @@ export class InterviewService {
   }
 
   submitInterviewFeedback(payload: IInterView): Observable<any> {
-    return this.http.put(BASE_FUNCTION_URL + INTERVIEW_URL, payload);
+    const req = {candidateId:payload.canId,round:payload.intRound,panelistId:payload.pnlId,feedback:payload.intFeedback}
+    return this.http.post("https://msim-services.azurewebsites.net/saveFeedback",req);
   }
 }

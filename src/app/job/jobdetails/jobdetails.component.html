@@ -160,7 +160,8 @@
     <!-- <td mat-cell *matCellDef="let element"><button mat-button *ngIf="element.r1_feedback != ''" class="btn btn-warning" >View</button></td> -->
     <td mat-cell *matCellDef="let element">
       
-      <button mat-raised-button class="btn-sm" color="primary" type="submit" (click)=schedule(element) *ngIf="action[element.can.canId]=='Schedule'">SCHEDULE</button>
+      <button mat-raised-button class="btn-sm" color="primary" type="submit" (click)=schedule(element) *ngIf="action[element.can.canId]=='Schedule' && panelistsAvailable[element.can.canId]">SCHEDULE</button>
+      <div *ngIf="action[element.can.canId]=='Schedule' && !panelistsAvailable[element.can.canId]" style="color:red">No panelists available</div>
       <button mat-raised-button class="btn-sm" color="primary" type="submit" (click)=offer(element) *ngIf="action[element.can.canId]=='Offer'">OFFER</button>
       <button mat-raised-button class="btn-sm" color="primary" type="submit" (click)=reject(element) *ngIf="action[element.can.canId]=='Reject'">REJECTED</button>
     </td>

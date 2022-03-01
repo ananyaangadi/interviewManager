@@ -32,8 +32,10 @@ export class InterviewComponent {
     }
 
     payload.intFeedback = JSON.stringify(payload.intFeedback);
+    console.log(payload)
     this.interviewService.submitInterviewFeedback(payload).subscribe(
       (res) => {
+        console.log(res)
         this.toastr.success(INTERVIEW_SAVE_SUCCESS);
         this.isInterviewExisted = false;
         this.router.navigate(["admin/panelist"]);
