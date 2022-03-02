@@ -22,6 +22,7 @@ import { AddJobComponent } from "./add/add-job.component";
 import { JobDetailsComponent } from "./jobdetails/jobdetails.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
 
+
 @NgModule({
   imports: [
     CommonModule,

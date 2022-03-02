@@ -1,4 +1,10 @@
 <h2 mat-dialog-title>Round Wise Feedback</h2>
+
+<mat-dialog-content
+  class="mat-typography mb-4"
+  *ngIf="feedbackData==null || feedbackData.length==0"
+><h3>No Feedback Available</h3></mat-dialog-content>
+
 <mat-dialog-content
   class="mat-typography mb-4"
   *ngFor="let feedback of feedbackData"

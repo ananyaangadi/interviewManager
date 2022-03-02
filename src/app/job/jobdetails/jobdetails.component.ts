@@ -2,9 +2,11 @@ import {
   Component,
   ComponentFactoryResolver,
   OnInit,
+  OnChanges,
   ViewChild,
   ViewContainerRef,
   Injector,
+  Input
 } from "@angular/core";
 import * as Chartist from "chartist";
 import { ActivatedRoute, ParamMap } from "@angular/router";
@@ -25,6 +27,9 @@ import { ChangeDetectorRef } from "@angular/core";
 import { IInterView } from "app/shared/models/interview.interface";
 import { IInterviewFeedback } from "app/shared/models/interview-feedback.interface";
 import { FeedBackPreviewService } from "app/shared/services/feed-back-preview.service";
+
+import { DatePipe } from "@angular/common";
+import { ChangeDetectionStrategy } from "@angular/core";
 
 export interface RowElement {
   jbId: number;
@@ -141,8 +146,10 @@ const allowMultiSelect = true;
   selector: "app-jobdetails",
   templateUrl: "./jobdetails.component.html",
   styleUrls: ["./jobdetails.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush 
 })
-export class JobDetailsComponent implements OnInit {
+export class JobDetailsComponent implements OnInit, OnChanges {
+  @Input() expandView;
   injector: Injector;
   OpenWindow: any;
   selection: SelectionModel<any>;
@@ -166,9 +173,6 @@ export class JobDetailsComponent implements OnInit {
   panelistsAvailable={}
 
   newreq = false;
-  expandView = false;
-  expandUpload = false;
-  expandPanelistDBoard = false;
   showPortal = false;
   openJobList: RowElement[];
   panelists = ["Jane Austen", "Virginia Woolf", "Ruth Ware"];
@@ -215,6 +219,8 @@ export class JobDetailsComponent implements OnInit {
   time: "";
   panelistSlots = {};
 
+
+
   menuItems = [
     { path: "/dashboard", title: "View", icon: "dashboard", class: "" },
     { path: "/dashboard", title: "Upload", icon: "add", class: "" },
@@ -226,7 +232,8 @@ export class JobDetailsComponent implements OnInit {
     private resolver: ComponentFactoryResolver,
     private JobService: JobService,
     private toast: ToastrService,
-    private feedbackPreviewService: FeedBackPreviewService
+    private feedbackPreviewService: FeedBackPreviewService,
+    private DatePipe:DatePipe
   ) {}
   ngOnInit() {
     this.openJobList = [];
@@ -249,6 +256,14 @@ export class JobDetailsComponent implements OnInit {
     //this.dataSource = new MatTableDataSource(hello);
     console.log("ere2");
     console.log(this.dataSource);
+  }
+
+  ngOnChanges() {
+    // create header using child_id
+    console.log("in changes")
+    console.log(this.expandView)
+    this.showJobTable = true
+    this.showDetails = false
   }
 
   ngAfterViewInit() {}
@@ -291,7 +306,7 @@ export class JobDetailsComponent implements OnInit {
           element["TIME"].forEach((ele) => {
             var str =
               "" +
-              element["DATE"] +
+              this.DatePipe.transform(element["DATE"]) +
               " " +
               ele["START_TIME"] +
               " " +
@@ -449,7 +464,7 @@ export class JobDetailsComponent implements OnInit {
       this.selectedPanelist[this.scheduleWindowElement["can"]["canId"]];
     req["interviewTime"] =
       this.selectedSlot[this.scheduleWindowElement["can"]["canId"]];
-    req["round"] = "" + this.roundNumber;
+    req["round"] = "ROUND " + this.roundNumber;
 
     console.log("reqqqqqqqqqqqqqq=",req)
     req = JSON.parse(JSON.stringify(req));
@@ -476,7 +491,7 @@ export class JobDetailsComponent implements OnInit {
           if (
             element.can.canId === this.scheduleWindowElement["can"]["canId"]
           ) {
-            temp1.can.canStatus = "R" + this.roundNumber + " SCHEDULED";
+            temp1.can.canStatus = "ROUND " + this.roundNumber + " SCHEDULED";
             this.action[element.can.canId] = "";
           }
           temp.push(temp1);
@@ -492,6 +507,34 @@ export class JobDetailsComponent implements OnInit {
   }
 
   offer(ele) {
+    var req = {
+      candidateId: 0,
+      round: "",
+      panelistId: "",
+      status: "OFFERED",
+      interviewTime: "",
+    };
+    req["candidateId"] = this.scheduleWindowElement["can"]["canId"];
+
+    req = JSON.parse(JSON.stringify(req));
+
+    const payload:ISchedule = {
+      candidateId:req["candidateId"],
+      round:req["round"],
+      panelistId:req['panelistId'],
+      status:req['status'],
+      interviewTime:req['interviewTime']
+    }
+
+    this.JobService.offer(payload).subscribe(
+      (res) => {
+      },
+      (err) => {
+        this.toast.error(err);
+      }
+    );
+
+
     var temp = [];
     this.availablePanelists.forEach((element) => {
       var temp1 = JSON.parse(JSON.stringify(element));
@@ -507,6 +550,37 @@ export class JobDetailsComponent implements OnInit {
   }
 
   reject(ele) {
+
+    var req = {
+      candidateId: 0,
+      round: "",
+      panelistId: "",
+      status: "REJECTED",
+      interviewTime: "",
+    };
+    req["candidateId"] = this.scheduleWindowElement["can"]["canId"];
+
+    req = JSON.parse(JSON.stringify(req));
+
+    const payload:ISchedule = {
+      candidateId:req["candidateId"],
+      round:req["round"],
+      panelistId:req['panelistId'],
+      status:req['status'],
+      interviewTime:req['interviewTime']
+    }
+
+    this.JobService.reject(payload).subscribe(
+      (res) => {
+      },
+      (err) => {
+        this.toast.error(err);
+      }
+    );
+
+
+
+
     var temp = [];
     this.availablePanelists.forEach((element) => {
       var temp1 = JSON.parse(JSON.stringify(element));
@@ -527,7 +601,7 @@ export class JobDetailsComponent implements OnInit {
     console.log(fb)
     var feedback:IInterviewFeedback[] = []
     fb.forEach(element => {
-      if (element != "") 
+      if (element != "" && element!=null) 
       {
       console.log(element)
       feedback.push(JSON.parse(element))

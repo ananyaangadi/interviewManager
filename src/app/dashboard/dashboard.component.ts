@@ -139,6 +139,7 @@ export class DashboardComponent implements OnInit {
   expandPanelistDBoard = false;
   displayInv = false;
   showPortal = false;
+  dummy = 1;
   panelists = ["Jane Austen", "Virginia Woolf", "Ruth Ware"];
   questionbank = [];
   dataSource3: MatTableDataSource<any>;

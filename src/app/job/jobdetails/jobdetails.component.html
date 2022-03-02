@@ -188,7 +188,7 @@
                         
                     </div>
 
-                    <button *ngIf="showPortal==false"(click)="showDetails=false;showJobTable=true;" mat-raised-button type="submit" class="btn btn-warning pull-right">Back</button>
+                    <button *ngIf="showPortal==false"(click)="showDetails=false;showJobTable=true;getOpenJobPositions()" mat-raised-button type="submit" class="btn btn-warning pull-right">Back</button>
                     
                     <div class="clearfix"></div>
                 </form>

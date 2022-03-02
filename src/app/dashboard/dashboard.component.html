@@ -23,14 +23,13 @@
     </div>
     <ul class="nav">
       <li class="nav-item">
-        <a
+        <a  
           class="nav-link"
           pageScroll
-          href="#view"
-          (click)="displayInv = false; expandView = true; expandUpload = false"
+          (click)="displayInv = false; expandView=false; expandView = true; showexpandUpload = false; ++dummy;"
         >
           <i class="material-icons">dashboard</i>
-          <p>My Items</p>
+          <p ng-style ="{ 'color' : (expandView==true)? '#4169E1' : '' }" >My Items</p>
         </a>
       </li>
       <li class="nav-item">
@@ -48,6 +47,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
+
           pageScroll
           href="#upload"
           (click)="displayInv = false; expandUpload = true; expandView = false"
@@ -72,7 +72,7 @@
   <div class="col-md-12">
     <mat-accordion>
       <mat-expansion-panel [expanded]="expandView" hideToggle id="view">
-        <app-jobdetails></app-jobdetails>
+        <app-jobdetails [expandView]="dummy"></app-jobdetails>
       </mat-expansion-panel>
 
       <mat-expansion-panel [expanded]="expandUpload" id="upload" hideToggle>

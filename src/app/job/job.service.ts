@@ -26,4 +26,11 @@ export class JobService {
   schedule(payload: any): Observable<any> {
     return this.http.put(`${BASE_URL + SCHEDULE_URL}`, payload);
   }
+
+  offer(payload: any): Observable<any> {
+    return this.http.put(`${BASE_URL + SCHEDULE_URL}`, payload);
+  }
+  reject(payload: any): Observable<any> {
+    return this.http.put(`${BASE_URL + SCHEDULE_URL}`, payload);
+  }
 }
