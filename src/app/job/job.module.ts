@@ -22,7 +22,6 @@ import { AddJobComponent } from "./add/add-job.component";
 import { JobDetailsComponent } from "./jobdetails/jobdetails.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -42,9 +41,9 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatDatepickerModule,
     MatNativeDateModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-US" }],
   declarations: [JobDetailsComponent, AddJobComponent],
   exports: [JobDetailsComponent, AddJobComponent],
 })

@@ -2,6 +2,7 @@ import { DatePipe } from "@angular/common";
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UploadService } from "app/shared/services/upload.service";
+import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -12,11 +13,12 @@ import { ToastrService } from "ngx-toastr";
 export class AddJobComponent {
   addJobForm: FormGroup;
   file: File = null;
-  minDate: string;
+  minDate: Date;
   jobTypes = ["F", "P"];
   resetFlag: boolean;
   format = "MM/dd/yyyy";
   @ViewChild("formFile") jobFile: ElementRef;
+  selectedDate: any;
 
   constructor(
     private uploadCandidateService: UploadService,
@@ -24,7 +26,8 @@ export class AddJobComponent {
     private datePipe: DatePipe,
     private toasterService: ToastrService
   ) {
-    this.minDate = this.datePipe.transform(new Date(), this.format);
+    this.minDate = new Date();
+    // this.minDate = convertDateToESTTimeAsString(moment(), this.format);
   }
 
   ngOnInit(): void {
@@ -45,7 +48,8 @@ export class AddJobComponent {
       jbPostDate: [null],
       jbStatus: [null],
       jbDir: [null],
-      jbCloseDate: [{ value: "", disabled: false }, Validators.required],
+      jbClosingDate: [{ value: "", disabled: false }, Validators.required],
+      jbCloseDate: [null],
     });
   }
 
@@ -54,11 +58,11 @@ export class AddJobComponent {
   }
 
   uploadJob() {
-    // this.addJobForm.controls["jbCloseDate"].setValue(
-    //   this.datePipe.transform(
-    //     new Date(this.addJobForm.getRawValue().jbCloseDate),
-    //     this.format
-    //   )
+    this.selectedDate = this.datePipe.transform(
+      new Date(this.addJobForm.getRawValue().jbClosingDate),
+      this.format
+    );
+    this.addJobForm.controls["jbCloseDate"].setValue(this.selectedDate);
     // );
     this.addJobForm.controls["jbPostDate"].setValue(
       this.datePipe.transform(new Date(), this.format)
