@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { PNL_ID } from "app/shared/constants/messages-constant";
 import { ToastrService } from "ngx-toastr";
 import { InterviewService } from "../interview.service";
 
@@ -99,7 +98,7 @@ export class QuestionBankComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.getRecommendedQuestions(PNL_ID).subscribe(
+    this.service.getRecommendedQuestions("P34570").subscribe(
       (res) => {
         var temp = [];
         var id = 1;

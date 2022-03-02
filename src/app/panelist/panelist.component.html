@@ -5,7 +5,9 @@
   data-image="./assets/img/sidebar-1.jpg"
 >
   <div class="logo">
-    <a [routerLink]="['']" class="simple-text"> MSInterview Manager </a>
+    <a [routerLink]="['']" class="simple-text">
+      MSInterview Manager
+    </a>
   </div>
   <div class="sidebar-wrapper">
     <div>
@@ -50,10 +52,10 @@
   <div class="container-fluid card">
     <div class="row">
       <div class="col-3 offset-3">
-        <app-upcoming-card [count]="upcomingListCount"></app-upcoming-card>
+        <app-upcoming-card [count]="upcomingList?.length"></app-upcoming-card>
       </div>
       <div class="col-3">
-        <app-completed-card [count]="pastListCount"></app-completed-card>
+        <app-completed-card [count]="pastList?.length"></app-completed-card>
       </div>
     </div>
   </div>

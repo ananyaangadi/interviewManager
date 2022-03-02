@@ -1,27 +1,21 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import {
-  BASE_FUNCTION_URL,
   BASE_URL,
   DISPLAY_INV,
-  GET_JOB_URL,
-  INTERVIEW_COUNT,
-  INTERVIEW_URL,
+  GET_JOB_URL
 } from "app/shared/constants/endpoints-constants";
-import { PNL_ID } from "app/shared/constants/messages-constant";
-import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
 export class PanelistService {
   constructor(private http: HttpClient) {}
 
-  getInterviewCount(pnlId: string): Observable<any> {
-    return this.http.get(`${BASE_URL}${INTERVIEW_COUNT}?pnlId=${pnlId}`);
-  }
-
   getInterviewListByPanelId(): Observable<any> {
-    return this.http.get(`${BASE_FUNCTION_URL}${INTERVIEW_URL}`);
+    return this.http.get(
+      "https://msim-function-app.azurewebsites.net/api/ImInt"
+    );
   }
 
   displayInv(): Observable<any> {

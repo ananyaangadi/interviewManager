@@ -466,6 +466,12 @@ export class JobDetailsComponent implements OnInit, OnChanges {
       this.selectedSlot[this.scheduleWindowElement["can"]["canId"]];
     req["round"] = "ROUND " + this.roundNumber;
 
+    var timee=req["interviewTime"].split(" ")
+    console.log(timee)
+    var time2 = "" + timee[3].charAt(0) + timee[3].charAt(1) + ":"+ timee[3].charAt(2)+ timee[3].charAt(3)+":00.000"
+    var datee=""+timee[0]+" "+timee[1]+" "+timee[2]
+    var dateee = this.DatePipe.transform(datee,"yyyy-MM-dd")
+    req["interviewTime"] = "" + dateee +" "+ time2
     console.log("reqqqqqqqqqqqqqq=",req)
     req = JSON.parse(JSON.stringify(req));
 
