@@ -1,12 +1,7 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IAddJobRequest } from "app/job/add/add-job-request.interface";
 import { Observable } from "rxjs";
-import {
-  UPLOAD_CANDIDATE,
-  UPLOAD_INVENTORY,
-  UPLOAD_JOB,
-} from "../constants/endpoints-constants";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +12,10 @@ export class UploadService {
   public uploadInventoryFile(file: File): Observable<any> {
     let formParams = new FormData();
     formParams.append("file", file);
-    return this.httpClient.post(UPLOAD_INVENTORY, formParams);
+    return this.httpClient.post(
+      "https://msim-services.azurewebsites.net/upload/inventory",
+      formParams
+    );
 
     // Local Testing
     // return this.httpClient.post(
@@ -39,7 +37,10 @@ export class UploadService {
     formParams.append("canaddQual", candidate.canaddQual);
     formParams.append("canaddStatus", candidate.canaddStatus);
     formParams.append("canaddResumeDir", candidate.canaddResumeDir);
-    return this.httpClient.post(UPLOAD_CANDIDATE, formParams);
+    return this.httpClient.post(
+      "https://msim-services.azurewebsites.net/addCan",
+      formParams
+    );
 
     // Local testing
     // return this.httpClient.post<any>(
@@ -65,15 +66,18 @@ export class UploadService {
     formParams.append("jbSkill", job.jbSkill);
     formParams.append("jbQual", job.jbQual);
     formParams.append("jbPostDate", job.jbPostDate);
-    formParams.append("jbStatus", job.jbStatus);
+    formParams.append("jbStatus", " ");
     // formParams.append("jbDir", job.jbDir);
     formParams.append("jbCloseDate", job.jbCloseDate);
-    return this.httpClient.post(UPLOAD_JOB, formParams);
+    return this.httpClient.post(
+      "https://msim-services.azurewebsites.net/addJob",
+      formParams
+    );
 
     // Local testing
-    //   return this.httpClient.post<any>(
-    //     "https://msim-services.azurewebsites.net/addJob",
-    //     formParams
-    //   );
+    // return this.httpClient.post<any>(
+    //   "https://msim-services.azurewebsites.net/addJob",
+    //   formParams
+    // );
   }
 }
