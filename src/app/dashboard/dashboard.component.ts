@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
   description: string;
   HR_HM: string;
   newreq = false;
-  expandView = false;
+  expandView = true;
   expandUpload = false;
   expandPanelistDBoard = false;
   displayInv = false;
