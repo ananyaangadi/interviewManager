@@ -54,12 +54,12 @@ export class AddJobComponent {
   }
 
   uploadJob() {
-    this.addJobForm.controls["jbCloseDate"].setValue(
-      this.datePipe.transform(
-        new Date(this.addJobForm.getRawValue().jbCloseDate),
-        this.format
-      )
-    );
+    // this.addJobForm.controls["jbCloseDate"].setValue(
+    //   this.datePipe.transform(
+    //     new Date(this.addJobForm.getRawValue().jbCloseDate),
+    //     this.format
+    //   )
+    // );
     this.addJobForm.controls["jbPostDate"].setValue(
       this.datePipe.transform(new Date(), this.format)
     );
