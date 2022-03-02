@@ -9,6 +9,7 @@ import * as moment from "moment";
 import { PanelistService } from "./panelist.service";
 import { ToastrService } from "ngx-toastr";
 import { MatPaginator } from "@angular/material/paginator";
+import { PNL_ID } from "app/shared/constants/messages-constant";
 
 @Component({
   selector: "app-panelist",
@@ -36,14 +37,15 @@ export class PanelistComponent implements OnInit {
   upcomingInterviewList: MatTableDataSource<IInterView>;
   pastInterviewList: MatTableDataSource<IInterView>;
 
-
   isPastSelected: boolean;
   upcomingList: IInterView[];
+  upcomingListCount = 0;
   pastList: IInterView[];
+  pastListCount = 0;
   displayInv: boolean = false;
   questionbank = [];
   dataSource3: MatTableDataSource<any>;
-  feedbacks = {}
+  feedbacks = {};
 
   /* display Inventory */
 
@@ -66,30 +68,42 @@ export class PanelistComponent implements OnInit {
 
   ngOnInit() {
     this.getInterviewList();
+    this.getInterviewCount();
 
     this.panelistService.getJobs().subscribe(
       (res) => {
         res.forEach((element) => {
-
-
-          element.canDetList.forEach(can => {
-            var temp = []
-            can.intDetList.forEach(round => {
-              temp.push(round.intFeedback)
+          element.canDetList.forEach((can) => {
+            var temp = [];
+            can.intDetList.forEach((round) => {
+              temp.push(round.intFeedback);
             });
-            this.feedbacks[can.can.canId] = temp
+            this.feedbacks[can.can.canId] = temp;
           });
-          
         });
-        console.log(this.feedbacks)
+        console.log(this.feedbacks);
       },
       (error) => {}
+    );
+  }
+
+  getInterviewCount() {
+    this.panelistService.getInterviewCount(PNL_ID).subscribe(
+      (res: { schdCount: number; compCount: number }) => {
+        this.upcomingListCount = res.schdCount || 0;
+        this.pastListCount = res.compCount || 0;
+      },
+      (err) => {
+        this.toast.error(err);
+      }
     );
   }
 
   ngAfterViewInit() {
     this.dataSource3.paginator = this.paginator;
   }
+
+  getInterviewCounts() {}
 
   getInterviewList() {
     this.panelistService
@@ -142,19 +156,18 @@ export class PanelistComponent implements OnInit {
   }
 
   viewFeedback(data) {
-    console.log(data)
-    var fb = this.feedbacks[data.canId]
-    console.log(fb)
-    var feedback:IInterviewFeedback[] = []
-    fb.forEach(element => {
-      if (element != "" && element !=null) 
-      {
-      console.log(element)
-      feedback.push(JSON.parse(element))
+    console.log(data);
+    var fb = this.feedbacks[data.canId];
+    console.log(fb);
+    var feedback: IInterviewFeedback[] = [];
+    fb.forEach((element) => {
+      if (element != "" && element != null) {
+        console.log(element);
+        feedback.push(JSON.parse(element));
       }
     });
-    console.log("view feedback")
-    console.log(feedback)
+    console.log("view feedback");
+    console.log(feedback);
     // const feedBackPreview: IInterviewFeedback[] =
     //   data.intFeedback as IInterviewFeedback[];
     this.feedbackPreviewService.openDialog(feedback);
